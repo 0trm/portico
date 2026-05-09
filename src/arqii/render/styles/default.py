@@ -6,6 +6,8 @@ CAVEAT_LINE = (
     "note: the portico metaphor is stretched for this input -- see --verbose for why."
 )
 
+TOP_MARK = "__***__"
+
 
 def _truncate(s: str, max_len: int) -> str:
     if max_len <= 0:
@@ -58,6 +60,33 @@ def _legend(data: PorticoJSON) -> list[str]:
     return lines
 
 
+def _slope_line(line_width: int) -> str:
+    if line_width < 2:
+        return ""
+    if line_width == 2:
+        return "/\\"
+    return "/" + "═" * (line_width - 2) + "\\"
+
+
+def _box_top(box_width: int) -> str:
+    if box_width < 2:
+        return ""
+    return "╔" + "═" * (box_width - 2) + "╗"
+
+
+def _box_mid(box_width: int, label: str) -> str:
+    if box_width < 2:
+        return ""
+    inner = box_width - 2
+    return "║" + _center(_truncate(label, inner), inner) + "║"
+
+
+def _box_bottom(box_width: int) -> str:
+    if box_width < 2:
+        return ""
+    return "╚" + "═" * (box_width - 2) + "╝"
+
+
 class DefaultRenderer(PorticoRenderer):
     def render(
         self,
@@ -67,8 +96,7 @@ class DefaultRenderer(PorticoRenderer):
         color: ColorMode,
         verbose: bool,
     ) -> str:
-        # Color path deferred: snapshot tests pin color=NEVER. ANSI shipping in a
-        # follow-up once column-width math accounts for escape sequences.
+        # Color path deferred: snapshot tests pin color=NEVER.
         _ = color
 
         lines: list[str] = []
@@ -85,29 +113,50 @@ class DefaultRenderer(PorticoRenderer):
         block_width = cw * num_pillars
         indent = " " * max(0, (width - block_width) // 2)
 
-        lines.append(_center(data.roof.label, width))
-        # Pediment: 2 stepped rows of ^ growing to architrave width.
-        lines.append(_center("^" * (block_width * 3 // 4), width))
-        lines.append(_center("^" * block_width, width))
-        # Cornice.
-        lines.append(indent + "═" * block_width)
+        # --- Roof ---
+        lines.append(_center(TOP_MARK, width))
 
-        # Columns: ┌┐ caps, ││ shafts, └┘ bases.
-        cap_row = indent + _row_of("┌┐", num_pillars, cw)
-        shaft_row = indent + _row_of("││", num_pillars, cw)
+        # Stepped pediment slopes (B-22, B-12), then 3-row roof box (B-6).
+        if block_width - 22 >= 4:
+            lines.append(_center(_slope_line(block_width - 22), width))
+        if block_width - 12 >= 4:
+            lines.append(_center(_slope_line(block_width - 12), width))
+
+        roof_box_width = block_width - 6
+        if roof_box_width >= 6:
+            lines.append(_center(_box_top(roof_box_width), width))
+            lines.append(_center(_box_mid(roof_box_width, data.roof.label), width))
+            lines.append(_center(_box_bottom(roof_box_width), width))
+
+        # Slope row (B wide), then ~ cornice (B-2 wide) sitting just above the abacus.
+        lines.append(_center(_slope_line(block_width), width))
+        if block_width - 2 >= 1:
+            lines.append(_center("~" * (block_width - 2), width))
+
+        # --- Columns: ▀██▀ abacus, ██ shafts (2 above + 2 below the label), ▄██▄ plinth.
+        cap_row = indent + _row_of("▀██▀", num_pillars, cw)
+        shaft_row = indent + _row_of("██", num_pillars, cw)
         label_row = indent + _label_row(data.pillars, cw)
-        col_base_row = indent + _row_of("└┘", num_pillars, cw)
+        plinth_row = indent + _row_of("▄██▄", num_pillars, cw)
         lines.append(cap_row)
-        lines.extend([shaft_row] * 3)
+        lines.extend([shaft_row] * 2)
         lines.append(label_row)
-        lines.extend([shaft_row] * 3)
-        lines.append(col_base_row)
+        lines.extend([shaft_row] * 2)
+        lines.append(plinth_row)
 
-        # Stylobate: two stacked ═ lines.
-        lines.append(indent + "═" * block_width)
-        lines.append(indent + "═" * block_width)
+        # --- Base: ^ row mirroring the roof's ~, then stylobate (B+4) and base box (B+6).
+        if block_width - 2 >= 1:
+            lines.append(_center("^" * (block_width - 2), width))
 
-        lines.append(_center(data.base.label, width))
+        sty_width = block_width + 4
+        if sty_width <= width:
+            lines.append(_center("═" * sty_width, width))
+
+        base_box_width = block_width + 6
+        if base_box_width >= 6 and base_box_width <= width:
+            lines.append(_center(_box_top(base_box_width), width))
+            lines.append(_center(_box_mid(base_box_width, data.base.label), width))
+            lines.append(_center(_box_bottom(base_box_width), width))
 
         if verbose:
             lines.extend(_legend(data))
