@@ -1,0 +1,5 @@
+Atrium is a sales-pipeline platform for B2B teams that have outgrown spreadsheets but cannot justify a full Salesforce deployment. We sit in the gap: 50-200 person companies running structured deals but bleeding hours to manual data entry and pipeline-status guesswork.
+
+Our wedge is automated activity capture from email and calendar, surfaced as a forecast confidence score managers can defend in board meetings. We charge $40/seat/month and have 12 design partners closing $400K ARR run-rate in pilot.
+
+We're raising $3M seed to ship the GA product, hire two AEs, and reach $2M ARR by Q4 2026. The market is large (B2B sales tooling, $25B), the substitutes are too heavy (Salesforce) or too light (Notion), and the timing is set by every CRO needing AI-assisted forecasting in 2026.

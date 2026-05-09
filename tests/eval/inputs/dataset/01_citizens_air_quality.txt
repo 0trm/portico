@@ -1,0 +1,25 @@
+Dataset: citizens-air-quality.csv
+
+Description
+A volunteer-collected dataset of fine particulate matter (PM2.5) measurements from 312 low-cost outdoor sensors deployed by community groups in 47 cities across North America between 2022-01-01 and 2024-06-30. Includes co-location calibrations against ten reference-grade monitors operated by EPA AirNow.
+
+Schema (12 columns)
+
+| column         | type    | description                                              |
+|----------------|---------|----------------------------------------------------------|
+| sensor_id      | string  | UUID assigned at sensor enrollment                        |
+| city           | string  | Municipality name                                         |
+| lat, lon       | float   | WGS84 coordinates, sensor placement                       |
+| timestamp_utc  | iso8601 | UTC timestamp at minute granularity                       |
+| pm25_raw       | float   | Raw sensor PM2.5 reading, µg/m³                           |
+| pm25_corrected | float   | Calibrated reading after co-location correction          |
+| temperature_c  | float   | On-board thermistor                                       |
+| humidity_pct   | float   | On-board humidity sensor                                  |
+| firmware_ver   | string  | Sensor firmware semver at time of reading                 |
+| flag_qa        | int     | Bitfield: 0=ok, 1=power glitch, 2=wifi gap, 4=outlier     |
+| neighborhood   | string  | Census-tract-derived label                                |
+
+Methodology
+Sensors are PurpleAir PA-II-SD units. Co-location calibrations were performed quarterly within 100m of an AirNow reference monitor for at least 10 consecutive days. Correction factor is a humidity-aware piecewise linear fit per Barkjohn et al. 2021.
+
+License: CC-BY 4.0. Contact: data@citizenair.example.

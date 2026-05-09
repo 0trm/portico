@@ -1,0 +1,33 @@
+Repository: telemetry-collector
+
+src/
+  collector/
+    __init__.py
+    cli.py              -- entry point, argparse, signal handling
+    config.py           -- TOML config loading + env override
+    pipeline.py         -- the Loader -> Buffer -> Forwarder loop
+  loaders/
+    syslog.py           -- UDP listener + RFC 5424 parser
+    journald.py         -- systemd journal reader via libsystemd
+    file_tail.py        -- tail -F with inode rotation handling
+  buffers/
+    memory.py           -- bounded queue, drops oldest on overflow
+    disk.py             -- sqlite-backed buffer with WAL
+  forwarders/
+    otlp.py             -- gRPC OTLP exporter
+    s3.py               -- batched gzip upload to S3
+  metrics/
+    prometheus.py       -- /metrics endpoint
+  testing/
+    fixtures.py
+tests/
+  test_pipeline.py
+  test_loaders.py
+  test_buffers.py
+docs/
+  architecture.md
+  deployment.md
+pyproject.toml          -- python ^3.11, deps: pydantic, grpcio, boto3
+README.md
+LICENSE                 -- Apache-2.0
+.github/workflows/ci.yml

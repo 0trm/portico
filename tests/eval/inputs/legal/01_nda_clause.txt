@@ -1,0 +1,15 @@
+NON-DISCLOSURE AGREEMENT -- Excerpt
+
+3. Confidential Information.
+
+(a) For purposes of this Agreement, "Confidential Information" means any information disclosed by the Disclosing Party to the Receiving Party, either directly or indirectly, in writing, orally, or by inspection of tangible objects, that is designated as "Confidential" or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure.
+
+(b) Confidential Information shall NOT include information that: (i) was publicly known at the time of disclosure; (ii) becomes publicly known through no fault of the Receiving Party; (iii) is rightfully received by the Receiving Party from a third party without breach of any obligation of confidentiality; or (iv) is independently developed by the Receiving Party without use of or reference to the Confidential Information.
+
+4. Obligations of Receiving Party.
+
+The Receiving Party shall (a) hold Confidential Information in strict confidence, (b) not disclose Confidential Information to any third party except to its employees and contractors with a bona fide need to know who are bound by confidentiality obligations no less restrictive than those herein, and (c) use Confidential Information solely for the Permitted Purpose set forth in Schedule A.
+
+5. Term.
+
+This Agreement shall remain in effect for three (3) years from the Effective Date. The obligations set forth in Section 4 shall survive termination for an additional five (5) years, except with respect to trade secrets, where such obligations shall continue for so long as the information qualifies as a trade secret under applicable law.

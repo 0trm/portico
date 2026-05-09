@@ -18,8 +18,11 @@ wheels/
 .cache/
 arqii.cache/
 
-# Eval reports
+# Eval reports / runs / judgments (large, regenerable)
 tests/eval/**/report/
+tests/eval/outputs/runs/
+tests/eval/outputs/judgments/
+tests/eval/outputs/reports/
 
 # Secrets / local env
 .env

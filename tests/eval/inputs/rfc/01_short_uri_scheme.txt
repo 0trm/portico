@@ -1,0 +1,25 @@
+Title: The "memo:" URI Scheme for Short Notes
+
+1. Introduction
+
+This document defines the "memo:" URI scheme for addressing short, personal text notes managed by a memo-keeping application. The scheme allows applications to cross-reference notes without requiring shared storage, by encoding a stable identifier and an optional revision suffix.
+
+2. Syntax
+
+   memo-uri = "memo:" memo-id [ "@" revision ]
+   memo-id  = 16*16HEXDIG
+   revision = 1*8HEXDIG
+
+The memo-id is a SHA-256 truncation of the note's first 1024 octets at creation time. The revision is the first 8 hex digits of a content hash; absence MUST be interpreted as "any revision".
+
+3. Resolution
+
+Resolution is application-local. Implementations MUST NOT issue network requests when resolving "memo:" URIs. If the memo-id is unknown locally, the implementation SHOULD return a 404-equivalent indicator.
+
+4. Security Considerations
+
+memo-ids are content-derived. Two notes with identical first 1024 octets will collide. Implementations MUST treat memo: URIs as untrusted user input and MUST NOT auto-execute embedded content.
+
+5. IANA Considerations
+
+This document requests registration of "memo" as a permanent URI scheme.
