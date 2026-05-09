@@ -1,0 +1,47 @@
+[project]
+name = "arqii"
+version = "0.1.0"
+description = "Render any input as a portico -- a three-layer ASCII visualization."
+readme = "README.md"
+authors = [
+    { name = "Tomás Ravalli", email = "tomravalli@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.100.0",
+    "pydantic>=2.13.4",
+    "trafilatura>=2.0.0",
+]
+
+[project.scripts]
+arqii = "arqii.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.7.0",
+    "pyright>=1.1.380",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+typeCheckingMode = "standard"
+reportMissingImports = "error"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: tests that hit a real LLM provider or network (deselect with '-m \"not live\"')",
+]
