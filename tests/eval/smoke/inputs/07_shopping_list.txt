@@ -1,0 +1,10 @@
+- milk
+- eggs
+- bread
+- bananas
+- coffee
+- olive oil
+- pasta
+- onions
+- chicken
+- spinach
