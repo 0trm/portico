@@ -1,0 +1,28 @@
+{
+  "input_type": "flat-list",
+  "type_rationale": "Bare enumeration with no hierarchy or unifying claim.",
+  "decomposition_strategy": "Force three siblings as pillars; manufacture a category roof; truncate base.",
+  "scratch_outline": [
+    "Input is a shopping list with no structure.",
+    "No natural roof or base; arbitrary grouping required.",
+    "Marked forced; --force needed to render."
+  ],
+  "mece_check": "Roof and pillars share an abstraction level; base is invented.",
+  "theme": "list",
+  "title": "shopping",
+  "roof": {
+    "label": "Groceries",
+    "summary": "A category invented to serve as a roof."
+  },
+  "pillars": [
+    { "label": "Produce", "summary": "Apples, lettuce." },
+    { "label": "Dairy",   "summary": "Milk, cheese." },
+    { "label": "Pantry",  "summary": "Rice, salt." }
+  ],
+  "base": {
+    "label": "Errand",
+    "summary": "An invented framing layer."
+  },
+  "fit_quality": "forced",
+  "notes_on_fit": "Flat lists lack the structural depth a portico requires."
+}

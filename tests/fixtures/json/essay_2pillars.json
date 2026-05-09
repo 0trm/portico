@@ -1,0 +1,29 @@
+{
+  "input_type": "essay",
+  "type_rationale": "Argumentative prose with a thesis and supporting reasoning.",
+  "decomposition_strategy": "Thesis on top, two supporting arguments as pillars, factual premises at the base.",
+  "scratch_outline": [
+    "Thesis: small institutions outperform large ones at trust.",
+    "Argument: feedback loops are tighter at small scale.",
+    "Argument: diffusion of responsibility kicks in past Dunbar.",
+    "Premise: research on team size and trust.",
+    "Premise: anthropological evidence on group cohesion."
+  ],
+  "mece_check": "Two pillars are non-overlapping causal mechanisms; base supplies their evidence.",
+  "theme": "essay",
+  "title": "trust at scale",
+  "roof": {
+    "label": "Thesis",
+    "summary": "Small institutions outperform large ones at trust."
+  },
+  "pillars": [
+    { "label": "Feedback loops", "summary": "Smaller groups close feedback faster." },
+    { "label": "Dunbar limit",   "summary": "Diffusion of responsibility past ~150." }
+  ],
+  "base": {
+    "label": "Evidence",
+    "summary": "Empirical work on team size and trust."
+  },
+  "fit_quality": "good",
+  "notes_on_fit": "Essay decomposes cleanly into thesis / arguments / evidence."
+}

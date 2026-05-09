@@ -1,0 +1,25 @@
+── codebase: my-repo ───────────────────────────────────────────────────────────
+
+                                   Public API
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                ════════════════════════════════════════════════
+                       ┌┐              ┌┐              ┌┐
+                       ││              ││              ││
+                       ││              ││              ││
+                       ││              ││              ││
+                      Auth          Routing         Storage
+                       ││              ││              ││
+                       ││              ││              ││
+                       ││              ││              ││
+                       └┘              └┘              └┘
+                ════════════════════════════════════════════════
+                ════════════════════════════════════════════════
+                                    Runtime
+
+legend:
+  ^  Public API: What external callers depend on.
+  ii Auth: JWT issuance and validation.
+  ii Routing: Request dispatch and middleware.
+  ii Storage: Postgres and Redis access layer.
+  _  Runtime: Python 3.12, FastAPI, asyncio.
