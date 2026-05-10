@@ -182,13 +182,22 @@ def _make_judge() -> tuple[LLMProvider, str, str]:
 
 
 def _parse_score(text: str) -> tuple[int, str]:
-    """Extract `SCORE: N` from the judge's response. Returns (score, reasoning)."""
-    m = re.search(r"SCORE:\s*([1-5])\b", text)
-    if not m:
-        raise ValueError(f"judge response missing SCORE line:\n{text}")
-    score = int(m.group(1))
-    reasoning = text[: m.start()].strip()
-    return score, reasoning
+    """Extract a 1-5 score from the judge's response. Returns (score, reasoning).
+
+    Accepts SCORE: N, Score: N, or `**Score:** N`. Falls back to the LAST 1-5
+    integer in the text so weaker judges that bury the score in prose still parse.
+    """
+    m = re.search(r"\*?\*?[Ss][Cc][Oo][Rr][Ee]\*?\*?\s*:\s*\*?\*?\s*([1-5])\b", text)
+    if m:
+        return int(m.group(1)), text[: m.start()].strip()
+
+    # Fallback: last 1-5 digit in the text. Brittle but better than crashing.
+    matches = list(re.finditer(r"\b([1-5])\b", text))
+    if matches:
+        last = matches[-1]
+        return int(last.group(1)), text[: last.start()].strip()
+
+    raise ValueError(f"judge response missing parseable score:\n{text}")
 
 
 def judge_one(
