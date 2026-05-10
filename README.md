@@ -90,7 +90,7 @@ legend:
 - URLs (page content is extracted)
 - Git repositories
 
-When an input doesn't fit a three-layer shape -- poems, flat lists, gibberish -- `portico` refuses honestly rather than fake one.
+When an input doesn't fit a three-layer shape – poems, flat lists, gibberish – `portico` refuses honestly rather than fake one.
 
 ## Customization
 
