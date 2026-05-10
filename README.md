@@ -2,7 +2,7 @@
 
 Render any input -- text, code, URL, repo -- as a **structure**: a three-layer ASCII visualization (`roof` / `pillars` / `base`).
 
-Pronounced **AR-kee**. Always lowercase. The brand mark is `_ii^`.
+Always lowercase. The brand mark is `_ii^`.
 
 ## Status
 
