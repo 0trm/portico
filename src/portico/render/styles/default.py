@@ -9,7 +9,7 @@ CAVEAT_LINE = "note: the portico metaphor is stretched for this input."
 REFUSAL_INTRO = "no portico from this one."
 
 APEX_FINIAL = "***"
-APEX_KEYSTONE = "__ ===  ◇  === __"
+APEX_KEYSTONE = "===  ◇  ==="
 
 SIGNATURE_SUFFIX = " built with _ii^ ──"
 
@@ -69,9 +69,9 @@ def _legend(data: PorticoJSON) -> list[str]:
 
 
 def _slope_line(line_width: int, fill: str = "═") -> str:
-    if line_width < 4:
+    if line_width < 8:
         return ""
-    return "//" + fill * (line_width - 4) + "\\\\"
+    return "////" + fill * (line_width - 8) + "\\\\\\\\"
 
 
 def _box_top(box_width: int) -> str:
