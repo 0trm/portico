@@ -21,7 +21,7 @@
 ## Install
 
 ```bash
-pipx install portico-cli
+uv tool install portico-cli
 ```
 
 ## Try it
