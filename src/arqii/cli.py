@@ -209,6 +209,12 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
     except F2TooLarge as e:
         print(f"arqii: {e}", file=sys.stderr)
         return EXIT_F2_TOO_LARGE
+    except ProviderAuthError as e:
+        print(f"arqii: {e}", file=sys.stderr)
+        return EXIT_F4_AUTH
+    except ProviderTransportError as e:
+        print(f"arqii: {e}", file=sys.stderr)
+        return EXIT_F4_TRANSPORT
 
     cache = Cache()
     key = cache_key(loaded.text, provider=args.provider, model=args.model)

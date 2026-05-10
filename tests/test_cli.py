@@ -4,11 +4,12 @@ from pathlib import Path
 from arqii.cli import (
     EXIT_F1_NOT_FOUND,
     EXIT_F2_NOT_PARSEABLE,
+    EXIT_F4_TRANSPORT,
     EXIT_OK,
     parse_args,
     run,
 )
-from arqii.providers.base import LLMProvider
+from arqii.providers.base import LLMProvider, ProviderTransportError
 
 FIXTURES = Path(__file__).parent / "fixtures" / "json"
 
@@ -98,6 +99,23 @@ def test_no_args_with_tty_stdin_exits_F2_with_help_hint(monkeypatch) -> None:
     parsed = parse_args([])
     rc = run(parsed, provider=FakeProvider("codebase_3pillars.json"))
     assert rc == EXIT_F2_NOT_PARSEABLE
+
+
+class _BoomProvider(LLMProvider):
+    """Raises a transport error from generate (covers summarize + analyze paths)."""
+
+    def generate(self, prompt: str, *, model: str) -> str:
+        raise ProviderTransportError("simulated network failure")
+
+
+def test_provider_transport_error_during_summarize_exits_cleanly(tmp_path) -> None:
+    """If summarize's chunk call fails, surface F4 transport instead of crashing."""
+    long_text = ("paragraph.\n\n" * 20_000)  # well above TARGET_CHARS
+    f = tmp_path / "long.txt"
+    f.write_text(long_text)
+    args = _args(str(f), no_cache=True)
+    rc = run(args, provider=_BoomProvider())
+    assert rc == EXIT_F4_TRANSPORT
 
 
 def test_binary_file_exits_5(tmp_path) -> None:
