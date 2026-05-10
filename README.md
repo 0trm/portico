@@ -43,129 +43,43 @@ An LLM reads your input, decides what kind of thing it is, and decomposes it int
 |  `ii`   | Pillars | The load-bearing components (2-9 of them)     |
 |   `_`   | Base    | The foundation everything rests on            |
 
-## Examples
-
-Short, medium, long.
-
-### hello world
+## Example
 
 ```
-echo "hello world" | portico -
+echo "The plot of Rocky (1976) hinges on three relationships: Rocky's tentative romance with the shy, awkward Adrian; his mentorship under the cantankerous old trainer Mickey; and his match against world heavyweight champion Apollo Creed. Rocky is a club fighter from a working-class corner of Philadelphia who gets a million-to-one title shot and resolves not to win, but to go the full fifteen rounds." | portico -
 ```
 
 ```
-── snippet: hello world ────────────────────────────────────────────────────────
+── plot summary: Rocky (1976) ──────────────────────────────────────────────────────────────────────
 
-                                      ***
-                                  ===  ◇  ===
-                           ╔════════════════════════╗
-                           ║       salutation       ║
-                           ╚════════════════════════╝
-                        ////~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-                              ▀██▀            ▀██▀
-                               ██              ██
-                               ██              ██
-                             hello           world
-                               ██              ██
-                               ██              ██
-                              ▄██▄            ▄██▄
-                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                      ╔══════════════════════════════════╗
-                      ║        coding convention         ║
-                      ╚══════════════════════════════════╝
+                                                ***
+                                            ===  ◇  ===
+                             ╔════════════════════════════════════════╗
+                             ║           Going the Distance           ║
+                             ╚════════════════════════════════════════╝
+                          ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
+                           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                                ▀██▀            ▀██▀            ▀██▀
+                                 ██              ██              ██
+                                 ██              ██              ██
+                           Rocky & Adrian  Rocky & Mickey  Rocky & Apollo
+                                 ██              ██              ██
+                                 ██              ██              ██
+                                ▄██▄            ▄██▄            ▄██▄
+                           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        ╔══════════════════════════════════════════════════╗
+                        ║          Working-class underdog premise          ║
+                        ╚══════════════════════════════════════════════════╝
 
 legend:
-  ^  salutation: a greeting addressed at the world.
-  ii hello: the act of greeting.
-  ii world: the recipient.
-  _  coding convention: the canonical first program in any toolchain.
+  ^  Going the Distance: A club fighter's self-worth is tested not by winning but by surviving fifteen rounds against the world heavyweight champion.
+  ii Rocky & Adrian: A tentative romance with a shy, awkward woman gives Rocky an emotional anchor outside the ring.
+  ii Rocky & Mickey: A cantankerous old trainer offers hard-edged mentorship that prepares Rocky for the title shot.
+  ii Rocky & Apollo: The million-to-one match against the world heavyweight champion is the film's central dramatic confrontation.
+  _  Working-class underdog premise: Rocky's identity as a small-time Philadelphia club fighter makes the title shot implausible and the goal of merely lasting fifteen rounds meaningful.
 
-───────────────────────────────────────────────────────────── built with _ii^ ──
-```
-
-### A github repo
-
-```
-portico https://github.com/binwiederhier/ntfy
-```
-
-```
-── software README: ntfy ───────────────────────────────────────────────────────
-
-                                      ***
-                                  ===  ◇  ===
-           ╔════════════════════════════════════════════════════════╗
-           ║                Scriptable Notifications                ║
-           ╚════════════════════════════════════════════════════════╝
-        ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-              ▀██▀            ▀██▀            ▀██▀            ▀██▀
-               ██              ██              ██              ██
-               ██              ██              ██              ██
-         Service Access  Apps & Clients   Community &    Contributions
-               ██              ██           Support            ██
-               ██              ██              ██              ██
-               ██              ██              ██              ██
-              ▄██▄            ▄██▄            ▄██▄            ▄██▄
-         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║          Open-source licensing | Third-party libraries           ║
-      ╚══════════════════════════════════════════════════════════════════╝
-
-legend:
-  ^  Scriptable Notifications: Send phone or desktop notifications from any script via a simple HTTP pub-sub service, with no sign-up required.
-  ii Service Access: ntfy is available as a hosted free tier at ntfy.sh, a paid ntfy Pro plan, or a self-hosted open-source instance.
-  ii Apps & Clients: Native Android and iOS apps, plus a web app, let users subscribe to and receive notifications across platforms.
-  ii Community & Support: Discord, Matrix, and GitHub Issues provide channels for chat, bug reports, feature requests, and beta announcements.
-  ii Contributions: Code PRs, issue reports, and Weblate translations are welcomed, with larger features discussed on Discord or Matrix first.
-  _  Open-source licensing | Third-party libraries: The project is dual-licensed under Apache 2.0 and GPLv2, and is built on a stack of open-source libraries covering the CLI, web app, database, push delivery, and more.
-
-───────────────────────────────────────────────────────────── built with _ii^ ──
-```
-
-### A long-form essay
-
-```
-portico https://www.wiisfi.com/
-```
-
-```
-── technical guide: Wi-Fi Upgrade Guide ────────────────────────────────────────
-
-                                      ***
-                                  ===  ◇  ===
-        ╔══════════════════════════════════════════════════════════════╗
-        ║                     Client-Limited Wi-Fi                     ║
-        ╚══════════════════════════════════════════════════════════════╝
-     ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-          ▀██▀          ▀██▀          ▀██▀          ▀██▀          ▀██▀
-           ██            ██            ██            ██            ██
-           ██            ██            ██            ██            ██
-         Speed         Wi-Fi       Deployment   Alternative  Diagnostics &
-      Fundamentals  Generations   Architecture    Backhaul       Config
-           ██            ██            ██            ██            ██
-           ██            ██            ██            ██            ██
-          ▄██▄          ▄██▄          ▄██▄          ▄██▄          ▄██▄
-      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╔════════════════════════════════════════════════════════════════════════╗
-   ║              Educational purpose | Empirical measurement               ║
-   ╚════════════════════════════════════════════════════════════════════════╝
-
-legend:
-  ^  Client-Limited Wi-Fi: Real-world Wi-Fi performance is governed by client device constraints and physical distance, not by router marketing figures, and informed decisions require cutting through manufacturer hype.
-  ii Speed Fundamentals: PHY speed is determined by channel width, MIMO level, and QAM modulation; the Throughput-to-PHY Ratio runs ~70%, and advertised aggregate speeds are fictional sums irrelevant to any real 2×2 client.
-  ii Wi-Fi Generations: Wi-Fi 4 through Wi-Fi 7 each advanced primarily through wider channels and higher QAM rather than generation changes alone, with Wi-Fi 6's 160 MHz support and Wi-Fi 7's 320 MHz channels being the meaningful inflection points.
-  ii Deployment Architecture: Wired access points on non-overlapping channels outperform range extenders and mesh systems; the preferred model is a 4×4 MIMO router plus Ethernet-connected APs following the 'Wi-Fi AIR' philosophy.
-  ii Alternative Backhaul: When Ethernet cannot be run, MoCA 2.5 over coax, powerline adapters, buried fiber, and wireless bridges provide progressively capable substitutes, each with specific limitations and use conditions.
-  ii Diagnostics & Config: PHY speed checks, channel analysis, DFS verification, router configuration best practices, and systematic troubleshooting steps enable readers to confirm whether any upgrade actually improved real-world throughput.
-  _  Educational purpose | Empirical measurement: The guide is grounded in a commitment to ad-free reader education and in direct measurement—checking PHY speeds, running speed tests before and after changes, and verifying specs against FCC filings—rather than trusting manufacturer claims.
-
-───────────────────────────────────────────────────────────── built with _ii^ ──
+───────────────────────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
 ## Inputs
