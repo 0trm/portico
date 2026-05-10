@@ -43,6 +43,7 @@ from arqii.providers.claude import DEFAULT_MODEL, ClaudeProvider
 from arqii.providers.gemini import GeminiProvider
 from arqii.providers.openai import OpenAIProvider
 from arqii.render import MAX_WIDTH, render
+from arqii.render.apex import generate_apex
 from arqii.render.color import ColorMode
 from arqii.schema import FitQuality, PorticoJSON
 from arqii.summarize import summarize
@@ -88,6 +89,8 @@ class Args:
     diagnose: bool
     force: bool
     strict: bool
+    reapex: bool
+    reapex_seed: int | None
 
 
 def make_provider(name: str) -> LLMProvider:
@@ -222,7 +225,24 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
         print(render_refusal(data))
         return EXIT_OK
 
-    print(render(data, width=args.width, color=args.color, verbose=args.verbose), end="")
+    apex_override: tuple[str, str] | None = None
+    apex_seed_label: str | None = None
+    if args.reapex:
+        finial, keystone, used_seed = generate_apex(args.reapex_seed)
+        apex_override = (finial, keystone)
+        apex_seed_label = f"apex seed: {used_seed}"
+
+    print(
+        render(
+            data,
+            width=args.width,
+            color=args.color,
+            verbose=args.verbose,
+            apex_override=apex_override,
+            apex_seed_label=apex_seed_label,
+        ),
+        end="",
+    )
     return EXIT_OK
 
 
@@ -249,8 +269,25 @@ def parse_args(argv: list[str] | None = None) -> Args:
     parser.add_argument("--diagnose", action="store_true")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--strict", action="store_true")
+    parser.add_argument(
+        "--reapex",
+        nargs="?",
+        const="__random__",
+        default=None,
+        help="Roll a random symmetric apex ornament. Pass --reapex=SEED to pin one.",
+    )
     parser.add_argument("--version", action="version", version=f"arqii {__version__}")
     parsed = parser.parse_args(argv)
+
+    reapex = parsed.reapex is not None
+    reapex_seed: int | None = None
+    if reapex and parsed.reapex != "__random__":
+        try:
+            reapex_seed = int(parsed.reapex)
+        except ValueError:
+            parser.error(
+                f"--reapex value must be an integer seed, got {parsed.reapex!r}"
+            )
 
     return Args(
         input_value=parsed.input,
@@ -266,6 +303,8 @@ def parse_args(argv: list[str] | None = None) -> Args:
         diagnose=parsed.diagnose,
         force=parsed.force,
         strict=parsed.strict,
+        reapex=reapex,
+        reapex_seed=reapex_seed,
     )
 
 

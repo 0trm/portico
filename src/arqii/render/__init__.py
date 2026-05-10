@@ -12,5 +12,14 @@ def render(
     width: int = DEFAULT_WIDTH,
     color: ColorMode = ColorMode.NEVER,
     verbose: bool = False,
+    apex_override: tuple[str, str] | None = None,
+    apex_seed_label: str | None = None,
 ) -> str:
-    return DefaultRenderer().render(data, width=width, color=color, verbose=verbose)
+    return DefaultRenderer().render(
+        data,
+        width=width,
+        color=color,
+        verbose=verbose,
+        apex_override=apex_override,
+        apex_seed_label=apex_seed_label,
+    )

@@ -129,6 +129,8 @@ class DefaultRenderer(PorticoRenderer):
         width: int,
         color: ColorMode,
         verbose: bool,
+        apex_override: tuple[str, str] | None = None,
+        apex_seed_label: str | None = None,
     ) -> str:
         # Color path deferred: snapshot tests pin color=NEVER.
         _ = color
@@ -164,8 +166,9 @@ class DefaultRenderer(PorticoRenderer):
         indent = " " * max(0, (width - block_width) // 2)
 
         # --- Apex composition: finial above keystone (2 rows).
-        lines.append(_center(APEX_FINIAL, width))
-        lines.append(_center(APEX_KEYSTONE, width))
+        finial, keystone = apex_override or (APEX_FINIAL, APEX_KEYSTONE)
+        lines.append(_center(finial, width))
+        lines.append(_center(keystone, width))
 
         # --- Upper pediment slope (block - 8) + roof box (block - 6).
         upper_slope_width = block_width - 8
@@ -249,6 +252,8 @@ class DefaultRenderer(PorticoRenderer):
 
         # Signature mirrors the opening banner -- announces "this output is done".
         lines.append("")
+        if apex_seed_label is not None:
+            lines.append(apex_seed_label)
         lines.append(_signature_line(width))
 
         return "\n".join(line.rstrip() for line in lines) + "\n"

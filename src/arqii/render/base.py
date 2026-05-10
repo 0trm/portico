@@ -13,5 +13,11 @@ class PorticoRenderer(ABC):
         width: int,
         color: ColorMode,
         verbose: bool,
+        apex_override: tuple[str, str] | None = None,
+        apex_seed_label: str | None = None,
     ) -> str:
-        """Render the portico as a single string of ASCII (newline-separated lines)."""
+        """Render the portico as a single string of ASCII (newline-separated lines).
+
+        apex_override -- if provided, replaces the locked (finial, keystone) rows.
+        apex_seed_label -- if provided, appended left-justified above the signature.
+        """
