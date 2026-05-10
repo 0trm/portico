@@ -1,7 +1,7 @@
 ── noise: untitled ─────────────────────────────────────────────────────────────
 
-  this input does not have enough structure to build a portico from.
+  no portico from this one.
 
-  reason: Input does not contain decomposable content.
+  Input does not contain decomposable content.
 
 ───────────────────────────────────────────────────────────── built with _ii^ ──

@@ -1,3 +1,5 @@
+import textwrap
+
 from arqii.render.base import PorticoRenderer
 from arqii.render.color import ColorMode
 from arqii.schema import FitQuality, PorticoJSON
@@ -6,7 +8,7 @@ CAVEAT_LINE = (
     "note: the portico metaphor is stretched for this input -- see --verbose for why."
 )
 
-REFUSAL_INTRO = "this input does not have enough structure to build a portico from."
+REFUSAL_INTRO = "no portico from this one."
 
 APEX_FINIAL = "***"
 APEX_KEYSTONE = "===  ◇  ==="
@@ -146,7 +148,11 @@ class DefaultRenderer(PorticoRenderer):
             lines.append("  " + REFUSAL_INTRO)
             if data.notes_on_fit:
                 lines.append("")
-                lines.append(f"  reason: {data.notes_on_fit}")
+                wrap_width = max(40, width - 2)
+                lines.extend(
+                    "  " + ln
+                    for ln in textwrap.wrap(data.notes_on_fit, width=wrap_width)
+                )
             if verbose:
                 lines.extend(_legend(data))
             lines.append("")
