@@ -43,129 +43,44 @@ An LLM reads your input, decides what kind of thing it is, and decomposes it int
 |  `ii`   | Pillars | The load-bearing components (2-9 of them)     |
 |   `_`   | Base    | The foundation everything rests on            |
 
-## Examples
-
-Short, medium, long.
-
-### hello world
+## Example
 
 ```
-echo "hello world" | portico -
+echo "What makes Rocky (1976) endure is not what it shows you but what it means. A nobody from the neighborhood discovers that he is capable of love, that he is brave enough to step into a fight he can't win, and that his self-worth is something he can earn through effort rather than receive from victory. The film is the story of a man who refuses to be invisible -- and earns, by the end, the right to be seen." | portico -
 ```
 
 ```
-── snippet: hello world ────────────────────────────────────────────────────────
+── essay: Rocky Endures ────────────────────────────────────────────────────────────────────────────
 
-                                      ***
-                                  ===  ◇  ===
-                           ╔════════════════════════╗
-                           ║       salutation       ║
-                           ╚════════════════════════╝
-                        ////~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-                              ▀██▀            ▀██▀
-                               ██              ██
-                               ██              ██
-                             hello           world
-                               ██              ██
-                               ██              ██
-                              ▄██▄            ▄██▄
-                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                      ╔══════════════════════════════════╗
-                      ║        coding convention         ║
-                      ╚══════════════════════════════════╝
+                                                ***
+                                            ===  ◇  ===
+                             ╔════════════════════════════════════════╗
+                             ║           Meaning Over Image           ║
+                             ╚════════════════════════════════════════╝
+                          ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
+                           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                                ▀██▀            ▀██▀            ▀██▀
+                                 ██              ██              ██
+                                 ██              ██              ██
+                            Capacity for     Unwinnable     Earned Self-
+                                Love           Fight           Worth
+                                 ██              ██              ██
+                                 ██              ██              ██
+                                ▄██▄            ▄██▄            ▄██▄
+                           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        ╔══════════════════════════════════════════════════╗
+                        ║              Refusing Invisibility               ║
+                        ╚══════════════════════════════════════════════════╝
 
 legend:
-  ^  salutation: a greeting addressed at the world.
-  ii hello: the act of greeting.
-  ii world: the recipient.
-  _  coding convention: the canonical first program in any toolchain.
+  ^  Meaning Over Image: Rocky endures because of what it means, not what it literally shows the audience.
+  ii Capacity for Love: Rocky discovers he is capable of love, giving him a reason beyond himself.
+  ii Unwinnable Fight: He is brave enough to step into a fight he cannot win, which is its own form of victory.
+  ii Earned Self-Worth: He learns his self-worth is something he can earn through effort rather than receive from the outcome.
+  _  Refusing Invisibility: Everything rests on Rocky's core refusal to remain invisible and his drive to earn the right to be seen.
 
-───────────────────────────────────────────────────────────── built with _ii^ ──
-```
-
-### A github repo
-
-```
-portico https://github.com/binwiederhier/ntfy
-```
-
-```
-── software README: ntfy ───────────────────────────────────────────────────────
-
-                                      ***
-                                  ===  ◇  ===
-           ╔════════════════════════════════════════════════════════╗
-           ║                Scriptable Notifications                ║
-           ╚════════════════════════════════════════════════════════╝
-        ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-              ▀██▀            ▀██▀            ▀██▀            ▀██▀
-               ██              ██              ██              ██
-               ██              ██              ██              ██
-         Service Access  Apps & Clients   Community &    Contributions
-               ██              ██           Support            ██
-               ██              ██              ██              ██
-               ██              ██              ██              ██
-              ▄██▄            ▄██▄            ▄██▄            ▄██▄
-         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║          Open-source licensing | Third-party libraries           ║
-      ╚══════════════════════════════════════════════════════════════════╝
-
-legend:
-  ^  Scriptable Notifications: Send phone or desktop notifications from any script via a simple HTTP pub-sub service, with no sign-up required.
-  ii Service Access: ntfy is available as a hosted free tier at ntfy.sh, a paid ntfy Pro plan, or a self-hosted open-source instance.
-  ii Apps & Clients: Native Android and iOS apps, plus a web app, let users subscribe to and receive notifications across platforms.
-  ii Community & Support: Discord, Matrix, and GitHub Issues provide channels for chat, bug reports, feature requests, and beta announcements.
-  ii Contributions: Code PRs, issue reports, and Weblate translations are welcomed, with larger features discussed on Discord or Matrix first.
-  _  Open-source licensing | Third-party libraries: The project is dual-licensed under Apache 2.0 and GPLv2, and is built on a stack of open-source libraries covering the CLI, web app, database, push delivery, and more.
-
-───────────────────────────────────────────────────────────── built with _ii^ ──
-```
-
-### A long-form essay
-
-```
-portico https://www.wiisfi.com/
-```
-
-```
-── technical guide: Wi-Fi Upgrade Guide ────────────────────────────────────────
-
-                                      ***
-                                  ===  ◇  ===
-        ╔══════════════════════════════════════════════════════════════╗
-        ║                     Client-Limited Wi-Fi                     ║
-        ╚══════════════════════════════════════════════════════════════╝
-     ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
-      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-          ▀██▀          ▀██▀          ▀██▀          ▀██▀          ▀██▀
-           ██            ██            ██            ██            ██
-           ██            ██            ██            ██            ██
-         Speed         Wi-Fi       Deployment   Alternative  Diagnostics &
-      Fundamentals  Generations   Architecture    Backhaul       Config
-           ██            ██            ██            ██            ██
-           ██            ██            ██            ██            ██
-          ▄██▄          ▄██▄          ▄██▄          ▄██▄          ▄██▄
-      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╔════════════════════════════════════════════════════════════════════════╗
-   ║              Educational purpose | Empirical measurement               ║
-   ╚════════════════════════════════════════════════════════════════════════╝
-
-legend:
-  ^  Client-Limited Wi-Fi: Real-world Wi-Fi performance is governed by client device constraints and physical distance, not by router marketing figures, and informed decisions require cutting through manufacturer hype.
-  ii Speed Fundamentals: PHY speed is determined by channel width, MIMO level, and QAM modulation; the Throughput-to-PHY Ratio runs ~70%, and advertised aggregate speeds are fictional sums irrelevant to any real 2×2 client.
-  ii Wi-Fi Generations: Wi-Fi 4 through Wi-Fi 7 each advanced primarily through wider channels and higher QAM rather than generation changes alone, with Wi-Fi 6's 160 MHz support and Wi-Fi 7's 320 MHz channels being the meaningful inflection points.
-  ii Deployment Architecture: Wired access points on non-overlapping channels outperform range extenders and mesh systems; the preferred model is a 4×4 MIMO router plus Ethernet-connected APs following the 'Wi-Fi AIR' philosophy.
-  ii Alternative Backhaul: When Ethernet cannot be run, MoCA 2.5 over coax, powerline adapters, buried fiber, and wireless bridges provide progressively capable substitutes, each with specific limitations and use conditions.
-  ii Diagnostics & Config: PHY speed checks, channel analysis, DFS verification, router configuration best practices, and systematic troubleshooting steps enable readers to confirm whether any upgrade actually improved real-world throughput.
-  _  Educational purpose | Empirical measurement: The guide is grounded in a commitment to ad-free reader education and in direct measurement—checking PHY speeds, running speed tests before and after changes, and verifying specs against FCC filings—rather than trusting manufacturer claims.
-
-───────────────────────────────────────────────────────────── built with _ii^ ──
+───────────────────────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
 ## Inputs
