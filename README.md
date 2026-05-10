@@ -46,38 +46,39 @@ An LLM reads your input, decides what kind of thing it is, and decomposes it int
 ## Example
 
 ```
-echo "The plot of Rocky (1976) hinges on three relationships: Rocky's tentative romance with the shy, awkward Adrian; his mentorship under the cantankerous old trainer Mickey; and his match against world heavyweight champion Apollo Creed. Rocky is a club fighter from a working-class corner of Philadelphia who gets a million-to-one title shot and resolves not to win, but to go the full fifteen rounds." | portico -
+echo "What makes Rocky (1976) endure is not what it shows you but what it means. A nobody from the neighborhood discovers that he is capable of love, that he is brave enough to step into a fight he can't win, and that his self-worth is something he can earn through effort rather than receive from victory. The film is the story of a man who refuses to be invisible -- and earns, by the end, the right to be seen." | portico -
 ```
 
 ```
-── plot summary: Rocky (1976) ──────────────────────────────────────────────────────────────────────
+── essay: Rocky Endures ────────────────────────────────────────────────────────────────────────────
 
                                                 ***
                                             ===  ◇  ===
                              ╔════════════════════════════════════════╗
-                             ║           Going the Distance           ║
+                             ║           Meaning Over Image           ║
                              ╚════════════════════════════════════════╝
                           ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
                            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
                                 ▀██▀            ▀██▀            ▀██▀
                                  ██              ██              ██
                                  ██              ██              ██
-                           Rocky & Adrian  Rocky & Mickey  Rocky & Apollo
+                            Capacity for     Unwinnable     Earned Self-
+                                Love           Fight           Worth
                                  ██              ██              ██
                                  ██              ██              ██
                                 ▄██▄            ▄██▄            ▄██▄
                            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                         ╔══════════════════════════════════════════════════╗
-                        ║          Working-class underdog premise          ║
+                        ║              Refusing Invisibility               ║
                         ╚══════════════════════════════════════════════════╝
 
 legend:
-  ^  Going the Distance: A club fighter's self-worth is tested not by winning but by surviving fifteen rounds against the world heavyweight champion.
-  ii Rocky & Adrian: A tentative romance with a shy, awkward woman gives Rocky an emotional anchor outside the ring.
-  ii Rocky & Mickey: A cantankerous old trainer offers hard-edged mentorship that prepares Rocky for the title shot.
-  ii Rocky & Apollo: The million-to-one match against the world heavyweight champion is the film's central dramatic confrontation.
-  _  Working-class underdog premise: Rocky's identity as a small-time Philadelphia club fighter makes the title shot implausible and the goal of merely lasting fifteen rounds meaningful.
+  ^  Meaning Over Image: Rocky endures because of what it means, not what it literally shows the audience.
+  ii Capacity for Love: Rocky discovers he is capable of love, giving him a reason beyond himself.
+  ii Unwinnable Fight: He is brave enough to step into a fight he cannot win, which is its own form of victory.
+  ii Earned Self-Worth: He learns his self-worth is something he can earn through effort rather than receive from the outcome.
+  _  Refusing Invisibility: Everything rests on Rocky's core refusal to remain invisible and his drive to earn the right to be seen.
 
 ───────────────────────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
