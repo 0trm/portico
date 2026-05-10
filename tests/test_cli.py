@@ -75,6 +75,31 @@ def test_missing_file_exits_2(tmp_path) -> None:
     assert rc == EXIT_F1_NOT_FOUND
 
 
+def test_bare_filename_with_extension_is_treated_as_file() -> None:
+    """`arqii nonexistent.txt` shouldn't silently fall through to load_text."""
+    from arqii.cli import detect_input_type
+
+    assert detect_input_type("nonexistent.txt") == "file"
+    assert detect_input_type("essay.md") == "file"
+    assert detect_input_type("config.toml") == "file"
+
+
+def test_sentence_with_period_is_text_not_file() -> None:
+    """A sentence with a period shouldn't be misread as a path."""
+    from arqii.cli import detect_input_type
+
+    assert detect_input_type("Trust scales sub-linearly with size.") == "text"
+    assert detect_input_type("hello world") == "text"
+
+
+def test_no_args_with_tty_stdin_exits_F2_with_help_hint(monkeypatch) -> None:
+    """`arqii` with no args + interactive terminal should not block on stdin."""
+    monkeypatch.setattr("sys.stdin.isatty", lambda: True)
+    parsed = parse_args([])
+    rc = run(parsed, provider=FakeProvider("codebase_3pillars.json"))
+    assert rc == EXIT_F2_NOT_PARSEABLE
+
+
 def test_binary_file_exits_5(tmp_path) -> None:
     f = tmp_path / "blob.bin"
     f.write_bytes(b"\x00\x01\x02hello\x00")

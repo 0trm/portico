@@ -103,21 +103,48 @@ def make_provider(name: str) -> LLMProvider:
     raise ValueError(f"unknown provider: {name}")
 
 
+# Bare filenames like `essay.md` look like file paths even without a slash.
+# Listing common extensions stops the heuristic from misreading "Trust scales..."
+# (period + word) as a file path.
+_FILE_EXTENSIONS = frozenset(
+    {
+        ".txt", ".md", ".rst", ".log", ".csv", ".tsv", ".json", ".yaml", ".yml",
+        ".toml", ".ini", ".conf", ".xml", ".html", ".htm", ".css", ".js", ".ts",
+        ".tsx", ".jsx", ".py", ".rb", ".go", ".rs", ".java", ".c", ".h", ".cpp",
+        ".hpp", ".cs", ".php", ".lua", ".sh", ".bash", ".zsh", ".sql", ".lock",
+    }
+)
+
+
+def _looks_like_path(value: str) -> bool:
+    if "/" in value or "\\" in value:
+        return True
+    if " " in value or "\n" in value:
+        return False
+    suffix = Path(value).suffix.lower()
+    return suffix in _FILE_EXTENSIONS
+
+
 def detect_input_type(value: str) -> str:
     if value.startswith(("http://", "https://")):
         return "url"
     p = Path(value)
     if p.exists():
         return "dir" if p.is_dir() else "file"
-    if "/" in value or "\\" in value:
-        # Looks like a path even though it doesn't exist; let the file loader
-        # surface the F1 instead of silently treating the path string as text.
+    if _looks_like_path(value):
+        # Path-shaped but missing -- let the file loader surface the F1 instead
+        # of silently treating the string as raw text.
         return "file"
     return "text"
 
 
 def load(value: str | None, *, input_type: str | None) -> LoadedInput:
     if value is None:
+        if sys.stdin.isatty():
+            raise F2NotParseable(
+                "no input provided. Pass a path, URL, raw text, or pipe via stdin "
+                "(e.g. `echo 'hello' | arqii -`). See `arqii --help`."
+            )
         return load_stdin()
     if value == "-":
         return load_stdin()
