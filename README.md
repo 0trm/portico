@@ -1,25 +1,30 @@
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.png" alt="portico" width="640">
-
-<pre>_ii^
-portico</pre>
-
-<em>render any input as a portico -- a three-layer ASCII visualization</em>
-
-<sub><a href="https://pypi.org/project/portico-cli/">pypi</a> · <a href="https://github.com/0trm/portico">github</a> · <a href="https://github.com/0trm/portico/blob/main/LICENSE">mit</a></sub>
-
 </div>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.png" alt="portico" width="340" />
+</p>
+
+<h1 align="center">portico</h1>
+
+<p align="center">
+  <strong>render any input as a portico -- a three-layer ASCII visualization</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/JuliusBrussee/caveman/stargazers"><img src="https://img.shields.io/github/stars/JuliusBrussee/caveman?style=flat&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/JuliusBrussee/caveman/commits/main"><img src="https://img.shields.io/github/last-commit/JuliusBrussee/caveman?style=flat" alt="Last Commit"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/JuliusBrussee/caveman?style=flat" alt="License"></a>
+</p>
 
 ---
 
-## install
+## Install
 
 ```bash
 pipx install portico-cli
 ```
 
-## try it
+## Try it
 
 ```bash
 portico README.md
@@ -28,19 +33,19 @@ portico ./src --no-legend
 echo "your text here" | portico -
 ```
 
-## what is a portico
+## What is a portico
 
 An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. The renderer turns those layers into a fixed ASCII shape.
 
-|  glyph  | layer   | meaning                                       |
+|  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
-|   `^`   | roof    | the unifying idea                             |
-|  `ii`   | pillars | the load-bearing components (2-9 of them)     |
-|   `_`   | base    | the foundation everything rests on            |
+|   `^`   | Roof    | The unifying idea                             |
+|  `ii`   | Pillars | The load-bearing components (2-9 of them)     |
+|   `_`   | Base    | The foundation everything rests on            |
 
-## examples
+## Examples
 
-short, medium, long.
+Short, medium, long.
 
 ### hello world
 
@@ -52,11 +57,11 @@ echo "hello world" | portico -
 ── snippet: hello world ────────────────────────────────────────────────────────
 
                                       ***
-                               __ ===  ◇  === __
+                                  ===  ◇  ===
                            ╔════════════════════════╗
                            ║       salutation       ║
                            ╚════════════════════════╝
-                        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+                        ////~~~~~~~~~~~~~~~~~~~~~~~~\\\\
                          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
                               ▀██▀            ▀██▀
                                ██              ██
@@ -80,7 +85,7 @@ legend:
 ───────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-### a github repo
+### A github repo
 
 ```
 portico https://github.com/binwiederhier/ntfy
@@ -90,11 +95,11 @@ portico https://github.com/binwiederhier/ntfy
 ── software README: ntfy ───────────────────────────────────────────────────────
 
                                       ***
-                               __ ===  ◇  === __
+                                  ===  ◇  ===
            ╔════════════════════════════════════════════════════════╗
            ║                Scriptable Notifications                ║
            ╚════════════════════════════════════════════════════════╝
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\
+        ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\\\
          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
               ▀██▀            ▀██▀            ▀██▀            ▀██▀
                ██              ██              ██              ██
@@ -121,7 +126,7 @@ legend:
 ───────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-### a long-form essay
+### A long-form essay
 
 ```
 portico https://www.wiisfi.com/
@@ -163,23 +168,23 @@ legend:
 ───────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-## inputs
+## Inputs
 
-- raw text or stdin
-- local files and directories
+- Raw text or stdin
+- Local files and directories
 - URLs (page content is extracted)
-- git repositories
+- Git repositories
 
 When an input doesn't fit a three-layer shape -- poems, flat lists, gibberish -- `portico` refuses honestly rather than fake one.
 
-## customization
+## Customization
 
-| flag                            | what it does                                                            |
+| Flag                            | What it does                                                            |
 | ------------------------------- | ----------------------------------------------------------------------- |
-| `--no-legend`                   | hide the per-layer summary (legend renders by default)                  |
-| `--color {auto,always,never}`   | colorize roof / pillars / base. default: `never`                        |
-| `--reapex[=N]`                  | roll a random apex ornament; pin seed `N` to reproduce                  |
-| `--json`                        | emit the analyzer's JSON instead of rendering                           |
-| `--diagnose`                    | print a pipeline report (input type, model, fit quality) and exit       |
+| `--no-legend`                   | Hide the per-layer summary (legend renders by default)                  |
+| `--color {auto,always,never}`   | Colorize roof / pillars / base. default: `never`                        |
+| `--reapex[=N]`                  | Roll a random apex ornament; pin seed `N` to reproduce                  |
+| `--json`                        | Emit the analyzer's JSON instead of rendering                           |
+| `--diagnose`                    | Print a pipeline report (input type, model, fit quality) and exit       |
 
 Run `portico --help` for the full list.
