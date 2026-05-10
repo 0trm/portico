@@ -1,7 +1,7 @@
 [project]
-name = "arqii"
+name = "portico"
 version = "0.1.0"
-description = "Render any input as a portico -- a three-layer ASCII visualization."
+description = "Render any input as a structure -- a three-layer ASCII visualization."
 readme = "README.md"
 authors = [
     { name = "Tomás Ravalli", email = "tomravalli@gmail.com" }
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-arqii = "arqii.cli:main"
+portico = "portico.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.11.7,<0.12.0"]

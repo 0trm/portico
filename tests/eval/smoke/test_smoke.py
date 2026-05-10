@@ -12,10 +12,10 @@ from pathlib import Path
 
 import pytest
 
-from arqii.analyzer import analyze
-from arqii.config import get_anthropic_api_key
-from arqii.providers.claude import DEFAULT_MODEL, ClaudeProvider
-from arqii.render import render
+from portico.analyzer import analyze
+from portico.config import get_anthropic_api_key
+from portico.providers.claude import DEFAULT_MODEL, ClaudeProvider
+from portico.render import render
 
 INPUTS_DIR = Path(__file__).parent / "inputs"
 REPORT_DIR = Path(__file__).parent / "report"
@@ -39,7 +39,7 @@ def report_dir() -> Path:
     sorted(INPUTS_DIR.glob("*.txt")),
     ids=lambda p: p.stem,
 )
-def test_smoke_input_produces_valid_portico(
+def test_smoke_input_produces_valid_structure(
     input_file: Path,
     provider: ClaudeProvider,
     report_dir: Path,

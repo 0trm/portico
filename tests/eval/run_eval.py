@@ -1,4 +1,4 @@
-"""Run arqii against the eval input set; save JSON + ASCII bundles per input.
+"""Run portico against the eval input set; save JSON + ASCII bundles per input.
 
 Usage:
     uv run python -m tests.eval.run_eval                # run all inputs
@@ -27,11 +27,11 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 
-from arqii.analyzer import F4MalformedJSON, analyze
-from arqii.config import get_anthropic_api_key, get_default_model
-from arqii.providers.base import ProviderAuthError, ProviderTransportError
-from arqii.providers.claude import DEFAULT_MODEL, THINKING_EFFORT, ClaudeProvider
-from arqii.render import render
+from portico.analyzer import F4MalformedJSON, analyze
+from portico.config import get_anthropic_api_key, get_default_model
+from portico.providers.base import ProviderAuthError, ProviderTransportError
+from portico.providers.claude import DEFAULT_MODEL, THINKING_EFFORT, ClaudeProvider
+from portico.render import render
 
 EVAL_THINKING_EFFORT = "xhigh"
 

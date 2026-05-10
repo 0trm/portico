@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from arqii.cli import (
+from portico.cli import (
     EXIT_F1_NOT_FOUND,
     EXIT_F2_NOT_PARSEABLE,
     EXIT_F4_TRANSPORT,
@@ -9,7 +9,7 @@ from arqii.cli import (
     parse_args,
     run,
 )
-from arqii.providers.base import LLMProvider, ProviderTransportError
+from portico.providers.base import LLMProvider, ProviderTransportError
 
 FIXTURES = Path(__file__).parent / "fixtures" / "json"
 
@@ -44,7 +44,7 @@ def _args(input_value: str, **overrides):
     return parse_args(argv)
 
 
-def test_text_input_renders_portico(capsys, tmp_path) -> None:
+def test_text_input_renders_structure(capsys, tmp_path) -> None:
     args = _args("hello world", no_cache=True, width=80)
     rc = run(args, provider=FakeProvider("codebase_3pillars.json"))
     assert rc == EXIT_OK
@@ -77,8 +77,8 @@ def test_missing_file_exits_2(tmp_path) -> None:
 
 
 def test_bare_filename_with_extension_is_treated_as_file() -> None:
-    """`arqii nonexistent.txt` shouldn't silently fall through to load_text."""
-    from arqii.cli import detect_input_type
+    """`portico nonexistent.txt` shouldn't silently fall through to load_text."""
+    from portico.cli import detect_input_type
 
     assert detect_input_type("nonexistent.txt") == "file"
     assert detect_input_type("essay.md") == "file"
@@ -87,14 +87,14 @@ def test_bare_filename_with_extension_is_treated_as_file() -> None:
 
 def test_sentence_with_period_is_text_not_file() -> None:
     """A sentence with a period shouldn't be misread as a path."""
-    from arqii.cli import detect_input_type
+    from portico.cli import detect_input_type
 
     assert detect_input_type("Trust scales sub-linearly with size.") == "text"
     assert detect_input_type("hello world") == "text"
 
 
 def test_no_args_with_tty_stdin_exits_F2_with_help_hint(monkeypatch) -> None:
-    """`arqii` with no args + interactive terminal should not block on stdin."""
+    """`portico` with no args + interactive terminal should not block on stdin."""
     monkeypatch.setattr("sys.stdin.isatty", lambda: True)
     parsed = parse_args([])
     rc = run(parsed, provider=FakeProvider("codebase_3pillars.json"))
@@ -130,7 +130,7 @@ def test_forced_fit_quality_refuses_without_force(capsys) -> None:
     args = _args("anything", no_cache=True)
     rc = run(args, provider=FakeProvider("flat_list_forced.json"))
     assert rc == EXIT_OK
-    assert "could not build a portico" in capsys.readouterr().out
+    assert "could not build a structure" in capsys.readouterr().out
 
 
 def test_forced_fit_quality_renders_with_force(capsys) -> None:
@@ -144,14 +144,14 @@ def test_not_applicable_refuses_even_with_force(capsys) -> None:
     args = _args("anything", no_cache=True, force=True)
     rc = run(args, provider=FakeProvider("gibberish_not_applicable.json"))
     assert rc == EXIT_OK
-    assert "could not build a portico" in capsys.readouterr().out
+    assert "could not build a structure" in capsys.readouterr().out
 
 
 def test_strict_upgrades_stretched_to_refusal(capsys) -> None:
     args = _args("anything", no_cache=True, strict=True)
     rc = run(args, provider=FakeProvider("survey_9pillars_stretched.json"))
     assert rc == EXIT_OK
-    assert "could not build a portico" in capsys.readouterr().out
+    assert "could not build a structure" in capsys.readouterr().out
 
 
 def test_stretched_renders_with_caveat_by_default(capsys) -> None:
@@ -165,8 +165,8 @@ def test_stretched_renders_with_caveat_by_default(capsys) -> None:
 
 def test_cache_hit_skips_provider_call(capsys, tmp_path, monkeypatch) -> None:
     # Redirect cache to a temp dir.
-    from arqii.cache import Cache as _Cache
-    monkeypatch.setattr("arqii.cli.Cache", lambda: _Cache(root=tmp_path))
+    from portico.cache import Cache as _Cache
+    monkeypatch.setattr("portico.cli.Cache", lambda: _Cache(root=tmp_path))
 
     p1 = FakeProvider("codebase_3pillars.json")
     args = _args("hello world", width=80)
@@ -182,8 +182,8 @@ def test_cache_hit_skips_provider_call(capsys, tmp_path, monkeypatch) -> None:
 
 
 def test_no_cache_skips_cache_lookup(capsys, tmp_path, monkeypatch) -> None:
-    from arqii.cache import Cache as _Cache
-    monkeypatch.setattr("arqii.cli.Cache", lambda: _Cache(root=tmp_path))
+    from portico.cache import Cache as _Cache
+    monkeypatch.setattr("portico.cli.Cache", lambda: _Cache(root=tmp_path))
 
     p1 = FakeProvider("codebase_3pillars.json")
     args = _args("hello world", no_cache=True, width=80)

@@ -3,22 +3,22 @@ from pathlib import Path
 
 import pytest
 
-from arqii.render import render
-from arqii.render.apex import (
+from portico.render import render
+from portico.render.apex import (
     CENTERS,
     FINIALS,
     KEYSTONE_WIDTH,
     RULES,
     generate_apex,
 )
-from arqii.schema import PorticoJSON
+from portico.schema import StructureJSON
 
 FIXTURES = Path(__file__).parent / "fixtures" / "json"
 SNAPSHOT_WIDTH = 80
 
 
-def _load(name: str) -> PorticoJSON:
-    return PorticoJSON.model_validate(json.loads((FIXTURES / name).read_text()))
+def _load(name: str) -> StructureJSON:
+    return StructureJSON.model_validate(json.loads((FIXTURES / name).read_text()))
 
 
 def test_generate_apex_deterministic_given_seed() -> None:
@@ -95,7 +95,7 @@ def test_render_no_seed_label_when_omitted() -> None:
 
 @pytest.mark.parametrize("seed", [0, 1, 7, 42, 100, 999, 99999])
 def test_apex_renders_within_width_at_80(seed: int) -> None:
-    """Generated apex composition fits in the standard portico width."""
+    """Generated apex composition fits in the standard structure width."""
     data = _load("codebase_3pillars.json")
     finial, keystone, _ = generate_apex(seed=seed)
     out = render(data, width=SNAPSHOT_WIDTH, apex_override=(finial, keystone))

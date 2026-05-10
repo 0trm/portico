@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from arqii.loaders.base import F1NotFound, F2NotParseable
-from arqii.loaders.file import load_file
-from arqii.loaders.text import load_text
+from portico.loaders.base import F1NotFound, F2NotParseable
+from portico.loaders.file import load_file
+from portico.loaders.text import load_text
 
 
 def test_load_text_happy_path() -> None:

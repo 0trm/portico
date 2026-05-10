@@ -3,12 +3,12 @@ from pathlib import Path
 
 import pytest
 
-from arqii.analyzer import (
+from portico.analyzer import (
     F4MalformedJSON,
     analyze,
     build_prompt,
 )
-from arqii.providers.base import LLMProvider
+from portico.providers.base import LLMProvider
 
 FIXTURES = Path(__file__).parent / "fixtures" / "json"
 

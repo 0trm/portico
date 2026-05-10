@@ -8,5 +8,5 @@
     "label_quality": 3
   },
   "annotator": "trm",
-  "notes": "For poems, always refuse \u2014 set fit_quality=not_applicable and emit a rejection message. Poems do not have portico-style structural decomposition."
+  "notes": "For poems, always refuse \u2014 set fit_quality=not_applicable and emit a rejection message. Poems do not have structure-style structural decomposition."
 }

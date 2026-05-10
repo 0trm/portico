@@ -1,6 +1,6 @@
-# arqii eval
+# portico eval
 
-Three-stage pipeline that measures portico quality:
+Three-stage pipeline that measures structure quality:
 
 ```
 inputs/  ──run_eval──>  outputs/runs/  ──judge──>  outputs/judgments/  ──report──>  outputs/reports/
@@ -15,13 +15,13 @@ already-completed work is skipped.
 
 | Setting           | Value                  | Why                                                                                       |
 | ----------------- | ---------------------- | ----------------------------------------------------------------------------------------- |
-| Model             | `claude-sonnet-4-6`    | Current default for the analyzer; pinned in `arqii.providers.claude.DEFAULT_MODEL`        |
+| Model             | `claude-sonnet-4-6`    | Current default for the analyzer; pinned in `portico.providers.claude.DEFAULT_MODEL`        |
 | Extended thinking | enabled                | Hard inputs (adversarial, mixed-genre, ambiguous fit) reward deeper deliberation          |
 | Effort            | `xhigh` (32k budget)   | We want the quality ceiling, not the cost-optimized floor                                 |
 
-Constants live in `arqii.providers.claude.THINKING_EFFORT` (`low: 2048`,
+Constants live in `portico.providers.claude.THINKING_EFFORT` (`low: 2048`,
 `medium: 4096`, `high: 8192`, `xhigh: 32000`). The eval-default is set by
-`EVAL_THINKING_EFFORT` at the top of `run_eval.py`. The CLI (`arqii ...`) does
+`EVAL_THINKING_EFFORT` at the top of `run_eval.py`. The CLI (`portico ...`) does
 not enable thinking by default -- it stays cheap. Eval is the heavy mode.
 
 The choice is recorded in every run's `manifest.json` (`thinking_effort`,
@@ -56,7 +56,7 @@ uv run python -m tests.eval.report --run-id r02
 ## Calibrating against gold
 
 Gold annotations measure whether the judge's *ranking* matches yours. Even with
-absolute leniency, a judge that ranks porticos in the same order you do is
+absolute leniency, a judge that ranks structures in the same order you do is
 useful; one that doesn't is broken. See `gold/README.md` for the format.
 
 Drift threshold: **Spearman < 0.4** flags an unreliable judge per dimension

@@ -1,13 +1,13 @@
-from arqii.render.color import ColorMode
-from arqii.render.styles.default import DefaultRenderer
-from arqii.schema import PorticoJSON
+from portico.render.color import ColorMode
+from portico.render.styles.default import DefaultRenderer
+from portico.schema import StructureJSON
 
 DEFAULT_WIDTH = 80
 MAX_WIDTH = 100
 
 
 def render(
-    data: PorticoJSON,
+    data: StructureJSON,
     *,
     width: int = DEFAULT_WIDTH,
     color: ColorMode = ColorMode.NEVER,

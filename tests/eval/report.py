@@ -110,7 +110,7 @@ def _format_dist(values: list[int]) -> str:
 
 
 def build_report(items: list[Item], gold: dict[str, dict[str, int]]) -> str:
-    lines: list[str] = ["# arqii eval report", ""]
+    lines: list[str] = ["# portico eval report", ""]
 
     lines.append(f"Inputs judged: {len(items)}")
     lines.append("")

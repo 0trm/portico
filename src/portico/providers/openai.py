@@ -7,7 +7,7 @@ from openai import (
     RateLimitError,
 )
 
-from arqii.providers.base import (
+from portico.providers.base import (
     LLMProvider,
     ProviderAuthError,
     ProviderTransportError,

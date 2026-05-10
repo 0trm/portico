@@ -1,6 +1,6 @@
 import sys
 
-from arqii.loaders.base import F2NotParseable, LoadedInput
+from portico.loaders.base import F2NotParseable, LoadedInput
 
 
 def load_text(text: str, *, source: str = "<text>") -> LoadedInput:

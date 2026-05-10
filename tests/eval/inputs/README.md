@@ -1,7 +1,7 @@
-# arqii eval inputs
+# portico eval inputs
 
 Stratified eval set, organised by input type per
-[`wiki/input-taxonomy.md`](../../../../../Library/Mobile%20Documents/iCloud~md~obsidian/Documents/arqii/wiki/input-taxonomy.md).
+[`wiki/input-taxonomy.md`](../../../../../Library/Mobile%20Documents/iCloud~md~obsidian/Documents/portico/wiki/input-taxonomy.md).
 
 ```
 inputs/

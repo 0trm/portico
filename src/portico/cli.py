@@ -1,4 +1,4 @@
-"""arqii CLI -- single entry point that wires the pipeline together.
+"""portico CLI -- single entry point that wires the pipeline together.
 
 Loader -> Summarizer (if oversized) -> Cache check -> Analyzer -> Renderer.
 Failure classes route to exit codes per the spec failure taxonomy.
@@ -13,15 +13,15 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from arqii import __version__
-from arqii.analyzer import F4MalformedJSON, analyze
-from arqii.cache import Cache, cache_key
-from arqii.config import (
+from portico import __version__
+from portico.analyzer import F4MalformedJSON, analyze
+from portico.cache import Cache, cache_key
+from portico.config import (
     get_anthropic_api_key,
     get_default_model,
     get_default_provider,
 )
-from arqii.loaders.base import (
+from portico.loaders.base import (
     F1NetworkUnavailable,
     F1NotFound,
     F1RemoteInaccessible,
@@ -29,27 +29,27 @@ from arqii.loaders.base import (
     F2TooLarge,
     LoadedInput,
 )
-from arqii.loaders.dir import load_dir
-from arqii.loaders.file import load_file
-from arqii.loaders.repo import load_repo
-from arqii.loaders.text import load_stdin, load_text
-from arqii.loaders.url import load_url
-from arqii.providers.base import (
+from portico.loaders.dir import load_dir
+from portico.loaders.file import load_file
+from portico.loaders.repo import load_repo
+from portico.loaders.text import load_stdin, load_text
+from portico.loaders.url import load_url
+from portico.providers.base import (
     LLMProvider,
     ProviderAuthError,
     ProviderTransportError,
 )
-from arqii.providers.claude import DEFAULT_MODEL, ClaudeProvider
-from arqii.providers.gemini import GeminiProvider
-from arqii.providers.openai import OpenAIProvider
-from arqii.render import MAX_WIDTH, render
-from arqii.render.apex import generate_apex
-from arqii.render.color import ColorMode
-from arqii.schema import FitQuality, PorticoJSON
-from arqii.summarize import summarize
+from portico.providers.claude import DEFAULT_MODEL, ClaudeProvider
+from portico.providers.gemini import GeminiProvider
+from portico.providers.openai import OpenAIProvider
+from portico.render import MAX_WIDTH, render
+from portico.render.apex import generate_apex
+from portico.render.color import ColorMode
+from portico.schema import FitQuality, StructureJSON
+from portico.summarize import summarize
 
 REFUSAL_TEMPLATE = """\
-arqii could not build a portico for this input.
+portico could not build a structure for this input.
 
 reason: {reason}
 
@@ -143,7 +143,7 @@ def load(value: str | None, *, input_type: str | None) -> LoadedInput:
         if sys.stdin.isatty():
             raise F2NotParseable(
                 "no input provided. Pass a path, URL, raw text, or pipe via stdin "
-                "(e.g. `echo 'hello' | arqii -`). See `arqii --help`."
+                "(e.g. `echo 'hello' | portico -`). See `portico --help`."
             )
         return load_stdin()
     if value == "-":
@@ -166,12 +166,12 @@ def resolve_width(arg_width: int | None) -> int:
     return min(shutil.get_terminal_size((MAX_WIDTH, 24)).columns, MAX_WIDTH)
 
 
-def render_refusal(data: PorticoJSON) -> str:
+def render_refusal(data: StructureJSON) -> str:
     return REFUSAL_TEMPLATE.format(reason=data.notes_on_fit, theme=data.theme)
 
 
 def render_diagnostics(
-    loaded: LoadedInput, data: PorticoJSON, *, model: str, provider_name: str
+    loaded: LoadedInput, data: StructureJSON, *, model: str, provider_name: str
 ) -> str:
     return (
         f"input:        {loaded.source}\n"
@@ -190,16 +190,16 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
     try:
         loaded = load(args.input_value, input_type=args.input_type)
     except F1NotFound as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F1_NOT_FOUND
     except F1RemoteInaccessible as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F1_REMOTE
     except F1NetworkUnavailable as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F1_NETWORK
     except F2NotParseable as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F2_NOT_PARSEABLE
 
     prov = provider or make_provider(args.provider)
@@ -207,18 +207,18 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
     try:
         loaded = summarize(loaded, provider=prov, model=args.model)
     except F2TooLarge as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F2_TOO_LARGE
     except ProviderAuthError as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F4_AUTH
     except ProviderTransportError as e:
-        print(f"arqii: {e}", file=sys.stderr)
+        print(f"portico: {e}", file=sys.stderr)
         return EXIT_F4_TRANSPORT
 
     cache = Cache()
     key = cache_key(loaded.text, provider=args.provider, model=args.model)
-    data: PorticoJSON | None = None
+    data: StructureJSON | None = None
     if not args.no_cache:
         data = cache.get(key)
 
@@ -226,13 +226,13 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
         try:
             result = analyze(loaded.text, provider=prov, model=args.model)
         except F4MalformedJSON as e:
-            print(f"arqii: {e}", file=sys.stderr)
+            print(f"portico: {e}", file=sys.stderr)
             return EXIT_F4_MALFORMED
         except ProviderAuthError as e:
-            print(f"arqii: {e}", file=sys.stderr)
+            print(f"portico: {e}", file=sys.stderr)
             return EXIT_F4_AUTH
         except ProviderTransportError as e:
-            print(f"arqii: {e}", file=sys.stderr)
+            print(f"portico: {e}", file=sys.stderr)
             return EXIT_F4_TRANSPORT
         data = result.data
         if not args.no_cache:
@@ -280,7 +280,7 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
 
 
 def parse_args(argv: list[str] | None = None) -> Args:
-    parser = argparse.ArgumentParser(prog="arqii", description="Render any input as a portico.")
+    parser = argparse.ArgumentParser(prog="portico", description="Render any input as a structure.")
     parser.add_argument("input", nargs="?", help="Path, URL, raw text, or '-' for stdin.")
     parser.add_argument("--type", dest="input_type", choices=["text", "file", "dir", "url", "repo"])
     parser.add_argument("--style", default="default")
@@ -309,7 +309,7 @@ def parse_args(argv: list[str] | None = None) -> Args:
         default=None,
         help="Roll a random symmetric apex ornament. Pass --reapex=SEED to pin one.",
     )
-    parser.add_argument("--version", action="version", version=f"arqii {__version__}")
+    parser.add_argument("--version", action="version", version=f"portico {__version__}")
     parsed = parser.parse_args(argv)
 
     reapex = parsed.reapex is not None

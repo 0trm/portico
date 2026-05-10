@@ -1,14 +1,14 @@
 import textwrap
 
-from arqii.render.base import PorticoRenderer
-from arqii.render.color import ColorMode
-from arqii.schema import FitQuality, PorticoJSON
+from portico.render.base import StructureRenderer
+from portico.render.color import ColorMode
+from portico.schema import FitQuality, StructureJSON
 
 CAVEAT_LINE = (
-    "note: the portico metaphor is stretched for this input -- see --verbose for why."
+    "note: the structure metaphor is stretched for this input -- see --verbose for why."
 )
 
-REFUSAL_INTRO = "no portico from this one."
+REFUSAL_INTRO = "no structure from this one."
 
 APEX_FINIAL = "***"
 APEX_KEYSTONE = "===  ◇  ==="
@@ -62,7 +62,7 @@ def _row_of(symbol: str, num: int, cw: int) -> str:
     return "".join(_center(symbol, cw) for _ in range(num))
 
 
-def _legend(data: PorticoJSON) -> list[str]:
+def _legend(data: StructureJSON) -> list[str]:
     lines = ["", "legend:", f"  ^  {data.roof.label}: {data.roof.summary}"]
     lines.extend(f"  ii {p.label}: {p.summary}" for p in data.pillars)
     base_labels = " | ".join(data.base.labels)
@@ -123,10 +123,10 @@ def _split_label(label: str, cw: int) -> tuple[str, str, bool]:
     return label[:mid], label[mid:], False
 
 
-class DefaultRenderer(PorticoRenderer):
+class DefaultRenderer(StructureRenderer):
     def render(
         self,
-        data: PorticoJSON,
+        data: StructureJSON,
         *,
         width: int,
         color: ColorMode,
@@ -141,7 +141,7 @@ class DefaultRenderer(PorticoRenderer):
         truncations: list[tuple[str, str]] = []  # only safety-net path adds entries
 
         # Refusal path: the analyzer judged this input non-decomposable. Emit a
-        # banner + reason + signature instead of forcing a portico.
+        # banner + reason + signature instead of forcing a structure.
         if data.fit_quality == FitQuality.NOT_APPLICABLE:
             lines.append(_banner(data.theme, data.title, width))
             lines.append("")

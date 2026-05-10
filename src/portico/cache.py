@@ -10,9 +10,9 @@ import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 
-from arqii.schema import PorticoJSON
+from portico.schema import StructureJSON
 
-DEFAULT_CACHE_DIR = Path.home() / ".cache" / "arqii"
+DEFAULT_CACHE_DIR = Path.home() / ".cache" / "portico"
 
 
 def cache_key(text: str, *, provider: str, model: str) -> str:
@@ -27,18 +27,18 @@ class Cache:
     def _path(self, key: str) -> Path:
         return self.root / f"{key}.json"
 
-    def get(self, key: str) -> PorticoJSON | None:
+    def get(self, key: str) -> StructureJSON | None:
         path = self._path(key)
         if not path.exists():
             return None
         try:
-            return PorticoJSON.model_validate_json(path.read_text())
+            return StructureJSON.model_validate_json(path.read_text())
         except Exception:
             # Corrupt cache entry: drop it and miss.
             path.unlink(missing_ok=True)
             return None
 
-    def put(self, key: str, data: PorticoJSON) -> None:
+    def put(self, key: str, data: StructureJSON) -> None:
         self.root.mkdir(parents=True, exist_ok=True)
         self._path(key).write_text(data.model_dump_json(indent=2))
 

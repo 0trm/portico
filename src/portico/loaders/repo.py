@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from arqii.loaders.base import LoadedInput
-from arqii.loaders.dir import load_dir
+from portico.loaders.base import LoadedInput
+from portico.loaders.dir import load_dir
 
 
 def load_repo(path: str | Path) -> LoadedInput:

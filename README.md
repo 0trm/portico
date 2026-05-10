@@ -1,6 +1,6 @@
-# arqii
+# portico
 
-Render any input -- text, code, URL, repo -- as a **portico**: a three-layer ASCII visualization (`roof` / `pillars` / `base`).
+Render any input -- text, code, URL, repo -- as a **structure**: a three-layer ASCII visualization (`roof` / `pillars` / `base`).
 
 Pronounced **AR-kee**. Always lowercase. The brand mark is `_ii^`.
 
@@ -17,7 +17,7 @@ uv run pyright                  # type-check
 uv run pytest                   # mocked tests; smoke eval auto-skips
 ```
 
-The smoke eval (10 live Claude calls + rendered porticos in `tests/eval/smoke/report/`) needs `ANTHROPIC_API_KEY`. With the key in 1Password CLI, run via:
+The smoke eval (10 live Claude calls + rendered structures in `tests/eval/smoke/report/`) needs `ANTHROPIC_API_KEY`. With the key in 1Password CLI, run via:
 
 ```bash
 op run --env-file=.env -- arch -arm64 uv run pytest

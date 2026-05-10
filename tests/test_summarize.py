@@ -1,8 +1,8 @@
 import pytest
 
-from arqii.loaders.base import F2TooLarge, LoadedInput
-from arqii.providers.base import LLMProvider
-from arqii.summarize import (
+from portico.loaders.base import F2TooLarge, LoadedInput
+from portico.providers.base import LLMProvider
+from portico.summarize import (
     CHUNK_CHARS,
     HARD_CAP_CHARS,
     TARGET_CHARS,

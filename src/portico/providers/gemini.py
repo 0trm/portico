@@ -1,4 +1,4 @@
-from arqii.providers.base import LLMProvider
+from portico.providers.base import LLMProvider
 
 
 class GeminiProvider(LLMProvider):

@@ -10,9 +10,9 @@ summarizer free of tiktoken-specific dependencies. Replace with a real token
 counter when accuracy becomes load-bearing.
 """
 
-from arqii.loaders.base import F2TooLarge, LoadedInput
-from arqii.providers.base import LLMProvider
-from arqii.providers.claude import DEFAULT_MODEL
+from portico.loaders.base import F2TooLarge, LoadedInput
+from portico.providers.base import LLMProvider
+from portico.providers.claude import DEFAULT_MODEL
 
 TARGET_CHARS = 120_000        # ~30k tokens
 HARD_CAP_CHARS = 20_000_000   # ~5M tokens

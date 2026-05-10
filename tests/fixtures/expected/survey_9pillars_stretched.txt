@@ -1,4 +1,4 @@
-note: the portico metaphor is stretched for this input -- see --verbose for why.
+note: the structure metaphor is stretched for this input -- see --verbose for why.
 
 ── survey: context fitting ─────────────────────────────────────────────────────
 

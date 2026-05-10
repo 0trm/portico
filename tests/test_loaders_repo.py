@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from arqii.loaders.base import F1NotFound, F2NotParseable
-from arqii.loaders.dir import load_dir
-from arqii.loaders.repo import load_repo
+from portico.loaders.base import F1NotFound, F2NotParseable
+from portico.loaders.dir import load_dir
+from portico.loaders.repo import load_repo
 
 
 def _make_sample_repo(root: Path) -> None:

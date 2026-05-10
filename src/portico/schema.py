@@ -21,7 +21,7 @@ class FitQuality(StrEnum):
     NOT_APPLICABLE = "not_applicable"
 
 
-class PorticoJSON(BaseModel):
+class StructureJSON(BaseModel):
     # Reasoning-first fields (mitigate format tax; LLM thinks before it labels).
     input_type: str
     type_rationale: str

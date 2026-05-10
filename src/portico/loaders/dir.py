@@ -15,7 +15,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from arqii.loaders.base import F1NotFound, F2NotParseable, LoadedInput
+from portico.loaders.base import F1NotFound, F2NotParseable, LoadedInput
 
 IGNORE_DIRS = {
     ".git",

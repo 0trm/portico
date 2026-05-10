@@ -48,7 +48,7 @@ in correlation.
 
 1. Run `run_eval.py` then `judge.py` on a run.
 2. Pick ~5 inputs you have strong opinions about.
-3. Open the JSON portico (`outputs/runs/{run_id}/{type}/{name}.json`) and the
+3. Open the JSON structure (`outputs/runs/{run_id}/{type}/{name}.json`) and the
    input text side by side, score each dimension 1–5 by hand against the rubric
    in `judge.py`'s `DIMENSION_DEFS`.
 4. Save the file under `gold/{type}/{name}.json`.

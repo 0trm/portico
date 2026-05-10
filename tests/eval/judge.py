@@ -1,4 +1,4 @@
-"""G-Eval judge: score generated porticos on the 5-dimension rubric.
+"""G-Eval judge: score generated structures on the 5-dimension rubric.
 
 Usage:
     uv run python -m tests.eval.judge --run-id <id>
@@ -29,9 +29,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-from arqii.providers.base import LLMProvider, ProviderAuthError, ProviderTransportError
-from arqii.providers.claude import ClaudeProvider
-from arqii.providers.openai import OpenAIProvider
+from portico.providers.base import LLMProvider, ProviderAuthError, ProviderTransportError
+from portico.providers.claude import ClaudeProvider
+from portico.providers.openai import OpenAIProvider
 
 EVAL_DIR = Path(__file__).parent
 RUNS_DIR = EVAL_DIR / "outputs" / "runs"
@@ -46,8 +46,8 @@ DIMENSIONS = (
 )
 
 JUDGE_PROMPT = """\
-You are evaluating an arqii portico, a 3-layer hierarchical decomposition of an
-input into roof / pillars / base. Score the portico on ONE dimension. Use a
+You are evaluating an portico structure, a 3-layer hierarchical decomposition of an
+input into roof / pillars / base. Score the structure on ONE dimension. Use a
 1-5 integer scale (1 = poor, 5 = excellent). Length is NOT a quality signal.
 
 Dimension: {dimension_name}
@@ -63,7 +63,7 @@ INPUT TEXT:
 
 PORTICO (JSON):
 ---
-{portico_json}
+{structure_json}
 ---
 
 Now write a short reasoning paragraph (under 80 words), then on a new line
@@ -80,8 +80,8 @@ DIMENSION_DEFS: dict[str, str] = {
         "any two pillars overlap conceptually? Lower the score by the worst pair."
     ),
     "non_vacuity": (
-        "Could this portico apply to many other inputs of the same type, or is it "
-        "specific to THIS input? Generic, swappable porticos score low."
+        "Could this structure apply to many other inputs of the same type, or is it "
+        "specific to THIS input? Generic, swappable structures score low."
     ),
     "layer_appropriateness": (
         "Does the roof unify the whole input (not just topic-restate)? Are the "
@@ -110,8 +110,8 @@ DIMENSION_STEPS: dict[str, str] = {
     "non_vacuity": (
         "1. Imagine the roof / pillars / base swapped with another input of the "
         "same type but different content.\n"
-        "2. Would the portico still be plausible? If yes, vacuity is high.\n"
-        "3. Score: 5 if the portico is clearly THIS input's; 1 if it could fit "
+        "2. Would the structure still be plausible? If yes, vacuity is high.\n"
+        "3. Score: 5 if the structure is clearly THIS input's; 1 if it could fit "
         "almost any input of the type."
     ),
     "layer_appropriateness": (
@@ -154,7 +154,7 @@ OLLAMA_DEFAULT_MODEL = "qwen2.5:7b"
 def _make_judge() -> tuple[LLMProvider, str, str]:
     name = os.environ.get("JUDGE_PROVIDER", "openai").lower()
     if name == "openai":
-        from arqii.providers.openai import DEFAULT_MODEL as OPENAI_DEFAULT_MODEL
+        from portico.providers.openai import DEFAULT_MODEL as OPENAI_DEFAULT_MODEL
 
         if not os.environ.get("OPENAI_API_KEY"):
             raise SystemExit("error: OPENAI_API_KEY not set")
@@ -162,8 +162,8 @@ def _make_judge() -> tuple[LLMProvider, str, str]:
         model = os.environ.get("JUDGE_MODEL", OPENAI_DEFAULT_MODEL)
         return provider, name, model
     if name == "claude":
-        from arqii.config import get_anthropic_api_key
-        from arqii.providers.claude import DEFAULT_MODEL as CLAUDE_DEFAULT_MODEL
+        from portico.config import get_anthropic_api_key
+        from portico.providers.claude import DEFAULT_MODEL as CLAUDE_DEFAULT_MODEL
 
         api_key = get_anthropic_api_key()
         if not api_key:
@@ -202,12 +202,12 @@ def _parse_score(text: str) -> tuple[int, str]:
 
 def judge_one(
     input_text: str,
-    portico_json: dict,
+    structure_json: dict,
     *,
     provider: LLMProvider,
     model: str,
 ) -> tuple[dict[str, int], dict[str, str]]:
-    portico_str = json.dumps(portico_json, indent=2)
+    structure_str = json.dumps(structure_json, indent=2)
     scores: dict[str, int] = {}
     reasoning: dict[str, str] = {}
     for dim in DIMENSIONS:
@@ -216,7 +216,7 @@ def judge_one(
             dimension_def=DIMENSION_DEFS[dim],
             evaluation_steps=DIMENSION_STEPS[dim],
             input_text=input_text[:8000],  # cap to keep prompts reasonable
-            portico_json=portico_str,
+            structure_json=structure_str,
         )
         text = provider.generate(prompt, model=model)
         score, why = _parse_score(text)
@@ -265,13 +265,13 @@ def main(argv: list[str] | None = None) -> int:
             judgments.append(Judgment(**json.loads(out_path.read_text())))
             continue
 
-        portico = json.loads(jp.read_text())
+        structure = json.loads(jp.read_text())
         input_text = input_text_path.read_text()
         print(f"[{i}/{len(json_files)}] judging {type_name}/{jp.stem}", flush=True)
         t0 = time.monotonic()
         try:
             scores, reasoning = judge_one(
-                input_text, portico, provider=provider, model=model
+                input_text, structure, provider=provider, model=model
             )
         except (ProviderAuthError, ProviderTransportError) as e:
             print(f"  -> provider error: {e}", flush=True)
