@@ -7,13 +7,13 @@
 <h1 align="center">portico</h1>
 
 <p align="center">
-  <strong>render any input as a portico -- a three-layer ASCII visualization</strong>
+  <strong>Render any input as a portico – a three-layer visual abstraction.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/JuliusBrussee/caveman/stargazers"><img src="https://img.shields.io/github/stars/JuliusBrussee/caveman?style=flat&color=yellow" alt="Stars"></a>
-  <a href="https://github.com/JuliusBrussee/caveman/commits/main"><img src="https://img.shields.io/github/last-commit/JuliusBrussee/caveman?style=flat" alt="Last Commit"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/JuliusBrussee/caveman?style=flat" alt="License"></a>
+  <a href="https://github.com/0trm/portico/stargazers"><img src="https://img.shields.io/github/stars/0trm/portico?style=flat&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/0trm/portico/commits/main"><img src="https://img.shields.io/github/last-commit/0trm/portico?style=flat" alt="Last Commit"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/0trm/portico?style=flat" alt="License"></a>
 </p>
 
 ---
