@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.png" alt="portico" width="340" />
 </p>
 
-<h1 align="center">portico</h1>
+<h1 align="center">portico _ii^</h1>
 
 <p align="center">
   <strong>Render any input as a portico – a three-layer visual abstraction.</strong>
