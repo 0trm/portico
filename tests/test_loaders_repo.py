@@ -70,3 +70,32 @@ def test_load_repo_happy_path(tmp_path: Path) -> None:
     assert out.input_type == "repo"
     assert out.metadata["loader_strategy"] == "file-walk"
     assert "README.md" in out.text
+
+
+def test_load_dir_excludes_env_file_via_name_blocklist(tmp_path: Path) -> None:
+    """Defense-in-depth: .env is excluded by name even in non-git directories."""
+    _make_sample_repo(tmp_path)
+    (tmp_path / ".env").write_text("ANTHROPIC_API_KEY=sk-secret-do-not-leak\n")
+    out = load_dir(tmp_path)
+    assert "sk-secret-do-not-leak" not in out.text
+    assert "## .env\n" not in out.text
+
+
+def test_load_dir_honors_gitignore_via_git_ls_files(tmp_path: Path) -> None:
+    """When the dir is a git repo, .gitignore patterns must be respected."""
+    import subprocess
+
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    subprocess.run(
+        ["git", "-C", str(tmp_path), "config", "user.email", "test@example.com"], check=True
+    )
+    subprocess.run(["git", "-C", str(tmp_path), "config", "user.name", "test"], check=True)
+    (tmp_path / "README.md").write_text("# sample\n")
+    # Custom-named secret file -- not in IGNORE_NAMES, only excluded by .gitignore.
+    (tmp_path / "secret-tokens.cfg").write_text("token=very-secret-value\n")
+    (tmp_path / ".gitignore").write_text("secret-tokens.cfg\n")
+
+    out = load_dir(tmp_path)
+    assert "very-secret-value" not in out.text
+    assert "## secret-tokens.cfg\n" not in out.text
+    assert "## README.md\n" in out.text

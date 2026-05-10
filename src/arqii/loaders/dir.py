@@ -4,8 +4,15 @@ Simple v1 strategy: walk the directory, skip ignored paths, always include a
 small allowlist of orientation files (README, LICENSE, manifests), concatenate
 text contents with path headers. RepoMapper / repomix integration is a
 post-v0.1.0 enhancement that can replace this without changing the CLI surface.
+
+Safety: when the directory is a git repository, defer to `git ls-files
+--exclude-standard` so .gitignore is honored (this is how secrets like .env
+get filtered). The hardcoded IGNORE_NAMES below is defense-in-depth for
+non-git directories or repos that forget to ignore the file.
 """
 
+import shutil
+import subprocess
 from pathlib import Path
 
 from arqii.loaders.base import F1NotFound, F2NotParseable, LoadedInput
@@ -46,6 +53,31 @@ IGNORE_SUFFIXES = {
     ".zip",
     ".tar",
     ".gz",
+    ".pem",
+    ".key",
+    ".cert",
+    ".crt",
+    ".p12",
+    ".pfx",
+}
+
+# Defense-in-depth filenames -- always exclude regardless of .gitignore status.
+IGNORE_NAMES = {
+    ".env",
+    ".env.local",
+    ".env.production",
+    ".env.development",
+    ".env.staging",
+    ".env.test",
+    "id_rsa",
+    "id_rsa.pub",
+    "id_dsa",
+    "id_ed25519",
+    "id_ed25519.pub",
+    "credentials.json",
+    "service-account.json",
+    "secrets.yaml",
+    "secrets.yml",
 }
 
 # Files to always include verbatim if present, in this order.
@@ -87,13 +119,46 @@ def _is_text_file(path: Path) -> bool:
     return True
 
 
+def _git_ls_files(root: Path) -> list[Path] | None:
+    """List tracked + untracked-but-not-ignored files via git, or None if not a git repo."""
+    if not (root / ".git").exists():
+        return None
+    if shutil.which("git") is None:
+        return None
+    try:
+        result = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(root),
+                "ls-files",
+                "--cached",
+                "--others",
+                "--exclude-standard",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
+        )
+    except (subprocess.SubprocessError, OSError):
+        return None
+    return [root / line for line in result.stdout.splitlines() if line]
+
+
 def _walk(root: Path) -> list[Path]:
+    git_listed = _git_ls_files(root)
+    if git_listed is not None:
+        candidates = [p for p in git_listed if p.is_file()]
+    else:
+        candidates = [p for p in root.rglob("*") if p.is_file()]
+
     files: list[Path] = []
-    for p in root.rglob("*"):
-        if p.is_dir():
-            continue
+    for p in candidates:
         rel = p.relative_to(root)
         if _is_ignored_dir(rel.parent):
+            continue
+        if rel.name in IGNORE_NAMES:
             continue
         if not _is_text_file(p):
             continue
@@ -114,7 +179,8 @@ def load_dir(path: str | Path) -> LoadedInput:
 
     # Build concatenation: tree first, then orientation files, then everything else.
     tree = "\n".join(sorted(str(f.relative_to(root)) for f in files))
-    sections: list[str] = [f"# Tree of {root.name}\n\n{tree}\n"]
+    name = root.name or root.resolve().name or "."
+    sections: list[str] = [f"# Tree of {name}\n\n{tree}\n"]
 
     orientation: list[Path] = []
     others: list[Path] = []
