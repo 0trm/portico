@@ -9,6 +9,11 @@ class Layer(BaseModel):
     summary: str
 
 
+class BaseLayer(BaseModel):
+    labels: Annotated[list[str], Field(min_length=1, max_length=4)]
+    summary: str
+
+
 class FitQuality(StrEnum):
     GOOD = "good"
     STRETCHED = "stretched"
@@ -29,7 +34,7 @@ class PorticoJSON(BaseModel):
     title: str
     roof: Layer
     pillars: Annotated[list[Layer], Field(min_length=2, max_length=9)]
-    base: Layer
+    base: BaseLayer
 
     # Abstention.
     fit_quality: FitQuality

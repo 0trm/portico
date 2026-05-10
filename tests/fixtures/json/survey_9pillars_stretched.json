@@ -15,18 +15,47 @@
     "summary": "An umbrella name for the family of techniques surveyed."
   },
   "pillars": [
-    { "label": "Stuffing",      "summary": "One-shot inclusion of full input." },
-    { "label": "Map-reduce",    "summary": "Per-chunk maps, single reduce." },
-    { "label": "Recursive",     "summary": "Repeated bottom-up summarization." },
-    { "label": "Refine",        "summary": "Sequential rolling refinement." },
-    { "label": "Skeleton",      "summary": "Structural skeleton extraction." },
-    { "label": "Head+tail",     "summary": "Truncation at both ends." },
-    { "label": "Embeddings",    "summary": "Top-k retrieval into prompt." },
-    { "label": "Streaming",     "summary": "Online incremental summarization." },
-    { "label": "Compression",   "summary": "Lossy token-level shrinking." }
+    {
+      "label": "Stuffing",
+      "summary": "One-shot inclusion of full input."
+    },
+    {
+      "label": "Map-reduce",
+      "summary": "Per-chunk maps, single reduce."
+    },
+    {
+      "label": "Recursive",
+      "summary": "Repeated bottom-up summarization."
+    },
+    {
+      "label": "Refine",
+      "summary": "Sequential rolling refinement."
+    },
+    {
+      "label": "Skeleton",
+      "summary": "Structural skeleton extraction."
+    },
+    {
+      "label": "Head+tail",
+      "summary": "Truncation at both ends."
+    },
+    {
+      "label": "Embeddings",
+      "summary": "Top-k retrieval into prompt."
+    },
+    {
+      "label": "Streaming",
+      "summary": "Online incremental summarization."
+    },
+    {
+      "label": "Compression",
+      "summary": "Lossy token-level shrinking."
+    }
   ],
   "base": {
-    "label": "Survey scope",
+    "labels": [
+      "Survey scope"
+    ],
     "summary": "Recent literature 2020-2026."
   },
   "fit_quality": "stretched",

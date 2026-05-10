@@ -1,0 +1,12 @@
+{
+  "input_path": "rfc/01_short_uri_scheme.txt",
+  "scores": {
+    "faithfulness": 5,
+    "distinctness": 5,
+    "non_vacuity": 5,
+    "layer_appropriateness": 5,
+    "label_quality": 5
+  },
+  "annotator": "trm",
+  "notes": "Great job."
+}

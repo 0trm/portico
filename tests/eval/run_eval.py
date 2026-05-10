@@ -9,6 +9,12 @@ Usage:
 Outputs land at tests/eval/outputs/runs/{run_id}/{type}/{input_name}.{json,txt}
 plus a manifest.json with run metadata. Re-running with the same --run-id skips
 inputs that already have output (resumable).
+
+Generator config (locked for evals -- see tests/eval/README.md):
+- Model: claude-sonnet-4-6
+- Extended thinking: enabled, xhigh effort (32k token budget)
+This is heavier than the default CLI behavior (no thinking) and reflects the
+quality target we want to measure against, not the cost-optimized config.
 """
 
 from __future__ import annotations
@@ -24,8 +30,10 @@ from pathlib import Path
 from arqii.analyzer import F4MalformedJSON, analyze
 from arqii.config import get_anthropic_api_key, get_default_model
 from arqii.providers.base import ProviderAuthError, ProviderTransportError
-from arqii.providers.claude import DEFAULT_MODEL, ClaudeProvider
+from arqii.providers.claude import DEFAULT_MODEL, THINKING_EFFORT, ClaudeProvider
 from arqii.render import render
+
+EVAL_THINKING_EFFORT = "xhigh"
 
 EVAL_DIR = Path(__file__).parent
 INPUTS_DIR = EVAL_DIR / "inputs"
@@ -142,7 +150,10 @@ def main(argv: list[str] | None = None) -> int:
     output_dir = OUTPUTS_DIR / args.run_id
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    provider = ClaudeProvider(api_key=get_anthropic_api_key())
+    provider = ClaudeProvider(
+        api_key=get_anthropic_api_key(),
+        thinking_budget=THINKING_EFFORT[EVAL_THINKING_EFFORT],
+    )
     results: list[RunResult] = []
     for i, ip in enumerate(inputs, 1):
         print(f"[{i}/{len(inputs)}] {ip.parent.name}/{ip.name}", flush=True)
@@ -154,6 +165,8 @@ def main(argv: list[str] | None = None) -> int:
     manifest = {
         "run_id": args.run_id,
         "model": args.model,
+        "thinking_effort": EVAL_THINKING_EFFORT,
+        "thinking_budget": THINKING_EFFORT[EVAL_THINKING_EFFORT],
         "started_at": datetime.now().isoformat(),
         "inputs_total": len(inputs),
         "by_status": {

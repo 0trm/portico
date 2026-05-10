@@ -14,13 +14,27 @@
     "summary": "Top-level entry points."
   },
   "pillars": [
-    { "label": "Authentication subsystem", "summary": "Login, sessions, tokens." },
-    { "label": "Billing and invoicing",    "summary": "Charges and statements." },
-    { "label": "Notifications pipeline",   "summary": "Email, SMS, push." },
-    { "label": "Reporting and analytics",  "summary": "Metrics and dashboards." }
+    {
+      "label": "Authentication subsystem",
+      "summary": "Login, sessions, tokens."
+    },
+    {
+      "label": "Billing and invoicing",
+      "summary": "Charges and statements."
+    },
+    {
+      "label": "Notifications pipeline",
+      "summary": "Email, SMS, push."
+    },
+    {
+      "label": "Reporting and analytics",
+      "summary": "Metrics and dashboards."
+    }
   ],
   "base": {
-    "label": "Runtime",
+    "labels": [
+      "Runtime"
+    ],
     "summary": "Container substrate."
   },
   "fit_quality": "good",

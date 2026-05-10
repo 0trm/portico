@@ -19,14 +19,31 @@
     "summary": "Sparse attention correlates with better retrieval."
   },
   "pillars": [
-    { "label": "Sampling",   "summary": "Stratified subset of LLM checkpoints." },
-    { "label": "Probes",     "summary": "Layer-wise linear probes." },
-    { "label": "Stats",      "summary": "Mixed-effects regression." },
-    { "label": "Replication","summary": "Cross-seed re-run protocol." },
-    { "label": "Validation", "summary": "Held-out evaluation set." }
+    {
+      "label": "Sampling",
+      "summary": "Stratified subset of LLM checkpoints."
+    },
+    {
+      "label": "Probes",
+      "summary": "Layer-wise linear probes."
+    },
+    {
+      "label": "Stats",
+      "summary": "Mixed-effects regression."
+    },
+    {
+      "label": "Replication",
+      "summary": "Cross-seed re-run protocol."
+    },
+    {
+      "label": "Validation",
+      "summary": "Held-out evaluation set."
+    }
   ],
   "base": {
-    "label": "Data",
+    "labels": [
+      "Data"
+    ],
     "summary": "Activation logs from open-weights checkpoints."
   },
   "fit_quality": "good",

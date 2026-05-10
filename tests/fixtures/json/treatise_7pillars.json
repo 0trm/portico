@@ -15,16 +15,39 @@
     "summary": "Liberty is a property of procedure, not outcomes."
   },
   "pillars": [
-    { "label": "Speech",     "summary": "Expression without prior restraint." },
-    { "label": "Assembly",   "summary": "Collective gathering and petition." },
-    { "label": "Due process","summary": "Adjudication by neutral rule." },
-    { "label": "Property",   "summary": "Stable claim against arbitrary seizure." },
-    { "label": "Suffrage",   "summary": "Participation in collective choice." },
-    { "label": "Redress",    "summary": "Recourse against state action." },
-    { "label": "Contract",   "summary": "Free exchange under enforced terms." }
+    {
+      "label": "Speech",
+      "summary": "Expression without prior restraint."
+    },
+    {
+      "label": "Assembly",
+      "summary": "Collective gathering and petition."
+    },
+    {
+      "label": "Due process",
+      "summary": "Adjudication by neutral rule."
+    },
+    {
+      "label": "Property",
+      "summary": "Stable claim against arbitrary seizure."
+    },
+    {
+      "label": "Suffrage",
+      "summary": "Participation in collective choice."
+    },
+    {
+      "label": "Redress",
+      "summary": "Recourse against state action."
+    },
+    {
+      "label": "Contract",
+      "summary": "Free exchange under enforced terms."
+    }
   ],
   "base": {
-    "label": "Natural rights",
+    "labels": [
+      "Natural rights"
+    ],
     "summary": "The classical liberal substrate."
   },
   "fit_quality": "good",

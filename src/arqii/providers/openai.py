@@ -18,8 +18,14 @@ DEFAULT_MAX_TOKENS = 4096
 
 
 class OpenAIProvider(LLMProvider):
-    def __init__(self, *, api_key: str | None = None, max_tokens: int = DEFAULT_MAX_TOKENS) -> None:
-        self.client = OpenAI(api_key=api_key)
+    def __init__(
+        self,
+        *,
+        api_key: str | None = None,
+        base_url: str | None = None,
+        max_tokens: int = DEFAULT_MAX_TOKENS,
+    ) -> None:
+        self.client = OpenAI(api_key=api_key, base_url=base_url)
         self.max_tokens = max_tokens
 
     def generate(self, prompt: str, *, model: str = DEFAULT_MODEL) -> str:

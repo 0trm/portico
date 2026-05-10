@@ -1,0 +1,12 @@
+{
+  "input_path": "adversarial/02_shopping_list.txt",
+  "scores": {
+    "faithfulness": 3,
+    "distinctness": 4,
+    "non_vacuity": 2,
+    "layer_appropriateness": 1,
+    "label_quality": 3
+  },
+  "annotator": "trm",
+  "notes": "Should have refused (fit_quality=not_applicable) \u2014 a shopping list lacks portico structure. Pushing back is the right move."
+}

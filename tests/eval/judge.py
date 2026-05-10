@@ -8,7 +8,9 @@ run_eval.py) and writes per-input scores to tests/eval/outputs/judgments/{run_id
 
 Defaults to OpenAI gpt-4o for judging (different model family from the Claude
 generator, per llm-as-judge.md). Override via JUDGE_PROVIDER and JUDGE_MODEL env
-vars: JUDGE_PROVIDER in {openai, claude, gemini}, JUDGE_MODEL the model name.
+vars: JUDGE_PROVIDER in {openai, claude, ollama}, JUDGE_MODEL the model name.
+For ollama, JUDGE_BASE_URL also overrides the daemon URL (default
+http://localhost:11434/v1).
 
 The 5 dimensions (Faithfulness, Distinctness, Non-vacuity, Layer-appropriateness,
 Label quality) are scored 1-5 with auto-CoT "evaluation steps" preceding the
@@ -145,6 +147,10 @@ class Judgment:
     judge_model: str
 
 
+OLLAMA_DEFAULT_BASE_URL = "http://localhost:11434/v1"
+OLLAMA_DEFAULT_MODEL = "qwen2.5:7b"
+
+
 def _make_judge() -> tuple[LLMProvider, str, str]:
     name = os.environ.get("JUDGE_PROVIDER", "openai").lower()
     if name == "openai":
@@ -165,7 +171,14 @@ def _make_judge() -> tuple[LLMProvider, str, str]:
         provider = ClaudeProvider(api_key=api_key)
         model = os.environ.get("JUDGE_MODEL", CLAUDE_DEFAULT_MODEL)
         return provider, name, model
-    raise SystemExit(f"error: JUDGE_PROVIDER={name!r} not supported (use openai or claude)")
+    if name == "ollama":
+        base_url = os.environ.get("JUDGE_BASE_URL", OLLAMA_DEFAULT_BASE_URL)
+        model = os.environ.get("JUDGE_MODEL", OLLAMA_DEFAULT_MODEL)
+        provider = OpenAIProvider(api_key="ollama", base_url=base_url)
+        return provider, name, model
+    raise SystemExit(
+        f"error: JUDGE_PROVIDER={name!r} not supported (use openai, claude, or ollama)"
+    )
 
 
 def _parse_score(text: str) -> tuple[int, str]:

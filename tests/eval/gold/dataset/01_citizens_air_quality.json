@@ -1,0 +1,12 @@
+{
+  "input_path": "dataset/01_citizens_air_quality.txt",
+  "scores": {
+    "faithfulness": 5,
+    "distinctness": 5,
+    "non_vacuity": 5,
+    "layer_appropriateness": 5,
+    "label_quality": 5
+  },
+  "annotator": "trm",
+  "notes": "Great job."
+}

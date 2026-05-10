@@ -1,0 +1,12 @@
+{
+  "input_path": "slide_deck/01_q3_review.txt",
+  "scores": {
+    "faithfulness": 4,
+    "distinctness": 5,
+    "non_vacuity": 4,
+    "layer_appropriateness": 3,
+    "label_quality": 3
+  },
+  "annotator": "trm",
+  "notes": "Roof='Q3 2026 Review' equals the title. Roof should add a layer \u2014 e.g., a strategic verdict or named takeaway, not the meeting name."
+}

@@ -1,0 +1,12 @@
+{
+  "input_path": "source_file/01_parse_config.txt",
+  "scores": {
+    "faithfulness": 4,
+    "distinctness": 5,
+    "non_vacuity": 4,
+    "layer_appropriateness": 3,
+    "label_quality": 3
+  },
+  "annotator": "trm",
+  "notes": "Roof='parse_config' equals the title. Roof should describe what the function buys you, not just repeat its name."
+}

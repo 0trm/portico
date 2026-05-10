@@ -1,0 +1,12 @@
+{
+  "input_path": "readme/01_httpx.txt",
+  "scores": {
+    "faithfulness": 4,
+    "distinctness": 5,
+    "non_vacuity": 4,
+    "layer_appropriateness": 3,
+    "label_quality": 3
+  },
+  "annotator": "trm",
+  "notes": "Roof should NEVER equal the title. Title='httpx' and roof='httpx' \u2014 duplicates. Roof should be one abstraction up, e.g., 'next-gen HTTP client'."
+}

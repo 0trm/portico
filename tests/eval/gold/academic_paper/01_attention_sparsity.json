@@ -1,0 +1,12 @@
+{
+  "input_path": "academic_paper/01_attention_sparsity.txt",
+  "scores": {
+    "faithfulness": 5,
+    "distinctness": 5,
+    "non_vacuity": 5,
+    "layer_appropriateness": 5,
+    "label_quality": 5
+  },
+  "annotator": "trm",
+  "notes": "Great job. Pillars (Probe Setup / Head Location / Gini-NIAH Tie / Cross-Family) are specific to the paper's actual content."
+}

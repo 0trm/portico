@@ -17,12 +17,23 @@
     "summary": "What external callers depend on."
   },
   "pillars": [
-    { "label": "Auth",     "summary": "JWT issuance and validation." },
-    { "label": "Routing",  "summary": "Request dispatch and middleware." },
-    { "label": "Storage",  "summary": "Postgres and Redis access layer." }
+    {
+      "label": "Auth",
+      "summary": "JWT issuance and validation."
+    },
+    {
+      "label": "Routing",
+      "summary": "Request dispatch and middleware."
+    },
+    {
+      "label": "Storage",
+      "summary": "Postgres and Redis access layer."
+    }
   ],
   "base": {
-    "label": "Runtime",
+    "labels": [
+      "Runtime"
+    ],
     "summary": "Python 3.12, FastAPI, asyncio."
   },
   "fit_quality": "good",

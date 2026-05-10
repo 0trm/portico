@@ -1,0 +1,12 @@
+{
+  "input_path": "adversarial/03_random_words.txt",
+  "scores": {
+    "faithfulness": 2,
+    "distinctness": 3,
+    "non_vacuity": 1,
+    "layer_appropriateness": 1,
+    "label_quality": 2
+  },
+  "annotator": "trm",
+  "notes": "Schema-level fit_quality=not_applicable was set, but the renderer still drew a portico. Output should be a polite rejection message instead of pillars."
+}

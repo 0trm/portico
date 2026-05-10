@@ -17,11 +17,19 @@
     "summary": "Small institutions outperform large ones at trust."
   },
   "pillars": [
-    { "label": "Feedback loops", "summary": "Smaller groups close feedback faster." },
-    { "label": "Dunbar limit",   "summary": "Diffusion of responsibility past ~150." }
+    {
+      "label": "Feedback loops",
+      "summary": "Smaller groups close feedback faster."
+    },
+    {
+      "label": "Dunbar limit",
+      "summary": "Diffusion of responsibility past ~150."
+    }
   ],
   "base": {
-    "label": "Evidence",
+    "labels": [
+      "Evidence"
+    ],
     "summary": "Empirical work on team size and trust."
   },
   "fit_quality": "good",
