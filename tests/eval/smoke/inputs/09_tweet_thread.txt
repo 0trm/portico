@@ -1,9 +1,0 @@
-1/ The thing nobody tells you about scaling a small team is that the bottleneck shifts every six months and you only see it after you're past it.
-
-2/ At 5 people, the bottleneck is the founder's calendar. At 15, it's onboarding. At 30, it's middle-management taste. At 60, it's whether your shared vocabulary still describes what's happening.
-
-3/ Each transition feels like a different company. The org chart looks the same; the operating model has totally changed under it.
-
-4/ The mistake is assuming the thing that worked at the previous size still works. It doesn't. You re-found the company every doubling.
-
-5/ The corollary: the longer you delay each transition, the more painful it gets. The instinct to wait until the cost is obvious is wrong; by then you're already at the next bottleneck and 6 months behind.
