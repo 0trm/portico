@@ -11,7 +11,7 @@ def render(
     *,
     width: int = DEFAULT_WIDTH,
     color: ColorMode = ColorMode.NEVER,
-    verbose: bool = False,
+    legend: bool = True,
     apex_override: tuple[str, str] | None = None,
     apex_seed_label: str | None = None,
 ) -> str:
@@ -19,7 +19,7 @@ def render(
         data,
         width=width,
         color=color,
-        verbose=verbose,
+        legend=legend,
         apex_override=apex_override,
         apex_seed_label=apex_seed_label,
     )

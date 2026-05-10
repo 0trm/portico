@@ -1,6 +1,6 @@
 [project]
 name = "portico-cli"
-version = "0.1.1"
+version = "0.1.2"
 description = "Render any input as a portico – a three-layer ASCII visualization."
 readme = "README.md"
 license = "MIT"
@@ -9,6 +9,18 @@ authors = [
     { name = "Tomás Ravalli", email = "tomravalli@gmail.com" }
 ]
 requires-python = ">=3.12"
+keywords = ["ascii", "ascii-art", "visualization", "cli", "llm", "claude", "openai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Artistic Software",
+    "Topic :: Text Processing",
+    "Topic :: Utilities",
+]
 dependencies = [
     "anthropic>=0.100.0",
     "openai>=2.36.0",

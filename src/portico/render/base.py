@@ -12,7 +12,7 @@ class PorticoRenderer(ABC):
         *,
         width: int,
         color: ColorMode,
-        verbose: bool,
+        legend: bool,
         apex_override: tuple[str, str] | None = None,
         apex_seed_label: str | None = None,
     ) -> str:

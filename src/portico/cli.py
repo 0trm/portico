@@ -80,7 +80,7 @@ class Args:
     input_type: str | None
     style: str
     color: ColorMode
-    verbose: bool
+    legend: bool
     width: int
     json_out: bool
     provider: str
@@ -270,7 +270,7 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
             data,
             width=args.width,
             color=args.color,
-            verbose=args.verbose,
+            legend=args.legend,
             apex_override=apex_override,
             apex_seed_label=apex_seed_label,
         ),
@@ -289,7 +289,12 @@ def parse_args(argv: list[str] | None = None) -> Args:
         choices=[c.value for c in ColorMode],
         default=ColorMode.NEVER.value,
     )
-    parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument(
+        "--no-legend",
+        dest="legend",
+        action="store_false",
+        help="suppress the per-layer summary that renders below the portico.",
+    )
     parser.add_argument("--width", type=int, default=None)
     parser.add_argument("--json", dest="json_out", action="store_true")
     parser.add_argument(
@@ -327,7 +332,7 @@ def parse_args(argv: list[str] | None = None) -> Args:
         input_type=parsed.input_type,
         style=parsed.style,
         color=ColorMode(parsed.color),
-        verbose=parsed.verbose,
+        legend=parsed.legend,
         width=resolve_width(parsed.width),
         json_out=parsed.json_out,
         provider=parsed.provider,

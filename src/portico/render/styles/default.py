@@ -4,14 +4,12 @@ from portico.render.base import PorticoRenderer
 from portico.render.color import ColorMode
 from portico.schema import FitQuality, PorticoJSON
 
-CAVEAT_LINE = (
-    "note: the portico metaphor is stretched for this input -- see --verbose for why."
-)
+CAVEAT_LINE = "note: the portico metaphor is stretched for this input."
 
 REFUSAL_INTRO = "no portico from this one."
 
 APEX_FINIAL = "***"
-APEX_KEYSTONE = "===  ◇  ==="
+APEX_KEYSTONE = "__ ===  ◇  === __"
 
 SIGNATURE_SUFFIX = " built with _ii^ ──"
 
@@ -130,7 +128,7 @@ class DefaultRenderer(PorticoRenderer):
         *,
         width: int,
         color: ColorMode,
-        verbose: bool,
+        legend: bool,
         apex_override: tuple[str, str] | None = None,
         apex_seed_label: str | None = None,
     ) -> str:
@@ -153,7 +151,7 @@ class DefaultRenderer(PorticoRenderer):
                     "  " + ln
                     for ln in textwrap.wrap(data.notes_on_fit, width=wrap_width)
                 )
-            if verbose:
+            if legend:
                 lines.extend(_legend(data))
             lines.append("")
             lines.append(_signature_line(width))
@@ -176,11 +174,7 @@ class DefaultRenderer(PorticoRenderer):
         lines.append(_center(finial, width))
         lines.append(_center(keystone, width))
 
-        # --- Upper pediment slope (block - 8) + roof box (block - 6).
-        upper_slope_width = block_width - 8
-        if upper_slope_width >= 4:
-            lines.append(_center(_slope_line(upper_slope_width), width))
-
+        # --- Roof box (block - 6).
         roof_box_width = block_width - 6
         if roof_box_width >= 6:
             roof_inner = roof_box_width - 2
@@ -248,7 +242,7 @@ class DefaultRenderer(PorticoRenderer):
             lines.append(_center(_box_mid(base_box_width, joined_base), width))
             lines.append(_center(_box_bottom(base_box_width), width))
 
-        if verbose:
+        if legend:
             lines.extend(_legend(data))
         elif truncations:
             lines.append("")

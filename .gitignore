@@ -18,11 +18,9 @@ wheels/
 .cache/
 portico.cache/
 
-# Eval reports / runs / judgments (large, regenerable)
-tests/eval/**/report/
-tests/eval/outputs/runs/
-tests/eval/outputs/judgments/
-tests/eval/outputs/reports/
+# Local-only dev artifacts (not part of the public repo or shipped package)
+tests/
+CLAUDE.md
 
 # Secrets / local env
 .env
@@ -32,3 +30,4 @@ tests/eval/outputs/reports/
 .DS_Store
 .vscode/
 .idea/
+.claude/
