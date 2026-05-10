@@ -489,8 +489,8 @@ wheels = [
 ]
 
 [[package]]
-name = "portico"
-version = "0.1.0"
+name = "portico-cli"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "anthropic" },

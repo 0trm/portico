@@ -5,7 +5,7 @@ import pytest
 
 from portico.render import render
 from portico.render.styles.default import _split_label
-from portico.schema import StructureJSON
+from portico.schema import PorticoJSON
 
 FIXTURES = Path(__file__).parent / "fixtures"
 JSON_DIR = FIXTURES / "json"
@@ -14,8 +14,8 @@ EXPECTED_DIR = FIXTURES / "expected"
 SNAPSHOT_WIDTH = 80
 
 
-def _load(name: str) -> StructureJSON:
-    return StructureJSON.model_validate(json.loads((JSON_DIR / name).read_text()))
+def _load(name: str) -> PorticoJSON:
+    return PorticoJSON.model_validate(json.loads((JSON_DIR / name).read_text()))
 
 
 @pytest.mark.parametrize(
@@ -37,7 +37,7 @@ def test_render_verbose_includes_legend() -> None:
 def test_stretched_includes_caveat() -> None:
     data = _load("survey_9pillars_stretched.json")
     out = render(data, width=SNAPSHOT_WIDTH)
-    assert out.startswith("note: the structure metaphor is stretched")
+    assert out.startswith("note: the portico metaphor is stretched")
 
 
 def test_good_omits_caveat() -> None:

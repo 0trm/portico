@@ -37,7 +37,7 @@ _ii^
 portico
 ```
 
-This is the form a structure takes in the world: structure on top, name underneath. Use this in README heroes, social cards, presentation title slides, anywhere the brand needs to land with weight.
+This is the form a portico takes in the world: mark on top, name underneath. Use this in README heroes, social cards, presentation title slides, anywhere the brand needs to land with weight.
 
 When stacked is impossible (one-line contexts: badges, taglines, terminal banners), use the **inline lockup** with three spaces of breathing room:
 
@@ -102,7 +102,7 @@ portico --no-^               # not ok
 
 The product is precise, slightly classical, quietly technical. Three rules:
 
-1. **Don't oversell the metaphor.** A structure is a useful frame, not a sacred one. Avoid temple-religion language ("sacred structure," "the temple of your code," "enlightenment"). The product is an analysis tool with a good visual hook, not a philosophy.
+1. **Don't oversell the metaphor.** A portico is a useful frame, not a sacred one. Avoid temple-religion language ("sacred portico," "the temple of your code," "enlightenment"). The product is an analysis tool with a good visual hook, not a philosophy.
 2. **Be specific, not architectural.** "Roof" is concrete. "Apex" or "crown" or "pinnacle" is reaching. When in doubt, use the simpler word.
 3. **Lowercase, terse, calm.** Headlines without exclamation points. Sentences that fit on one line. The mark is small; the voice should match.
 
@@ -125,7 +125,7 @@ This section is intentionally short. The lack of a color system is itself a desi
 
 ## Typography
 
-Monospace, always, when the mark or any structure render is involved. Proportional fonts collapse the alignment of `_`, `i`, and `^` and break the metaphor.
+Monospace, always, when the mark or any portico render is involved. Proportional fonts collapse the alignment of `_`, `i`, and `^` and break the metaphor.
 
 Recommended stack for any surface that renders the mark:
 
@@ -145,9 +145,9 @@ The mark and wordmark show up in specific places across the GitHub surface:
 |---|---|
 |README hero|Stacked lockup, centered, in a fenced code block|
 |Repo description|Inline lockup: `_ii^ Take any input. See its layered shape.`|
-|Social preview image|Full ASCII structure + wordmark + glyph (custom OG image)|
-|`assets/logo.txt`|Canonical mark and full structure, committed as files (one source of truth)|
-|CLI `--version`|Small structure + version number|
+|Social preview image|Full ASCII portico + wordmark + glyph (custom OG image)|
+|`assets/logo.txt`|Canonical mark and full portico, committed as files (one source of truth)|
+|CLI `--version`|Small portico + version number|
 |CLI banner (TTY)|Tiny mark before the first line of output, optional, off by default|
 
 ---

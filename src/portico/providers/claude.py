@@ -17,7 +17,7 @@ DEFAULT_MODEL = "claude-sonnet-4-6"
 DEFAULT_MAX_TOKENS = 4096
 
 # Thinking budgets keyed by effort level. xhigh = the eval default; spends real
-# money but produces meaningfully better structures on hard inputs.
+# money but produces meaningfully better porticoes on hard inputs.
 THINKING_EFFORT: dict[str, int] = {
     "low": 2048,
     "medium": 4096,

@@ -45,11 +45,11 @@ from portico.providers.openai import OpenAIProvider
 from portico.render import MAX_WIDTH, render
 from portico.render.apex import generate_apex
 from portico.render.color import ColorMode
-from portico.schema import FitQuality, StructureJSON
+from portico.schema import FitQuality, PorticoJSON
 from portico.summarize import summarize
 
 REFUSAL_TEMPLATE = """\
-portico could not build a structure for this input.
+portico could not build a portico for this input.
 
 reason: {reason}
 
@@ -166,12 +166,12 @@ def resolve_width(arg_width: int | None) -> int:
     return min(shutil.get_terminal_size((MAX_WIDTH, 24)).columns, MAX_WIDTH)
 
 
-def render_refusal(data: StructureJSON) -> str:
+def render_refusal(data: PorticoJSON) -> str:
     return REFUSAL_TEMPLATE.format(reason=data.notes_on_fit, theme=data.theme)
 
 
 def render_diagnostics(
-    loaded: LoadedInput, data: StructureJSON, *, model: str, provider_name: str
+    loaded: LoadedInput, data: PorticoJSON, *, model: str, provider_name: str
 ) -> str:
     return (
         f"input:        {loaded.source}\n"
@@ -218,7 +218,7 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
 
     cache = Cache()
     key = cache_key(loaded.text, provider=args.provider, model=args.model)
-    data: StructureJSON | None = None
+    data: PorticoJSON | None = None
     if not args.no_cache:
         data = cache.get(key)
 
@@ -280,7 +280,7 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
 
 
 def parse_args(argv: list[str] | None = None) -> Args:
-    parser = argparse.ArgumentParser(prog="portico", description="Render any input as a structure.")
+    parser = argparse.ArgumentParser(prog="portico", description="Render any input as a portico.")
     parser.add_argument("input", nargs="?", help="Path, URL, raw text, or '-' for stdin.")
     parser.add_argument("--type", dest="input_type", choices=["text", "file", "dir", "url", "repo"])
     parser.add_argument("--style", default="default")

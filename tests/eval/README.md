@@ -1,6 +1,6 @@
 # portico eval
 
-Three-stage pipeline that measures structure quality:
+Three-stage pipeline that measures portico quality:
 
 ```
 inputs/  ──run_eval──>  outputs/runs/  ──judge──>  outputs/judgments/  ──report──>  outputs/reports/
@@ -56,7 +56,7 @@ uv run python -m tests.eval.report --run-id r02
 ## Calibrating against gold
 
 Gold annotations measure whether the judge's *ranking* matches yours. Even with
-absolute leniency, a judge that ranks structures in the same order you do is
+absolute leniency, a judge that ranks porticoes in the same order you do is
 useful; one that doesn't is broken. See `gold/README.md` for the format.
 
 Drift threshold: **Spearman < 0.4** flags an unreliable judge per dimension

@@ -1,10 +1,10 @@
-> Take any input. See its layered shape as a classical [[structure]].
+> Take any input. See its layered shape as a classical [[portico]].
 
 ---
 
 ## 1. What it is
 
-`portico` converts an arbitrary input (text, code, URL, repo) into a **structure** — a three-layer ASCII/Unicode visualization with the structure of a Greek/Roman temple front:
+`portico` converts an arbitrary input (text, code, URL, repo) into a **portico** — a three-layer ASCII/Unicode visualization with the structure of a Greek/Roman temple front:
 
 ```
         roof       ← the apex / unifying idea
@@ -56,7 +56,7 @@ Auto-detection determines which mode applies. Explicit override available via `-
 
 ### Input size handling
 
-Inputs larger than the model's effective context window are summarized/sampled before being sent to the LLM (strategy: head + tail + structural skeleton for code; head + section headings for text). The user is informed when this happens via a one-line note above the structure.
+Inputs larger than the model's effective context window are summarized/sampled before being sent to the LLM (strategy: head + tail + structural skeleton for code; head + section headings for text). The user is informed when this happens via a one-line note above the portico.
 
 ---
 
@@ -100,9 +100,9 @@ Default behavior: when invoked as `/portico` inside Claude Code, use the Claude 
 
 ### Constraints the LLM must follow
 
-- **Pillar count: 2–9.** Fewer than 2 isn't a structure; more than 9 doesn't render legibly.
+- **Pillar count: 2–9.** Fewer than 2 isn't a portico; more than 9 doesn't render legibly.
 - **Labels are short.** Target ≤ 16 characters per label. The renderer truncates with `…` if longer.
-- **Summaries are one sentence.** Used in `--verbose` legend, not in the structure itself.
+- **Summaries are one sentence.** Used in `--verbose` legend, not in the portico itself.
 - **`theme` is a free-form short string** the LLM picks (e.g., `essay`, `codebase`, `argument`, `business-plan`). It may be displayed in the title bar.
 
 A schema-validated retry loop handles malformed responses (max 2 retries).
@@ -116,21 +116,21 @@ A static, single-shot render to stdout:
 ```
 ── codebase: my-repo ──────────────────────────────
 
-           [ structure render ]
+           [ portico render ]
 
 ```
 
 ### What goes inside each element
 
-- **Inside the structure:** labels only (terse).
-- **Below the structure (with `--verbose`):** a legend listing each element's label + summary.
+- **Inside the portico:** labels only (terse).
+- **Below the portico (with `--verbose`):** a legend listing each element's label + summary.
 
 ### Sizing
 
 - Up to **9 pillars** maximum.
 - The renderer detects terminal width (`shutil.get_terminal_size()`).
 - Width is capped at a sensible maximum (default 100 cols) regardless of terminal width.
-- If the rendered structure would exceed terminal width, the renderer shrinks pillar width / spacing before truncating labels.
+- If the rendered portico would exceed terminal width, the renderer shrinks pillar width / spacing before truncating labels.
 
 ### Color
 
@@ -154,9 +154,9 @@ Inputs (one of):
   --type {text,file,dir,url,repo}   Override auto-detection.
 
 Output:
-  --style <name>              Visual style for the structure.
+  --style <name>              Visual style for the portico.
   --color {auto,always,never} ANSI color. Default: never.
-  --verbose, -v               Add legend with summaries below the structure.
+  --verbose, -v               Add legend with summaries below the portico.
   --width <cols>              Override max width (default: min(terminal, 100)).
   --json                      Emit the LLM's JSON instead of rendering. Useful for piping.
 
@@ -217,7 +217,7 @@ portico/
 ├── analyzer.py         # builds prompt, calls provider, validates JSON
 ├── schema.py           # Pydantic models for the JSON contract
 ├── render/
-│   ├── base.py         # StructureRenderer ABC
+│   ├── base.py         # PorticoRenderer ABC
 │   ├── styles/         # one file per style
 │   └── color.py
 ├── cache.py            # content-hash → JSON cache
@@ -245,7 +245,7 @@ In priority order (later overrides earlier):
 
 These are explicitly deferred:
 
-- **Recursion.** A pillar zooming into its own sub-structure. Worth testing post-v1; the JSON schema should be designed so a `pillars[].sub_structure` field can be added without breaking changes.
+- **Recursion.** A pillar zooming into its own sub-portico. Worth testing post-v1; the JSON schema should be designed so a `pillars[].sub_portico` field can be added without breaking changes.
 - **Interactive TUI.** Static render only. No navigation, no expand-on-click.
 - **Image / SVG export.** Terminal-native only.
 - **Multi-language UI.** English only.
@@ -267,9 +267,9 @@ The following remain to be decided before implementation:
 
 ## 11. Success criteria for v1
 
-- Running `portico` on a typical input (under ~5k tokens) returns a structure in under 5 seconds end-to-end.
-- The same input produces the same structure (cache hit) instantly on subsequent runs.
-- The structure renders correctly in a standard 80-column terminal without truncation artifacts.
+- Running `portico` on a typical input (under ~5k tokens) returns a portico in under 5 seconds end-to-end.
+- The same input produces the same portico (cache hit) instantly on subsequent runs.
+- The portico renders correctly in a standard 80-column terminal without truncation artifacts.
 - A user can swap providers (`--provider openai`) without other changes and get a comparable result.
 - The renderer is fully tested without any LLM calls (JSON fixtures → expected ASCII).
 
@@ -282,7 +282,7 @@ The following remain to be decided before implementation:
 
 Three rules govern every edge case in this section:
 
-1. **Honesty over coverage.** A bad structure is worse than no structure. When the metaphor doesn't fit, say so.
+1. **Honesty over coverage.** A bad portico is worse than no portico. When the metaphor doesn't fit, say so.
 2. **Useful failure.** Every refusal must tell the user _what_ failed and _what they could do about it_. No silent exits, no generic errors.
 3. **Single exit channel.** All failure modes terminate in one of three states — `rendered`, `rendered_with_caveat`, or `refused` — surfaced via exit code and structured output. No hidden third paths.
 
@@ -297,7 +297,7 @@ Failures fall into four classes, ordered roughly by where in the pipeline they o
 |F3|Content fit|Flat list, single line, gibberish|refuse with reason, exit 0|
 |F4|Decomposition|LLM returns malformed JSON, fit forced|retry, then caveat or refuse|
 
-Classes F1 and F2 are _technical_ failures — the input never reached the LLM. Classes F3 and F4 are _semantic_ failures — the LLM saw the input but couldn't or shouldn't produce a useful structure.
+Classes F1 and F2 are _technical_ failures — the input never reached the LLM. Classes F3 and F4 are _semantic_ failures — the LLM saw the input but couldn't or shouldn't produce a useful portico.
 
 ### F1 — Input access failures
 
@@ -341,7 +341,7 @@ All F2 errors print to stderr. Same contract as F1: stdout empty, no JSON, no LL
 
 The hard cap exists to prevent runaway cost on accidental inputs (e.g., piping a 2GB log file). Configurable via `--max-tokens`.
 
-### F3 — Content does not fit the structure
+### F3 — Content does not fit the portico
 
 The input was successfully read and sent to the LLM, but the LLM determines (per the schema's `fit_quality` field) that no useful 3-layer decomposition exists.
 
@@ -358,15 +358,15 @@ Behavior depends on `fit_quality`:
 
 |Value|Default behavior|Override|
 |---|---|---|
-|`good`|Render the structure normally|—|
-|`stretched`|Render, with a one-line caveat above the structure|`--strict` makes this F3|
+|`good`|Render the portico normally|—|
+|`stretched`|Render, with a one-line caveat above the portico|`--strict` makes this F3|
 |`forced`|Refuse by default, show `notes_on_fit`|`--force` renders anyway|
 |`not_applicable`|Refuse, show `notes_on_fit`|`--force` is ignored here|
 
 When refusing on F3, exit code is **0** (this is a successful run that produced a deliberate non-result), and a structured message is printed:
 
 ```
-portico could not build a structure for this input.
+portico could not build a portico for this input.
 
 reason: <notes_on_fit from the LLM>
 
@@ -434,14 +434,14 @@ F4 retries are bounded: **maximum 2 retries per call, no recursion, no exponenti
 
 ### Caveat rendering
 
-When `fit_quality` is `stretched` and a structure is rendered anyway, a single caveat line appears immediately above the title bar:
+When `fit_quality` is `stretched` and a portico is rendered anyway, a single caveat line appears immediately above the title bar:
 
 ```
-note: the structure metaphor is stretched for this input — see --verbose for why.
+note: the portico metaphor is stretched for this input — see --verbose for why.
 
 ── poetry: <title> ─────────────────────────────────
 
-           [ structure render ]
+           [ portico render ]
 ```
 
 `--verbose` expands the caveat into the `notes_on_fit` text below the legend.
@@ -466,8 +466,8 @@ This is the user's first stop when something feels wrong. It also makes bug repo
 
 ### What `portico` will _not_ do
 
-- **Will not silently force a structure** when `fit_quality` is `forced` or `not_applicable`. The `--force` flag exists as an explicit user-side override.
-- **Will not invent content** to fill missing layers. If a pillar has no real label, no pillar is rendered — better a 2-pillar structure than a fabricated third.
+- **Will not silently force a portico** when `fit_quality` is `forced` or `not_applicable`. The `--force` flag exists as an explicit user-side override.
+- **Will not invent content** to fill missing layers. If a pillar has no real label, no pillar is rendered — better a 2-pillar portico than a fabricated third.
 - **Will not hide LLM uncertainty.** If the model expresses low confidence in `notes_on_fit`, that note is surfaced to the user verbatim.
 - **Will not retry indefinitely.** All retry loops are bounded at 2.
 - **Will not cache failed runs by default.** F1, F2, and F4 failures are not cached. F3 refusals _are_ cached (the input genuinely doesn't fit; re-running won't change that) but the cache entry can be invalidated with `--no-cache`.

@@ -1,6 +1,6 @@
 ── noise: untitled ─────────────────────────────────────────────────────────────
 
-  no structure from this one.
+  no portico from this one.
 
   Input does not contain decomposable content.
 

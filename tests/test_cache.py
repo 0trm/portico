@@ -2,13 +2,13 @@ import json
 from pathlib import Path
 
 from portico.cache import Cache, cache_key
-from portico.schema import StructureJSON
+from portico.schema import PorticoJSON
 
 FIXTURE = Path(__file__).parent / "fixtures" / "json" / "codebase_3pillars.json"
 
 
-def _data() -> StructureJSON:
-    return StructureJSON.model_validate(json.loads(FIXTURE.read_text()))
+def _data() -> PorticoJSON:
+    return PorticoJSON.model_validate(json.loads(FIXTURE.read_text()))
 
 
 def test_cache_key_is_deterministic() -> None:

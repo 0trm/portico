@@ -6,10 +6,10 @@ from pydantic import ValidationError
 
 from portico.providers.base import LLMProvider
 from portico.providers.claude import DEFAULT_MODEL
-from portico.schema import StructureJSON
+from portico.schema import PorticoJSON
 
 PROMPT_TEMPLATE = """\
-You are portico. You decompose any input into a three-layer "structure" structure: a roof \
+You are portico. You decompose any input into a three-layer "portico": a roof \
 (the unifying idea), pillars (the load-bearing components), and a base (the foundation \
 everything rests on).
 
@@ -79,7 +79,7 @@ to read at a glance" and "a bit generic but clear", choose clear.
 Concrete rules:
 - USE THE INPUT'S OWN VOCABULARY: when the input names a concept ("Dunbar limit", \
   "tragedy of the commons", "loaders"), reuse those terms. Don't invent synonyms.
-- ROOF MUST NOT EQUAL THE TITLE: the banner above the structure already names the input \
+- ROOF MUST NOT EQUAL THE TITLE: the banner above the portico already names the input \
   (e.g. "── software README: httpx ──"). The roof must do different work -- name the \
   central claim, the unifying idea, what the input is *about* one rung up from what it \
   *is*. Title `httpx` + roof `Modern HTTP Client` is correct; title `httpx` + roof \
@@ -97,12 +97,12 @@ Concrete rules:
   Reach for jargon only if the input itself does.
 - Length: target <= 16 characters per label. Concise noun phrases. Summaries are one sentence.
 
-STRUCTURE:
+PORTICO:
 - MECE: pillars must NOT overlap; together they must cover the load-bearing parts.
 - Same abstraction level: roof, each pillar, and base operate at one consistent level.
 - Load-bearing test: if you remove a pillar, the input's central purpose collapses.
 - Pillars are not steps: if the input has temporal/sequential structure (recipes, \
-  walkthroughs, ordered instructions), the structure is the wrong metaphor -- set \
+  walkthroughs, ordered instructions), the portico is the wrong metaphor -- set \
   fit_quality to "stretched" or worse rather than forcing steps into pillars.
 - Pillar-base separation: pillars and base must not overlap. A core ingredient of the input \
   belongs in the base, not also as a pillar.
@@ -115,16 +115,16 @@ FIT (push back when the metaphor does not earn its keep):
 - "not_applicable" -- nothing to decompose. Use for: gibberish, random words, flat lists \
   with no organizing principle, single sentences with no internal structure, very short \
   conventional inputs (greetings, idioms), or any content that lacks the kind of \
-  structural decomposition the structure models.
-- POETRY ALWAYS REFUSES: lyric and narrative poems do not admit structure decomposition. \
+  structural decomposition the portico models.
+- POETRY ALWAYS REFUSES: lyric and narrative poems do not admit portico decomposition. \
   Poems work through image, rhythm, and meaning-by-accumulation -- they have no \
   load-bearing pillars in the architectural sense. Set fit_quality to "not_applicable" \
   for any poem and explain briefly in notes_on_fit.
 - FLAT LISTS REFUSE: simple lists (shopping lists, word lists, enumerations) lack the \
-  structural decomposition the structure models. Set fit_quality to "not_applicable" rather \
+  structural decomposition the portico models. Set fit_quality to "not_applicable" rather \
   than inventing categorical pillars.
 - When torn between "forced" and "not_applicable", choose "not_applicable" and explain \
-  briefly in notes_on_fit. Refusing is a feature; the structure is not for everything.
+  briefly in notes_on_fit. Refusing is a feature; the portico is not for everything.
 
 Emit ONLY the JSON object. No markdown fences. No commentary. No preamble.
 
@@ -154,7 +154,7 @@ class F4MalformedJSON(AnalyzerError):
 
 @dataclass
 class AnalyzeResult:
-    data: StructureJSON
+    data: PorticoJSON
     raw_response: str
     attempts: int
 
@@ -176,10 +176,10 @@ def _strip_fence(s: str) -> str:
     return s
 
 
-def _parse_and_validate(raw: str) -> StructureJSON:
+def _parse_and_validate(raw: str) -> PorticoJSON:
     cleaned = _strip_fence(raw)
     data = json.loads(cleaned)
-    return StructureJSON.model_validate(data)
+    return PorticoJSON.model_validate(data)
 
 
 def analyze(

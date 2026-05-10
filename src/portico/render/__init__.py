@@ -1,13 +1,13 @@
 from portico.render.color import ColorMode
 from portico.render.styles.default import DefaultRenderer
-from portico.schema import StructureJSON
+from portico.schema import PorticoJSON
 
 DEFAULT_WIDTH = 80
 MAX_WIDTH = 100
 
 
 def render(
-    data: StructureJSON,
+    data: PorticoJSON,
     *,
     width: int = DEFAULT_WIDTH,
     color: ColorMode = ColorMode.NEVER,

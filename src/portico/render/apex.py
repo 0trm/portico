@@ -1,7 +1,7 @@
 """Curated combinatorial generator for symmetric apex ornaments.
 
 Used by the --reapex flag to roll an alternative 2-row apex composition that
-fits the locked v1 structure's slot. Outputs are bilaterally symmetric by
+fits the locked v1 portico's slot. Outputs are bilaterally symmetric by
 construction. The keystone row is always exactly 11 chars wide so the apex
 occupies the same horizontal footprint regardless of the roll.
 """

@@ -39,7 +39,7 @@ def report_dir() -> Path:
     sorted(INPUTS_DIR.glob("*.txt")),
     ids=lambda p: p.stem,
 )
-def test_smoke_input_produces_valid_structure(
+def test_smoke_input_produces_valid_portico(
     input_file: Path,
     provider: ClaudeProvider,
     report_dir: Path,

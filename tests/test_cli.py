@@ -44,7 +44,7 @@ def _args(input_value: str, **overrides):
     return parse_args(argv)
 
 
-def test_text_input_renders_structure(capsys, tmp_path) -> None:
+def test_text_input_renders_portico(capsys, tmp_path) -> None:
     args = _args("hello world", no_cache=True, width=80)
     rc = run(args, provider=FakeProvider("codebase_3pillars.json"))
     assert rc == EXIT_OK
@@ -130,7 +130,7 @@ def test_forced_fit_quality_refuses_without_force(capsys) -> None:
     args = _args("anything", no_cache=True)
     rc = run(args, provider=FakeProvider("flat_list_forced.json"))
     assert rc == EXIT_OK
-    assert "could not build a structure" in capsys.readouterr().out
+    assert "could not build a portico" in capsys.readouterr().out
 
 
 def test_forced_fit_quality_renders_with_force(capsys) -> None:
@@ -144,14 +144,14 @@ def test_not_applicable_refuses_even_with_force(capsys) -> None:
     args = _args("anything", no_cache=True, force=True)
     rc = run(args, provider=FakeProvider("gibberish_not_applicable.json"))
     assert rc == EXIT_OK
-    assert "could not build a structure" in capsys.readouterr().out
+    assert "could not build a portico" in capsys.readouterr().out
 
 
 def test_strict_upgrades_stretched_to_refusal(capsys) -> None:
     args = _args("anything", no_cache=True, strict=True)
     rc = run(args, provider=FakeProvider("survey_9pillars_stretched.json"))
     assert rc == EXIT_OK
-    assert "could not build a structure" in capsys.readouterr().out
+    assert "could not build a portico" in capsys.readouterr().out
 
 
 def test_stretched_renders_with_caveat_by_default(capsys) -> None:
