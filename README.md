@@ -7,7 +7,7 @@
 <h1 align="center">portico _ii^</h1>
 
 <p align="center">
-  <strong>Render any input as a portico – a three-layer visual abstraction.</strong>
+  <strong>Render any input as a portico: a three-layered abstraction.</strong>
 </p>
 
 <p align="center">
