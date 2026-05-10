@@ -8,10 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The brand is **always lowercase**. The wordmark is `portico`, the mark is `_ii^`. **`portico` is both the product name and the noun for the rendered output** ("render any input as a portico"). Don't capitalize in code, comments, prose, or commit messages.
 
-Authoritative specs:
-- `docs/product-specs.md` -- pipeline, CLI surface, schema, failure taxonomy with exit codes
-- `docs/brand-specs.md` -- naming, mark, voice rules
-- `tests/eval/README.md` -- eval pipeline (generate -> judge -> report)
+The eval pipeline (generate -> judge -> report) is documented in `tests/eval/README.md`.
 
 ## Commands
 

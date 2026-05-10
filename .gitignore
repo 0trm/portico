@@ -14,9 +14,9 @@ wheels/
 .ruff_cache/
 .pyright/
 
-# arqii local cache (per spec, lives at ~/.cache/arqii but ignore in-tree too)
+# Local cache (lives at ~/.cache/portico; ignore in-tree too)
 .cache/
-arqii.cache/
+portico.cache/
 
 # Eval reports / runs / judgments (large, regenerable)
 tests/eval/**/report/
