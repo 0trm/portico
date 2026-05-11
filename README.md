@@ -17,7 +17,7 @@ Render input as a portico: a three-layered visual abstraction.
 <p align="center">
   <a href="#try-it-online">Try it online</a> •
   <a href="#try-it-locally">Try it locally</a> •
-  <a href="#examples">Examples</a> •
+  <a href="#example">Example</a> •
   <a href="#inputs">Inputs</a> •
   <a href="#customization">Customization</a>
 </p>
@@ -59,7 +59,7 @@ portico ./src --no-legend
 echo "your text here" | portico -
 ```
 
-## Examples
+## Example
 
 ```bash
 portico "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)"
@@ -114,54 +114,7 @@ legend:
 ───────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-```bash
-portico https://en.wikipedia.org/wiki/Coffee
-```
-
-```
-── encyclopedia article: Coffee ────────────────────────────────────────────────────
-
-                                        ***
-                                    ===  ◇  ===
-     ╔════════════════════════════════════════════════════════════════════════╗
-     ║                            Global Commodity                            ║
-     ╚════════════════════════════════════════════════════════════════════════╝
-  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~\\\\
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ▀██▀            ▀██▀            ▀██▀            ▀██▀            ▀██▀
-         ██              ██              ██              ██              ██
-         ██              ██              ██              ██              ██
-    History and     Biology and    Processing and  Economics and    Society and
-       Spread       Cultivation       Brewing          Trade          Culture
-         ██              ██              ██              ██              ██
-         ██              ██              ██              ██              ██
-        ▄██▄            ▄██▄            ▄██▄            ▄██▄            ▄██▄
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                                   Coffea plant                                   ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-
-legend:
-  ^  Global Commodity: Coffee is a beverage of Yemeni origin that has grown into a worldwide
-     commodity shaping agriculture, trade, and daily culture across more than 70 countries.
-  ii History and Spread: From 15th-century Sufi use in Yemen through colonial trade networks to mass
-     production in Brazil and the Americas.
-  ii Biology and Cultivation: The genus Coffea, dominated by arabica and robusta species, grown
-     within the bean belt and subject to pests, disease, and ecological tradeoffs.
-  ii Processing and Brewing: The sequence from cherry picking through roasting and grinding to
-     brewing methods ranging from Turkish boiling to espresso.
-  ii Economics and Trade: A $495 billion global industry traded as a commodity, shaped by fair trade
-     movements, specialty markets, and persistent farmer poverty.
-  ii Society and Culture: Coffeehouses, the coffee break, religious prohibitions, folklore, and
-     coffee's role in everyday social life across cultures.
-  _  Coffea plant: The cultivated shrub whose roasted seeds are the sole raw material from which
-     every form of coffee is derived.
-
-───────────────────────────────────────────────────────────────── built with _ii^ ──
-```
-
-Both rendered with `claude-sonnet-4-6`.
+Rendered with `claude-sonnet-4-6`.
 
 ## Inputs
 
