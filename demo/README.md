@@ -15,13 +15,19 @@ Interactive Gradio demo for [portico](https://github.com/0trm/portico).
 Paste text or a URL and the app renders it as a three-layer ASCII portico
 (roof / pillars / base), powered by Llama 3.3 70B via Groq.
 
+## Layout
+
+The Space bundles portico's source as a sibling `portico/` package next to
+`app.py` (rather than pip-installing it). To deploy, copy `src/portico/` from
+the main repo into the Space root as `portico/`.
+
 ## Local run
 
+From the portico repo root:
+
 ```bash
-cd demo
-uv venv
-uv pip install -r requirements.txt
-GROQ_API_KEY=... uv run python app.py
+uv pip install -r demo/requirements.txt
+GROQ_API_KEY=... uv run python demo/app.py
 ```
 
 ## Hugging Face Spaces

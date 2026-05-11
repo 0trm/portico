@@ -1,2 +1,5 @@
 gradio>=5.0
-portico-cli @ git+https://github.com/0trm/portico.git@main
+anthropic>=0.100.0
+openai>=2.36.0
+pydantic>=2.13.4
+trafilatura>=2.0.0
