@@ -112,27 +112,36 @@ def build_portico(value: str) -> tuple[str, str]:
 
 
 EXAMPLES = [
+    ["https://trm.bearblog.dev/data-science-at-camp-nou/"],
     [
         "Trust scales sub-linearly with team size. Past Dunbar's ~150, feedback loops"
         " stretch and diffusion of responsibility sets in. Smaller groups close loops"
         " faster, which is why high-trust teams stay small."
     ],
     ["https://en.wikipedia.org/wiki/Brier_score"],
-    [
-        "httpx is a fully featured HTTP client for Python 3, which provides sync and"
-        " async APIs, and support for both HTTP/1.1 and HTTP/2."
-    ],
+    ["Roses are red, violets are blue, sugar is sweet, and so are you."],
 ]
 
 DESCRIPTION = """\
-**portico** decomposes any input -- prose, code, a URL -- into a three-layer ASCII
-visualization: a roof (the unifying idea), pillars (the load-bearing components),
-and a base (the foundation everything rests on).
+**Render any input as a portico: a three-layered abstraction.**
 
-This demo runs on **Llama 3.3 70B** via Groq. Paste text or a URL and submit.
+An LLM reads your input, decides what kind of thing it is, and decomposes it into
+three layers. 🏛️ The renderer turns those layers into a fixed ASCII shape that
+resembles [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg).
+
+| Glyph | Layer   | Meaning                                       |
+| :---: | ------- | --------------------------------------------- |
+| `^`   | Roof    | The unifying idea                             |
+| `ii`  | Pillars | The load-bearing components (2-9 of them)     |
+| `_`   | Base    | The foundation everything rests on            |
+
+Powered by 🦙 **Llama 3.3 70B** via Groq. Paste text or a URL and render.
+
+When an input doesn't fit a three-layer shape -- poems, flat lists, gibberish --
+`portico` refuses honestly rather than fake one.
 """
 
-with gr.Blocks(title="portico demo") as demo:
+with gr.Blocks(title="portico") as demo:
     gr.Markdown("# portico")
     gr.Markdown(DESCRIPTION)
 
