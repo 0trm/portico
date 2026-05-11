@@ -63,8 +63,7 @@ def _row_of(symbol: str, num: int, cw: int) -> str:
 def _legend(data: PorticoJSON) -> list[str]:
     lines = ["", "legend:", f"  ^  {data.roof.label}: {data.roof.summary}"]
     lines.extend(f"  ii {p.label}: {p.summary}" for p in data.pillars)
-    base_labels = " | ".join(data.base.labels)
-    lines.append(f"  _  {base_labels}: {data.base.summary}")
+    lines.append(f"  _  {data.base.label}: {data.base.summary}")
     return lines
 
 
@@ -232,14 +231,13 @@ class DefaultRenderer(PorticoRenderer):
 
         # --- Base box (block + 4).
         base_box_width = block_width + 4
-        joined_base = " | ".join(data.base.labels)
         if base_box_width >= 6 and base_box_width <= width:
             base_inner = base_box_width - 2
-            base_shown = _truncate(joined_base, base_inner)
-            if base_shown != joined_base:
-                truncations.append((base_shown, joined_base))
+            base_shown = _truncate(data.base.label, base_inner)
+            if base_shown != data.base.label:
+                truncations.append((base_shown, data.base.label))
             lines.append(_center(_box_top(base_box_width), width))
-            lines.append(_center(_box_mid(base_box_width, joined_base), width))
+            lines.append(_center(_box_mid(base_box_width, data.base.label), width))
             lines.append(_center(_box_bottom(base_box_width), width))
 
         if legend:
