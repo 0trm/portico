@@ -44,7 +44,6 @@ from portico.providers.gemini import GeminiProvider
 from portico.providers.openai import OpenAIProvider
 from portico.render import MAX_WIDTH, render
 from portico.render.apex import generate_apex
-from portico.render.color import ColorMode
 from portico.schema import FitQuality, PorticoJSON
 from portico.summarize import summarize
 
@@ -79,7 +78,6 @@ class Args:
     input_value: str | None
     input_type: str | None
     style: str
-    color: ColorMode
     legend: bool
     width: int
     height: int | None
@@ -279,7 +277,6 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
             data,
             width=args.width,
             height=args.height,
-            color=args.color,
             legend=args.legend,
             apex_override=apex_override,
             apex_seed_label=apex_seed_label,
@@ -294,11 +291,6 @@ def parse_args(argv: list[str] | None = None) -> Args:
     parser.add_argument("input", nargs="?", help="Path, URL, raw text, or '-' for stdin.")
     parser.add_argument("--type", dest="input_type", choices=["text", "file", "dir", "url", "repo"])
     parser.add_argument("--style", default="default")
-    parser.add_argument(
-        "--color",
-        choices=[c.value for c in ColorMode],
-        default=ColorMode.NEVER.value,
-    )
     parser.add_argument(
         "--no-legend",
         dest="legend",
@@ -349,7 +341,6 @@ def parse_args(argv: list[str] | None = None) -> Args:
         input_value=parsed.input,
         input_type=parsed.input_type,
         style=parsed.style,
-        color=ColorMode(parsed.color),
         legend=parsed.legend,
         width=resolve_width(parsed.width),
         height=resolve_height(parsed.height),

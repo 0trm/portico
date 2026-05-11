@@ -111,7 +111,6 @@ When an input doesn't fit a three-layer shape â€“ poems, flat lists, gibberish â
 | Flag                            | What it does                                                            |
 | ------------------------------- | ----------------------------------------------------------------------- |
 | `--no-legend`                   | Hide the per-layer summary (legend renders by default)                  |
-| `--color {auto,always,never}`   | Colorize roof / pillars / base. default: `never`                        |
 | `--reapex[=N]`                  | Roll a random apex ornament; pin seed `N` to reproduce                  |
 | `--json`                        | Emit the analyzer's JSON instead of rendering                           |
 | `--diagnose`                    | Print a pipeline report (input type, model, fit quality) and exit       |
