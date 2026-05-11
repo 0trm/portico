@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-Render input as a portico: a three-layered visual abstraction.
+Render input as portico: a three-layered visual abstraction.
 </p>
 
 <p align="center">
