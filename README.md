@@ -1,9 +1,8 @@
 </div>
 
 <p align="center">
-<img width="300" height="170" alt="portico-logo" src="https://github.com/user-attachments/assets/ee9a4a72-3283-4bf9-90c4-bc90633b9b34" />
+<img width="450" height="300" alt="portico-logo" src="https://github.com/user-attachments/assets/442c23ae-e8f4-4b66-b35c-2d723caee015" />
 </p>
-<h1 align="center">portico</h1>
 
 <p align="center">
   <strong>Render any input as a portico: a three-layered abstraction.</strong>
