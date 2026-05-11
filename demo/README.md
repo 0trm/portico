@@ -6,7 +6,7 @@ app_file: app.py
 python_version: "3.12"
 pinned: false
 license: mit
-short_description: Render any input as a portico -- a three-layered abstraction.
+short_description: "Render any input as a portico: a three-layered abstraction."
 ---
 
 # portico
