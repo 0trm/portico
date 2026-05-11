@@ -17,7 +17,6 @@ Render input as a portico: a three-layered visual abstraction.
 <p align="center">
   <a href="#try-it-online">Try it online</a> •
   <a href="#try-it-locally">Try it locally</a> •
-  <a href="#what-is-a-portico">What is a portico</a> •
   <a href="#example">Example</a> •
   <a href="#inputs">Inputs</a> •
   <a href="#customization">Customization</a>
