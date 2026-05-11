@@ -141,7 +141,8 @@ Run `portico --help` for the full list.
 
 ### Random apex
 
-🎲 `--reapex` rolls a different ornament above the title each run. Pin the seed to reproduce the exact composition.
+The apex is the ornament crowning the portico, picked at render time from a pool of 600+ variants.
+🎲 --reapex rolls a different one each run. Pin the seed to reproduce.
 
 ```bash
 portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
