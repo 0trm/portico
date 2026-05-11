@@ -1,0 +1,2 @@
+gradio>=5.0
+portico-cli @ git+https://github.com/0trm/portico.git@main
