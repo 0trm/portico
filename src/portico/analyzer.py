@@ -31,9 +31,9 @@ exhaustive at the same level of abstraction?
 7. "title": string. The input's title or a 1-3 word identifier.
 8. "roof": object {"label": string, "summary": string}. The unifying idea on top.
 9. "pillars": array of 2-9 objects, each {"label": string, "summary": string}. STRONGLY PREFER 3-5.
-10. "base": object {"labels": array of 1-4 strings, "summary": string}. The foundation that \
-everything rests on. Use 1 label for a single foundation; add a 2nd/3rd/4th ONLY when each \
-names a distinct foundational course that earns its place. Redundancy is noise.
+10. "base": object {"label": string, "summary": string}. The foundation that everything \
+rests on -- one label naming the single load-bearing substrate. Choose the most abstract \
+term that captures the foundation; resist the urge to enumerate.
 11. "fit_quality": one of "good", "stretched", "forced", "not_applicable".
 12. "notes_on_fit": string. If not "good", explain why in one sentence.
 
@@ -52,7 +52,7 @@ Concrete example of the exact shape (illustrative content; do not copy the value
     {"label": "Feedback loops", "summary": "Smaller groups close feedback faster."},
     {"label": "Dunbar limit", "summary": "Diffusion of responsibility past ~150."}
   ],
-  "base": {"labels": ["Empirical evidence"], "summary": "Observed work on team size and trust."},
+  "base": {"label": "Empirical evidence", "summary": "Observed work on team size and trust."},
   "fit_quality": "good",
   "notes_on_fit": "Essay decomposes cleanly into thesis / arguments / evidence."
 }

@@ -60,11 +60,38 @@ def _row_of(symbol: str, num: int, cw: int) -> str:
     return "".join(_center(symbol, cw) for _ in range(num))
 
 
-def _legend(data: PorticoJSON) -> list[str]:
-    lines = ["", "legend:", f"  ^  {data.roof.label}: {data.roof.summary}"]
-    lines.extend(f"  ii {p.label}: {p.summary}" for p in data.pillars)
-    base_labels = " | ".join(data.base.labels)
-    lines.append(f"  _  {base_labels}: {data.base.summary}")
+def _legend_entries(data: PorticoJSON) -> list[str]:
+    return [
+        f"  ^  {data.roof.label}: {data.roof.summary}",
+        *(f"  ii {p.label}: {p.summary}" for p in data.pillars),
+        f"  _  {data.base.label}: {data.base.summary}",
+    ]
+
+
+def _legend(data: PorticoJSON, width: int) -> list[str]:
+    """Legend block with each entry wrapped to fit `width`.
+
+    Continuation lines hang-indent under the label (5 spaces, past the glyph).
+    Short summaries fit in one line, leaving the output identical to the
+    pre-wrap legend at typical widths.
+    """
+    lines = ["", "legend:"]
+    for entry in _legend_entries(data):
+        wrapped = textwrap.wrap(
+            entry,
+            width=width,
+            subsequent_indent=" " * 5,
+            break_long_words=False,
+            break_on_hyphens=True,
+        )
+        lines.extend(wrapped or [entry])
+    return lines
+
+
+def _legend_compact(data: PorticoJSON, width: int) -> list[str]:
+    """Compact legend: each entry truncated to a single line of `width` chars."""
+    lines = ["", "legend:"]
+    lines.extend(_truncate(e, width) for e in _legend_entries(data))
     return lines
 
 
@@ -127,6 +154,7 @@ class DefaultRenderer(PorticoRenderer):
         data: PorticoJSON,
         *,
         width: int,
+        height: int | None = None,
         color: ColorMode,
         legend: bool,
         apex_override: tuple[str, str] | None = None,
@@ -137,6 +165,8 @@ class DefaultRenderer(PorticoRenderer):
 
         lines: list[str] = []
         truncations: list[tuple[str, str]] = []  # only safety-net path adds entries
+
+        tail_rows = 2 + (1 if apex_seed_label is not None else 0)
 
         # Refusal path: the analyzer judged this input non-decomposable. Emit a
         # banner + reason + signature instead of forcing a portico.
@@ -152,7 +182,10 @@ class DefaultRenderer(PorticoRenderer):
                     for ln in textwrap.wrap(data.notes_on_fit, width=wrap_width)
                 )
             if legend:
-                lines.extend(_legend(data))
+                legend_start = len(lines)
+                lines.extend(_legend(data, width))
+                if height is not None and len(lines) + tail_rows > height:
+                    lines = lines[:legend_start] + _legend_compact(data, width)
             lines.append("")
             lines.append(_signature_line(width))
             return "\n".join(line.rstrip() for line in lines) + "\n"
@@ -161,18 +194,23 @@ class DefaultRenderer(PorticoRenderer):
             lines.append(CAVEAT_LINE)
             lines.append("")
 
-        lines.append(_banner(data.theme, data.title, width))
-        lines.append("")
-
         num_pillars = len(data.pillars)
         cw = _pillar_column_width(width, num_pillars)
         block_width = cw * num_pillars
-        indent = " " * max(0, (width - block_width) // 2)
+        # The portico renders as a left-flush block of width = base_box_width.
+        # Every row centers within `frame_width`, not `width`, so the whole shape
+        # hugs the left margin with its internal hierarchy preserved (apex centered
+        # over roof, roof centered over body, base flush left and right).
+        frame_width = min(width, block_width + 4)
+        indent = " " * max(0, (frame_width - block_width) // 2)
+
+        lines.append(_banner(data.theme, data.title, frame_width))
+        lines.append("")
 
         # --- Apex composition: finial above keystone (2 rows).
         finial, keystone = apex_override or (APEX_FINIAL, APEX_KEYSTONE)
-        lines.append(_center(finial, width))
-        lines.append(_center(keystone, width))
+        lines.append(_center(finial, frame_width))
+        lines.append(_center(keystone, frame_width))
 
         # --- Roof box (block - 6).
         roof_box_width = block_width - 6
@@ -181,14 +219,14 @@ class DefaultRenderer(PorticoRenderer):
             roof_shown = _truncate(data.roof.label, roof_inner)
             if roof_shown != data.roof.label:
                 truncations.append((roof_shown, data.roof.label))
-            lines.append(_center(_box_top(roof_box_width), width))
-            lines.append(_center(_box_mid(roof_box_width, data.roof.label), width))
-            lines.append(_center(_box_bottom(roof_box_width), width))
+            lines.append(_center(_box_top(roof_box_width), frame_width))
+            lines.append(_center(_box_mid(roof_box_width, data.roof.label), frame_width))
+            lines.append(_center(_box_bottom(roof_box_width), frame_width))
 
         # --- Lower pediment (block wide, ~ infill) + top cornice (░, block-2).
-        lines.append(_center(_slope_line(block_width, fill="~"), width))
+        lines.append(_center(_slope_line(block_width, fill="~"), frame_width))
         if block_width - 2 >= 1:
-            lines.append(_center("░" * (block_width - 2), width))
+            lines.append(_center("░" * (block_width - 2), frame_width))
 
         # --- Columns: cap, 2 shafts, label(s), 2 shafts, plinth.
         cap_row = indent + _row_of("▀██▀", num_pillars, cw)
@@ -226,24 +264,26 @@ class DefaultRenderer(PorticoRenderer):
 
         # --- Bottom cornice region: ░ (block-2) then ^ (block). No stylobate.
         if block_width - 2 >= 1:
-            lines.append(_center("░" * (block_width - 2), width))
+            lines.append(_center("░" * (block_width - 2), frame_width))
         if block_width >= 1:
-            lines.append(_center("^" * block_width, width))
+            lines.append(_center("^" * block_width, frame_width))
 
-        # --- Base box (block + 4).
+        # --- Base box (block + 4). Defines the frame's right edge.
         base_box_width = block_width + 4
-        joined_base = " | ".join(data.base.labels)
         if base_box_width >= 6 and base_box_width <= width:
             base_inner = base_box_width - 2
-            base_shown = _truncate(joined_base, base_inner)
-            if base_shown != joined_base:
-                truncations.append((base_shown, joined_base))
-            lines.append(_center(_box_top(base_box_width), width))
-            lines.append(_center(_box_mid(base_box_width, joined_base), width))
-            lines.append(_center(_box_bottom(base_box_width), width))
+            base_shown = _truncate(data.base.label, base_inner)
+            if base_shown != data.base.label:
+                truncations.append((base_shown, data.base.label))
+            lines.append(_box_top(base_box_width))
+            lines.append(_box_mid(base_box_width, data.base.label))
+            lines.append(_box_bottom(base_box_width))
 
         if legend:
-            lines.extend(_legend(data))
+            legend_start = len(lines)
+            lines.extend(_legend(data, width))
+            if height is not None and len(lines) + tail_rows > height:
+                lines = lines[:legend_start] + _legend_compact(data, width)
         elif truncations:
             lines.append("")
             lines.append("truncated labels:")
@@ -254,6 +294,6 @@ class DefaultRenderer(PorticoRenderer):
         lines.append("")
         if apex_seed_label is not None:
             lines.append(apex_seed_label)
-        lines.append(_signature_line(width))
+        lines.append(_signature_line(frame_width))
 
         return "\n".join(line.rstrip() for line in lines) + "\n"
