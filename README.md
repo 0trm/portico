@@ -1,7 +1,7 @@
 </div>
 
 <p align="center">
-<img width="400" height="275" alt="portico" src="https://github.com/user-attachments/assets/e15a3845-9e80-4edb-a038-19afb81b4649" />
+<img width="405" height="280" alt="portico" src="https://github.com/user-attachments/assets/e15a3845-9e80-4edb-a038-19afb81b4649" />
 </p>
 
 <p align="center">
@@ -40,9 +40,9 @@ You build a tiny monument for the thing you're trying to understand.
 
 Run `portico` in your browser, no install required:
 
--> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <-
+>> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <<
 
-*The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.*
+*The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
 
 ## Try it locally
 
