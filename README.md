@@ -36,14 +36,6 @@ You build a tiny monument for the thing you're trying to understand.
 |  `ii`   | Pillars | The load-bearing components                   |
 |   `_`   | Base    | The foundation everything rests on            |
 
-## Try it online
-
-Run `portico` in your browser, no install required:
-
-–> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <–
-
-*The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
-
 ## Try it locally
 
 ### Install
@@ -58,6 +50,13 @@ portico https://example.com/article
 portico ./src --no-legend
 echo "your text here" | portico -
 ```
+## Try it online
+
+Run `portico` in your browser, no install required:
+
+–> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <–
+
+*The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
 
 ## Example
 
