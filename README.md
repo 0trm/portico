@@ -18,11 +18,11 @@
 
 ## Try it online
 
-Run `portico` in your browser on Hugging Face Spaces -- no install required:
+Run `portico` in your browser on Hugging Face Spaces – no install required:
 
 **[huggingface.co/spaces/0trm/portico](https://huggingface.co/spaces/0trm/portico)**
 
-The Space uses Llama 3.3 70B via Groq. Paste text or a URL and render.
+The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.
 
 ## Install
 
@@ -41,7 +41,7 @@ echo "your text here" | portico -
 
 ## What is a portico
 
-An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
+An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. 🏛️ The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
 
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
@@ -119,7 +119,7 @@ Run `portico --help` for the full list.
 
 ### Random apex
 
-`--reapex` rolls a different ornament above the title each run. Pin the seed to reproduce the exact composition.
+🎲 `--reapex` rolls a different ornament above the title each run. Pin the seed to reproduce the exact composition.
 
 ```bash
 portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
@@ -207,5 +207,11 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=7
 ║                   Fan Behavior                   ║
 ╚══════════════════════════════════════════════════╝
 ```
+---
 
-Legends omitted -- the body and footer stay identical; only the 2-row apex varies.
+## License
+
+MIT
+
+</br>
+<p align="center" style="color: grey; font-size: 0.92em;">© 2026 trm</p>
