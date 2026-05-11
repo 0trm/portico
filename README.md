@@ -113,7 +113,7 @@ legend:
 ───────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-Rendered with `claude-sonnet-4-6`.
+*Rendered with `claude-sonnet-4-6`.*
 
 ## Inputs
 
