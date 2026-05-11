@@ -98,7 +98,11 @@ def _legend_compact(data: PorticoJSON, width: int) -> list[str]:
 def _slope_line(line_width: int, fill: str = "═") -> str:
     if line_width < 8:
         return ""
-    return "////" + fill * (line_width - 8) + "\\\\\\\\"
+    inner = line_width - 8
+    if not fill:
+        return "////" + " " * inner + "\\\\\\\\"
+    infill = (fill * (inner // len(fill) + 1))[:inner]
+    return "////" + infill + "\\\\\\\\"
 
 
 def _box_top(box_width: int) -> str:
@@ -223,8 +227,8 @@ class DefaultRenderer(PorticoRenderer):
             lines.append(_center(_box_mid(roof_box_width, data.roof.label), frame_width))
             lines.append(_center(_box_bottom(roof_box_width), frame_width))
 
-        # --- Lower pediment (block wide, ~ infill) + top cornice (░, block-2).
-        lines.append(_center(_slope_line(block_width, fill="~"), frame_width))
+        # --- Lower pediment (block wide, º~~ infill) + top cornice (░, block-2).
+        lines.append(_center(_slope_line(block_width, fill="º~~"), frame_width))
         if block_width - 2 >= 1:
             lines.append(_center("░" * (block_width - 2), frame_width))
 
