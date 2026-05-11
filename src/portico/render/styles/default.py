@@ -1,7 +1,14 @@
 import textwrap
 
 from portico.render.base import PorticoRenderer
-from portico.render.color import ColorMode
+from portico.render.color import (
+    BASE_ACCENT,
+    PILLAR_ACCENT,
+    ROOF_ACCENT,
+    ColorMode,
+    paint,
+    resolve,
+)
 from portico.schema import FitQuality, PorticoJSON
 
 CAVEAT_LINE = "note: the portico metaphor is stretched for this input."
@@ -68,15 +75,23 @@ def _legend_entries(data: PorticoJSON) -> list[str]:
     ]
 
 
-def _legend(data: PorticoJSON, width: int) -> list[str]:
+def _legend_entries_with_accents(data: PorticoJSON) -> list[tuple[str, str]]:
+    return [
+        (f"  ^  {data.roof.label}: {data.roof.summary}", ROOF_ACCENT),
+        *((f"  ii {p.label}: {p.summary}", PILLAR_ACCENT) for p in data.pillars),
+        (f"  _  {data.base.label}: {data.base.summary}", BASE_ACCENT),
+    ]
+
+
+def _legend(data: PorticoJSON, width: int) -> list[tuple[str, str | None]]:
     """Legend block with each entry wrapped to fit `width`.
 
-    Continuation lines hang-indent under the label (5 spaces, past the glyph).
-    Short summaries fit in one line, leaving the output identical to the
-    pre-wrap legend at typical widths.
+    Returns (line, accent) pairs. Header/blank lines have accent=None.
+    Continuation lines hang-indent under the label (5 spaces, past the glyph)
+    and inherit their entry's accent.
     """
-    lines = ["", "legend:"]
-    for entry in _legend_entries(data):
+    lines: list[tuple[str, str | None]] = [("", None), ("legend:", None)]
+    for entry, accent in _legend_entries_with_accents(data):
         wrapped = textwrap.wrap(
             entry,
             width=width,
@@ -84,14 +99,16 @@ def _legend(data: PorticoJSON, width: int) -> list[str]:
             break_long_words=False,
             break_on_hyphens=True,
         )
-        lines.extend(wrapped or [entry])
+        for ln in wrapped or [entry]:
+            lines.append((ln, accent))
     return lines
 
 
-def _legend_compact(data: PorticoJSON, width: int) -> list[str]:
+def _legend_compact(data: PorticoJSON, width: int) -> list[tuple[str, str | None]]:
     """Compact legend: each entry truncated to a single line of `width` chars."""
-    lines = ["", "legend:"]
-    lines.extend(_truncate(e, width) for e in _legend_entries(data))
+    lines: list[tuple[str, str | None]] = [("", None), ("legend:", None)]
+    for entry, accent in _legend_entries_with_accents(data):
+        lines.append((_truncate(entry, width), accent))
     return lines
 
 
@@ -164,8 +181,16 @@ class DefaultRenderer(PorticoRenderer):
         apex_override: tuple[str, str] | None = None,
         apex_seed_label: str | None = None,
     ) -> str:
-        # Color path deferred: snapshot tests pin color=NEVER.
-        _ = color
+        colorize = resolve(color)
+
+        def _paint(s: str, accent: str) -> str:
+            # rstrip before painting so trailing centering pad doesn't end up
+            # locked inside the ANSI region (the final rstrip can't reach past \x1b[0m).
+            return paint(s.rstrip(), accent, enabled=colorize)
+
+        def _extend_legend(target: list[str], entries: list[tuple[str, str | None]]) -> None:
+            for text, accent in entries:
+                target.append(_paint(text, accent) if accent else text)
 
         lines: list[str] = []
         truncations: list[tuple[str, str]] = []  # only safety-net path adds entries
@@ -187,9 +212,10 @@ class DefaultRenderer(PorticoRenderer):
                 )
             if legend:
                 legend_start = len(lines)
-                lines.extend(_legend(data, width))
+                _extend_legend(lines, _legend(data, width))
                 if height is not None and len(lines) + tail_rows > height:
-                    lines = lines[:legend_start] + _legend_compact(data, width)
+                    lines = lines[:legend_start]
+                    _extend_legend(lines, _legend_compact(data, width))
             lines.append("")
             lines.append(_signature_line(width))
             return "\n".join(line.rstrip() for line in lines) + "\n"
@@ -211,36 +237,39 @@ class DefaultRenderer(PorticoRenderer):
         lines.append(_banner(data.theme, data.title, frame_width))
         lines.append("")
 
-        # --- Apex composition: finial above keystone (2 rows).
+        # --- Apex composition: finial above keystone (2 rows). [roof region]
         finial, keystone = apex_override or (APEX_FINIAL, APEX_KEYSTONE)
-        lines.append(_center(finial, frame_width))
-        lines.append(_center(keystone, frame_width))
+        lines.append(_paint(_center(finial, frame_width), ROOF_ACCENT))
+        lines.append(_paint(_center(keystone, frame_width), ROOF_ACCENT))
 
-        # --- Roof box (block - 6).
+        # --- Roof box (block - 6). [roof region]
         roof_box_width = block_width - 6
         if roof_box_width >= 6:
             roof_inner = roof_box_width - 2
             roof_shown = _truncate(data.roof.label, roof_inner)
             if roof_shown != data.roof.label:
                 truncations.append((roof_shown, data.roof.label))
-            lines.append(_center(_box_top(roof_box_width), frame_width))
-            lines.append(_center(_box_mid(roof_box_width, data.roof.label), frame_width))
-            lines.append(_center(_box_bottom(roof_box_width), frame_width))
+            lines.append(_paint(_center(_box_top(roof_box_width), frame_width), ROOF_ACCENT))
+            lines.append(
+                _paint(_center(_box_mid(roof_box_width, data.roof.label), frame_width), ROOF_ACCENT)
+            )
+            lines.append(_paint(_center(_box_bottom(roof_box_width), frame_width), ROOF_ACCENT))
 
-        # --- Lower pediment (block wide, º~~ infill) + top cornice (░, block-2).
-        lines.append(_center(_slope_line(block_width, fill="º~~"), frame_width))
+        # --- Lower pediment (block wide, º~~ infill) + top cornice. [roof region]
+        pediment = _center(_slope_line(block_width, fill="º~~"), frame_width)
+        lines.append(_paint(pediment, ROOF_ACCENT))
         if block_width - 2 >= 1:
-            lines.append(_center("░" * (block_width - 2), frame_width))
+            lines.append(_paint(_center("░" * (block_width - 2), frame_width), ROOF_ACCENT))
 
-        # --- Columns: cap, 2 shafts, label(s), 2 shafts, plinth.
+        # --- Columns: cap, 2 shafts, label(s), 2 shafts, plinth. [pillar region]
         cap_row = indent + _row_of("▀██▀", num_pillars, cw)
         shaft_row = indent + _row_of("██", num_pillars, cw)
         plinth_row = indent + _row_of("▄██▄", num_pillars, cw)
 
         wrap_active = any(len(p.label) > cw - 1 for p in data.pillars)
 
-        lines.append(cap_row)
-        lines.extend([shaft_row] * 2)
+        lines.append(_paint(cap_row, PILLAR_ACCENT))
+        lines.extend([_paint(shaft_row, PILLAR_ACCENT)] * 2)
 
         if wrap_active:
             row1_cells: list[str] = []
@@ -257,37 +286,38 @@ class DefaultRenderer(PorticoRenderer):
                     # the column reads as continuous through the gap.
                     row1_cells.append(_center(p.label, cw))
                     row2_cells.append(_center("██", cw))
-            lines.append(indent + "".join(row1_cells))
-            lines.append(indent + "".join(row2_cells))
+            lines.append(_paint(indent + "".join(row1_cells), PILLAR_ACCENT))
+            lines.append(_paint(indent + "".join(row2_cells), PILLAR_ACCENT))
         else:
             cells = [_center(p.label, cw) for p in data.pillars]
-            lines.append(indent + "".join(cells))
+            lines.append(_paint(indent + "".join(cells), PILLAR_ACCENT))
 
-        lines.extend([shaft_row] * 2)
-        lines.append(plinth_row)
+        lines.extend([_paint(shaft_row, PILLAR_ACCENT)] * 2)
+        lines.append(_paint(plinth_row, PILLAR_ACCENT))
 
-        # --- Bottom cornice region: ░ (block-2) then ^ (block). No stylobate.
+        # --- Bottom cornice region: ░ (block-2) then ^ (block). [base region]
         if block_width - 2 >= 1:
-            lines.append(_center("░" * (block_width - 2), frame_width))
+            lines.append(_paint(_center("░" * (block_width - 2), frame_width), BASE_ACCENT))
         if block_width >= 1:
-            lines.append(_center("^" * block_width, frame_width))
+            lines.append(_paint(_center("^" * block_width, frame_width), BASE_ACCENT))
 
-        # --- Base box (block + 4). Defines the frame's right edge.
+        # --- Base box (block + 4). [base region]
         base_box_width = block_width + 4
         if base_box_width >= 6 and base_box_width <= width:
             base_inner = base_box_width - 2
             base_shown = _truncate(data.base.label, base_inner)
             if base_shown != data.base.label:
                 truncations.append((base_shown, data.base.label))
-            lines.append(_box_top(base_box_width))
-            lines.append(_box_mid(base_box_width, data.base.label))
-            lines.append(_box_bottom(base_box_width))
+            lines.append(_paint(_box_top(base_box_width), BASE_ACCENT))
+            lines.append(_paint(_box_mid(base_box_width, data.base.label), BASE_ACCENT))
+            lines.append(_paint(_box_bottom(base_box_width), BASE_ACCENT))
 
         if legend:
             legend_start = len(lines)
-            lines.extend(_legend(data, width))
+            _extend_legend(lines, _legend(data, width))
             if height is not None and len(lines) + tail_rows > height:
-                lines = lines[:legend_start] + _legend_compact(data, width)
+                lines = lines[:legend_start]
+                _extend_legend(lines, _legend_compact(data, width))
         elif truncations:
             lines.append("")
             lines.append("truncated labels:")

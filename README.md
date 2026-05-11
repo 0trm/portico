@@ -118,6 +118,18 @@ When an input doesn't fit a three-layer shape – poems, flat lists, gibberish �
 
 Run `portico --help` for the full list.
 
+### Colors
+
+`--color=always` paints each layer a different accent: roof yellow, pillars cyan, base magenta. `--color=auto` (default `never`) only colors when stdout is a TTY and `NO_COLOR` is unset.
+
+```bash
+portico https://trm.bearblog.dev/data-science-at-camp-nou/ --color=always
+```
+
+<p align="center">
+  <img src="docs/colors.svg" alt="Colored portico render: roof yellow, pillars cyan, base magenta" width="640">
+</p>
+
 ### Random apex
 
 🎲 `--reapex` rolls a different ornament above the title each run. Pin the seed to reproduce the exact composition.
