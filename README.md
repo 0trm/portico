@@ -61,49 +61,59 @@ Run `portico` in your browser, no install required:
 ## Example
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/
+portico "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)"
 ```
 
 ```
-── essay: Data Science at Camp Nou ─────────────────
+── encyclopedia article: Transformer ───────────────────────────────────────────────
 
-                        ***
-                    ===  ◇  ===
-     ╔════════════════════════════════════════╗
-     ║         Data-Driven Ticketing          ║
-     ╚════════════════════════════════════════╝
-  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~\\\\
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ▀██▀            ▀██▀            ▀██▀
-         ██              ██              ██
-         ██              ██              ██
-     Analytics    Experimentation    Predictive
-         ██              ██           Modeling
-         ██              ██              ██
-         ██              ██              ██
-        ▄██▄            ▄██▄            ▄██▄
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-╔══════════════════════════════════════════════════╗
-║                   Fan Behavior                   ║
-╚══════════════════════════════════════════════════╝
+                                        ***
+                                    ===  ◇  ===
+     ╔════════════════════════════════════════════════════════════════════════╗
+     ║                       Attention Is All You Need                        ║
+     ╚════════════════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+        ▀██▀            ▀██▀            ▀██▀            ▀██▀            ▀██▀
+         ██              ██              ██              ██              ██
+         ██              ██              ██              ██              ██
+       RNN to       Architecture      Training       Efficient      Applications
+    Transformer          ██              ██          Inference           ██
+         ██              ██              ██              ██              ██
+         ██              ██              ██              ██              ██
+        ▄██▄            ▄██▄            ▄██▄            ▄██▄            ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                               Multi-head attention                               ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 
 legend:
-  ^  Data-Driven Ticketing: Using data science to optimize ticket sales and fan
-     experience at FC Barcelona
-  ii Analytics: Extracting insights from fan interactions with digital products
-     to inform strategic decisions
-  ii Experimentation: Testing hypotheses and validating results to drive product
-     innovation
-  ii Predictive Modeling: Building models to forecast ticket demand and optimize
-     sales strategies
-  _  Fan Behavior: Understanding fan interactions and preferences to inform
-     data-driven decisions
+  ^  Attention Is All You Need: Replacing recurrence with multi-head self-attention enables fully
+     parallel sequence processing, making transformers the dominant architecture for language and
+     beyond.
+  ii RNN to Transformer: The article traces how vanishing-gradient limitations in RNNs and seq2seq
+     models motivated the removal of recurrence in favour of parallelisable attention.
+  ii Architecture: The transformer is built from tokenization, positional encoding, stacked encoder
+     and decoder layers with self- and cross-attention, feedforward networks, and an un-embedding
+     layer, with encoder-only, decoder-only, and encoder-decoder variants.
+  ii Training: Transformers are trained via masked, autoregressive, or prefixLM tasks, typically
+     using large-scale self-supervised pretraining followed by supervised fine-tuning, with layer
+     normalisation placement critical for convergence.
+  ii Efficient Inference: KV caching, FlashAttention, multi-query attention, speculative decoding,
+     and sub-quadratic attention variants reduce the memory and compute costs of running large
+     transformer models.
+  ii Applications: Transformers have been applied across NLP, computer vision, speech, robotics,
+     multimodal generation, and reinforcement learning, powering systems from BERT and GPT to DALL-E
+     and AlphaFold.
+  _  Multi-head attention: Scaled dot-product multi-head attention is the single load-bearing
+     mechanism from which the transformer's parallelism, contextualisation, and cross-modal
+     flexibility all derive.
 
-───────────────────────────────── built with _ii^ ──
+───────────────────────────────────────────────────────────────── built with _ii^ ──
 ```
 
-Rendered with `llama-3.3-70b-versatile`.
+Rendered with `claude-sonnet-4-6`.
 
 ## Inputs
 
