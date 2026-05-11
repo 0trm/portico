@@ -1,7 +1,7 @@
 </div>
 
 <p align="center">
-<img width="425" height="300" alt="portico" src="https://github.com/user-attachments/assets/91b759fb-94b7-4c78-ac1e-f91082f10044" />
+<img width="425" height="300" alt="portico" src="https://github.com/user-attachments/assets/e15a3845-9e80-4edb-a038-19afb81b4649" />
 </p>
 
 <p align="center">
