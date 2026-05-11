@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>Render any input as a portico: a three-layered abstraction.</strong>
+Render input as a portico: a three-layered visual abstraction.
 </p>
 
 <p align="center">
@@ -15,6 +15,18 @@
 </p>
 
 ---
+
+## About
+
+An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
+The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg). <br>
+You build a tiny monument for the thing you're trying to understand.
+
+|  Glyph  | Layer   | Meaning                                       |
+| :-----: | ------- | --------------------------------------------- |
+|   `^`   | Roof    | The unifying idea                             |
+|  `ii`   | Pillars | The load-bearing components                   |
+|   `_`   | Base    | The foundation everything rests on            |
 
 ## Try it online
 
@@ -38,17 +50,6 @@ portico https://example.com/article
 portico ./src --no-legend
 echo "your text here" | portico -
 ```
-
-## What is a portico
-
-An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. <br>
-🏛️ The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
-
-|  Glyph  | Layer   | Meaning                                       |
-| :-----: | ------- | --------------------------------------------- |
-|   `^`   | Roof    | The unifying idea                             |
-|  `ii`   | Pillars | The load-bearing components (2-9 of them)     |
-|   `_`   | Base    | The foundation everything rests on            |
 
 ## Example
 
