@@ -1,3 +1,5 @@
+import os
+import sys
 from enum import StrEnum
 
 
@@ -18,3 +20,17 @@ def paint(s: str, accent: str, *, enabled: bool) -> str:
     if not enabled:
         return s
     return f"{accent}{s}{RESET}"
+
+
+def resolve(mode: ColorMode) -> bool:
+    """Resolve a ColorMode to a concrete on/off decision.
+
+    AUTO honors NO_COLOR (https://no-color.org) and the stdout TTY check.
+    """
+    if mode == ColorMode.ALWAYS:
+        return True
+    if mode == ColorMode.NEVER:
+        return False
+    if os.environ.get("NO_COLOR"):
+        return False
+    return sys.stdout.isatty()
