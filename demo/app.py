@@ -134,7 +134,7 @@ and a base (the foundation everything rests on).
 This demo runs on **Llama 3.3 70B** via Groq. Paste text or a URL and submit.
 """
 
-with gr.Blocks(title="portico demo", theme=gr.themes.Base()) as demo:
+with gr.Blocks(title="portico demo") as demo:
     gr.Markdown("# portico")
     gr.Markdown(DESCRIPTION)
 
