@@ -18,9 +18,9 @@
 
 ## Try it online
 
-Run `portico` in your browser on Hugging Face Spaces – no install required:
+Run `portico` in your browser – no install required:
 
-→ **[huggingface.co/portico](https://huggingface.co/spaces/0trm/portico)**
+→ **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)**
 
 The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.
 
