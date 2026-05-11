@@ -82,6 +82,7 @@ class Args:
     color: ColorMode
     legend: bool
     width: int
+    height: int | None
     json_out: bool
     provider: str
     model: str
@@ -164,6 +165,14 @@ def resolve_width(arg_width: int | None) -> int:
     if arg_width is not None:
         return arg_width
     return min(shutil.get_terminal_size((MAX_WIDTH, 24)).columns, MAX_WIDTH)
+
+
+def resolve_height(arg_height: int | None) -> int | None:
+    if arg_height is not None:
+        return arg_height
+    # Auto-detect terminal height. Fallback (24) is a sensible "non-tiny" terminal;
+    # callers piping to a file get None semantics via the override path.
+    return shutil.get_terminal_size((MAX_WIDTH, 24)).lines
 
 
 def render_refusal(data: PorticoJSON) -> str:
@@ -269,6 +278,7 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
         render(
             data,
             width=args.width,
+            height=args.height,
             color=args.color,
             legend=args.legend,
             apex_override=apex_override,
@@ -296,6 +306,14 @@ def parse_args(argv: list[str] | None = None) -> Args:
         help="suppress the per-layer summary that renders below the portico.",
     )
     parser.add_argument("--width", type=int, default=None)
+    parser.add_argument(
+        "--height",
+        type=int,
+        default=None,
+        help="row budget for the rendered output; defaults to terminal height. "
+        "When set, the legend collapses to one line per entry if total rows "
+        "would otherwise exceed this.",
+    )
     parser.add_argument("--json", dest="json_out", action="store_true")
     parser.add_argument(
         "--provider",
@@ -334,6 +352,7 @@ def parse_args(argv: list[str] | None = None) -> Args:
         color=ColorMode(parsed.color),
         legend=parsed.legend,
         width=resolve_width(parsed.width),
+        height=resolve_height(parsed.height),
         json_out=parsed.json_out,
         provider=parsed.provider,
         model=parsed.model,

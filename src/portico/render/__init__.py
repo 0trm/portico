@@ -10,6 +10,7 @@ def render(
     data: PorticoJSON,
     *,
     width: int = DEFAULT_WIDTH,
+    height: int | None = None,
     color: ColorMode = ColorMode.NEVER,
     legend: bool = True,
     apex_override: tuple[str, str] | None = None,
@@ -18,6 +19,7 @@ def render(
     return DefaultRenderer().render(
         data,
         width=width,
+        height=height,
         color=color,
         legend=legend,
         apex_override=apex_override,
