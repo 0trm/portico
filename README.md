@@ -1,13 +1,12 @@
 </div>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.png" alt="portico" width="340" />
+  <img width="80" height="44" alt="portico-logo" src="https://github.com/user-attachments/assets/30714132-99fb-4da8-a283-6fe5e3d4738f" />
 </p>
-
-<h1 align="center">portico _ii^</h1>
+<h1 align="center">portico</h1>
 
 <p align="center">
-  <strong>Render any input as a portico – a three-layer visual abstraction.</strong>
+  <strong>Render any input as a portico: a three-layered abstraction.</strong>
 </p>
 
 <p align="center">
@@ -21,7 +20,7 @@
 ## Install
 
 ```bash
-pipx install portico-cli
+uv tool install portico-cli
 ```
 
 ## Try it
@@ -35,7 +34,7 @@ echo "your text here" | portico -
 
 ## What is a portico
 
-An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. The renderer turns those layers into a fixed ASCII shape.
+An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
 
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
@@ -90,7 +89,7 @@ legend:
 - URLs (page content is extracted)
 - Git repositories
 
-When an input doesn't fit a three-layer shape -- poems, flat lists, gibberish -- `portico` refuses honestly rather than fake one.
+When an input doesn't fit a three-layer shape – poems, flat lists, gibberish – `portico` refuses honestly rather than fake one.
 
 ## Customization
 
