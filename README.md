@@ -14,6 +14,15 @@
   <a href="https://huggingface.co/spaces/0trm/portico"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-lightgreen?style=flat" alt="HF Space"></a>
 </p>
 
+<p align="center">
+  <a href="#try-it-online">Try it online</a> •
+  <a href="#try-it-locally">Try it locally</a> •
+  <a href="#what-is-a-portico">What is a portico</a> •
+  <a href="#example">Example</a> •
+  <a href="#inputs">Inputs</a> •
+  <a href="#customization">Customization</a>
+</p>
+
 ---
 
 ## Try it online
