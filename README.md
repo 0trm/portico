@@ -20,17 +20,17 @@
 
 Run `portico` in your browser on Hugging Face Spaces – no install required:
 
-**[huggingface.co/spaces/0trm/portico](https://huggingface.co/spaces/0trm/portico)**
+→ **[huggingface.co/portico](https://huggingface.co/spaces/0trm/portico)**
 
 The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.
 
-## Install
+## Try it locally
+
+### Install
 
 ```bash
 uv tool install portico-cli
 ```
-
-## Try it locally
 
 ```bash
 portico README.md
@@ -41,7 +41,8 @@ echo "your text here" | portico -
 
 ## What is a portico
 
-An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. 🏛️ The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
+An LLM reads your input, decides what kind of thing it is, and decomposes it into three layers. <br>
+🏛️ The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg).
 
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
