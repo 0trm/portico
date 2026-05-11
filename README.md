@@ -38,11 +38,11 @@ You build a tiny monument for the thing you're trying to understand.
 
 ## Try it online
 
-Run `portico` in your browser – no install required:
+Run `portico` in your browser, no install required:
 
-→ **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)**
+-> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <-
 
-The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.
+*The Space uses 🦙 Llama 3.3 70B via Groq. Paste text or a URL and render.*
 
 ## Try it locally
 
