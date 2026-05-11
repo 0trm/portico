@@ -14,6 +14,15 @@ Render input as a portico: a three-layered visual abstraction.
   <a href="https://huggingface.co/spaces/0trm/portico"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-lightgreen?style=flat" alt="HF Space"></a>
 </p>
 
+<p align="center">
+  <a href="#try-it-online">Try it online</a> •
+  <a href="#try-it-locally">Try it locally</a> •
+  <a href="#what-is-a-portico">What is a portico</a> •
+  <a href="#example">Example</a> •
+  <a href="#inputs">Inputs</a> •
+  <a href="#customization">Customization</a>
+</p>
+
 ---
 
 ## About
@@ -112,7 +121,6 @@ When an input doesn't fit a three-layer shape – poems, flat lists, gibberish �
 | Flag                            | What it does                                                            |
 | ------------------------------- | ----------------------------------------------------------------------- |
 | `--no-legend`                   | Hide the per-layer summary (legend renders by default)                  |
-| `--color {auto,always,never}`   | Colorize roof / pillars / base. default: `never`                        |
 | `--reapex[=N]`                  | Roll a random apex ornament; pin seed `N` to reproduce                  |
 | `--json`                        | Emit the analyzer's JSON instead of rendering                           |
 | `--diagnose`                    | Print a pipeline report (input type, model, fit quality) and exit       |

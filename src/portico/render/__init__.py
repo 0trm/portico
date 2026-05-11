@@ -1,4 +1,3 @@
-from portico.render.color import ColorMode
 from portico.render.styles.default import DefaultRenderer
 from portico.schema import PorticoJSON
 
@@ -11,7 +10,6 @@ def render(
     *,
     width: int = DEFAULT_WIDTH,
     height: int | None = None,
-    color: ColorMode = ColorMode.NEVER,
     legend: bool = True,
     apex_override: tuple[str, str] | None = None,
     apex_seed_label: str | None = None,
@@ -20,7 +18,6 @@ def render(
         data,
         width=width,
         height=height,
-        color=color,
         legend=legend,
         apex_override=apex_override,
         apex_seed_label=apex_seed_label,

@@ -1,7 +1,6 @@
 import textwrap
 
 from portico.render.base import PorticoRenderer
-from portico.render.color import ColorMode
 from portico.schema import FitQuality, PorticoJSON
 
 CAVEAT_LINE = "note: the portico metaphor is stretched for this input."
@@ -159,14 +158,10 @@ class DefaultRenderer(PorticoRenderer):
         *,
         width: int,
         height: int | None = None,
-        color: ColorMode,
         legend: bool,
         apex_override: tuple[str, str] | None = None,
         apex_seed_label: str | None = None,
     ) -> str:
-        # Color path deferred: snapshot tests pin color=NEVER.
-        _ = color
-
         lines: list[str] = []
         truncations: list[tuple[str, str]] = []  # only safety-net path adds entries
 

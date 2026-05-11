@@ -28,7 +28,6 @@ from portico.providers.base import (
 )
 from portico.providers.openai import OpenAIProvider
 from portico.render import render
-from portico.render.color import ColorMode
 from portico.schema import FitQuality
 from portico.summarize import summarize
 
@@ -98,7 +97,6 @@ def build_portico(value: str) -> tuple[str, str]:
             data,
             width=RENDER_WIDTH,
             height=None,
-            color=ColorMode.NEVER,
             legend=True,
         )
 

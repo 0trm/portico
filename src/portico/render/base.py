@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-from portico.render.color import ColorMode
 from portico.schema import PorticoJSON
 
 
@@ -12,7 +11,6 @@ class PorticoRenderer(ABC):
         *,
         width: int,
         height: int | None = None,
-        color: ColorMode,
         legend: bool,
         apex_override: tuple[str, str] | None = None,
         apex_seed_label: str | None = None,
