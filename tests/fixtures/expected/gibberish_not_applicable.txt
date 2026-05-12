@@ -1,0 +1,13 @@
+── noise: untitled ─────────────────────────────────────────────────────────────
+
+  no portico from this one.
+
+  Input does not contain decomposable content.
+
+legend:
+  ^  n/a: No content to summarize.
+  ii n/a: No structure detected.
+  ii n/a: No structure detected.
+  _  n/a: No foundation detected.
+
+───────────────────────────────────────────────────────────── built with _ii^ ──

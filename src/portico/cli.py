@@ -323,7 +323,7 @@ def parse_args(argv: list[str] | None = None) -> Args:
         nargs="?",
         const="__random__",
         default=None,
-        help="Roll a random symmetric apex ornament. Pass --reapex=SEED to pin one.",
+        help="Pin the apex to a specific seed (random by default). Pass --reapex=SEED.",
     )
     parser.add_argument("--version", action="version", version=f"portico {__version__}")
     parsed = parser.parse_args(argv)

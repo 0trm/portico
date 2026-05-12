@@ -18,9 +18,8 @@ wheels/
 .cache/
 portico.cache/
 
-# Local-only dev artifacts (not part of the public repo or shipped package)
-tests/
-CLAUDE.md
+# Eval pipeline stays local (not part of the public repo)
+tests/eval/
 
 # Secrets / local env
 .env

@@ -1,0 +1,34 @@
+{
+  "input_type": "snippet",
+  "type_rationale": "The classic two-token program greeting -- a coding convention used to verify a toolchain prints output.",
+  "decomposition_strategy": "Salutation on top; the two tokens as pillars; the convention as the base it rests on.",
+  "scratch_outline": [
+    "Roof: 'hello world' is a salutation -- a greeting addressed at the world.",
+    "Pillar: 'hello' -- the act of greeting.",
+    "Pillar: 'world' -- the recipient.",
+    "Base: this is a coding convention -- the canonical first program."
+  ],
+  "mece_check": "The two tokens partition the phrase exhaustively; the base names the genre that gives the phrase meaning.",
+  "theme": "snippet",
+  "title": "hello world",
+  "roof": {
+    "label": "salutation",
+    "summary": "a greeting addressed at the world."
+  },
+  "pillars": [
+    {
+      "label": "hello",
+      "summary": "the act of greeting."
+    },
+    {
+      "label": "world",
+      "summary": "the recipient."
+    }
+  ],
+  "base": {
+    "label": "coding convention",
+    "summary": "the canonical first program in any toolchain."
+  },
+  "fit_quality": "good",
+  "notes_on_fit": "Two tokens, one frame, one container -- the phrase decomposes exactly into the three layers."
+}

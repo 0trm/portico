@@ -1,0 +1,29 @@
+── essay: trust at scale ───────────
+
+                ***
+            ===  ◇  ===
+     ╔════════════════════════╗
+     ║         Thesis         ║
+     ╚════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+        ▀██▀            ▀██▀
+         ██              ██
+         ██              ██
+   Feedback loops   Dunbar limit
+         ██              ██
+         ██              ██
+        ▄██▄            ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔══════════════════════════════════╗
+║             Evidence             ║
+╚══════════════════════════════════╝
+
+legend:
+  ^  Thesis: Small institutions outperform large ones at trust.
+  ii Feedback loops: Smaller groups close feedback faster.
+  ii Dunbar limit: Diffusion of responsibility past ~150.
+  _  Evidence: Empirical work on team size and trust.
+
+───────────────── built with _ii^ ──

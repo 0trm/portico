@@ -1,0 +1,53 @@
+{
+  "input_type": "treatise",
+  "type_rationale": "Long-form normative argument with multi-part scaffold.",
+  "decomposition_strategy": "Master thesis up top; seven cardinal sub-claims as pillars; foundational premises at base.",
+  "scratch_outline": [
+    "Master thesis: liberty depends on procedure, not outcome.",
+    "Pillar each: speech, assembly, due process, property, suffrage, redress, contract.",
+    "Base: classical natural-rights tradition."
+  ],
+  "mece_check": "Seven pillars are the standard cardinal liberties; non-overlapping by construction.",
+  "theme": "treatise",
+  "title": "liberty",
+  "roof": {
+    "label": "Procedural liberty",
+    "summary": "Liberty is a property of procedure, not outcomes."
+  },
+  "pillars": [
+    {
+      "label": "Speech",
+      "summary": "Expression without prior restraint."
+    },
+    {
+      "label": "Assembly",
+      "summary": "Collective gathering and petition."
+    },
+    {
+      "label": "Due process",
+      "summary": "Adjudication by neutral rule."
+    },
+    {
+      "label": "Property",
+      "summary": "Stable claim against arbitrary seizure."
+    },
+    {
+      "label": "Suffrage",
+      "summary": "Participation in collective choice."
+    },
+    {
+      "label": "Redress",
+      "summary": "Recourse against state action."
+    },
+    {
+      "label": "Contract",
+      "summary": "Free exchange under enforced terms."
+    }
+  ],
+  "base": {
+    "label": "Natural rights",
+    "summary": "The classical liberal substrate."
+  },
+  "fit_quality": "good",
+  "notes_on_fit": "Cardinal-liberties scaffold maps to the seven-pillar form."
+}

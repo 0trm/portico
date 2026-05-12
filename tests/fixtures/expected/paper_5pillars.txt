@@ -1,0 +1,32 @@
+── paper: attention sparsity ─────────────────────────────────────────────
+
+                                   ***
+                               ===  ◇  ===
+     ╔══════════════════════════════════════════════════════════════╗
+     ║                        Central claim                         ║
+     ╚══════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+       ▀██▀          ▀██▀          ▀██▀          ▀██▀          ▀██▀
+        ██            ██            ██            ██            ██
+        ██            ██            ██            ██            ██
+     Sampling       Probes        Stats      Replication    Validation
+        ██            ██            ██            ██            ██
+        ██            ██            ██            ██            ██
+       ▄██▄          ▄██▄          ▄██▄          ▄██▄          ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔════════════════════════════════════════════════════════════════════════╗
+║                                  Data                                  ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+legend:
+  ^  Central claim: Sparse attention correlates with better retrieval.
+  ii Sampling: Stratified subset of LLM checkpoints.
+  ii Probes: Layer-wise linear probes.
+  ii Stats: Mixed-effects regression.
+  ii Replication: Cross-seed re-run protocol.
+  ii Validation: Held-out evaluation set.
+  _  Data: Activation logs from open-weights checkpoints.
+
+─────────────────────────────────────────────────────── built with _ii^ ──
