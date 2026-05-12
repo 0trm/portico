@@ -131,20 +131,21 @@ EXAMPLES = [
     ["https://trm.bearblog.dev/three-spaces-of-context/"],
 ]
 
+STRUCTURE_URL = "https://github.com/0trm/portico/blob/main/docs/structure.jpg"
+
 HERO_HTML = """
 <div class="portico-hero">
-  <div class="portico-mark">_ii^</div>
+  <div class="portico-mark"><code>_ii^</code></div>
   <div class="portico-wordmark">portico</div>
   <div class="portico-tagline">render input as a three-layered visual abstraction</div>
 </div>
 """
 
-INTRO_HTML = """
+INTRO_HTML = f"""
 <div class="portico-intro">
-  <p>An LLM reads your input, classifies it, and decomposes it into three
-  layers. The renderer turns those layers into a fixed ASCII in the shape of
-  <a href="https://github.com/0trm/portico/blob/main/docs/structure.jpg"
-     target="_blank">a portico</a>.</p>
+  <p>An LLM reads your input, classifies it, and decomposes it into three layers.
+  The renderer turns those layers into a fixed ASCII in the shape of <a
+  href="{STRUCTURE_URL}" target="_blank">a portico</a>.</p>
 
   <table class="portico-glyph-table">
     <thead><tr><th>Glyph</th><th>Layer</th><th>Meaning</th></tr></thead>
@@ -176,11 +177,17 @@ CUSTOM_CSS = """
     padding: 28px 0 8px;
 }
 .portico-mark {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 45px;
-    letter-spacing: 0.18em;
     line-height: 1;
     margin: 0;
+}
+.portico-mark code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 36px;
+    letter-spacing: 0.18em;
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--code-background-fill, var(--neutral-100, #f5f5f4));
+    border-radius: 8px;
     user-select: none;
 }
 .portico-wordmark {
