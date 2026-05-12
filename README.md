@@ -5,10 +5,6 @@
 </p>
 
 <p align="center">
-Render input as portico: a three-layered visual abstraction.
-</p>
-
-<p align="center">
   <a href="https://pypi.org/project/portico-cli/"><img src="https://img.shields.io/pypi/v/portico-cli?style=flat&color=blue" alt="PyPI"></a>
   <a href="https://pypi.org/project/portico-cli/"><img src="https://img.shields.io/pypi/pyversions/portico-cli?style=flat&color=lightgrey" alt="Python"></a>
   <a href="https://huggingface.co/spaces/0trm/portico"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-lightgreen?style=flat" alt="HF Space"></a>
@@ -26,7 +22,8 @@ Render input as portico: a three-layered visual abstraction.
 
 ## About
 
-`portico` renders input as a three-layered visual abstraction.
+**`portico` renders input as three-layered visual abstraction.**
+
 1. An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
 2. The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg). <br>
 3. It builds a tiny monument for the thing you're trying to understand.
