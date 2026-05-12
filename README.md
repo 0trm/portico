@@ -62,58 +62,47 @@ Run `portico` in your browser, no install required:
 portico "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)"
 ```
 ```
-── encyclopedia article: Transformer ──────────────────────────────────────────
+── encyclopedia article: Transformer ─────────────────────────────────────
 
-                                      ***
-                                  ===  ◇  ===
-     ╔═══════════════════════════════════════════════════════════════════╗
-     ║                     Attention Is All You Need                     ║
-     ╚═══════════════════════════════════════════════════════════════════╝
-  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º\\\\
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-       ▀██▀           ▀██▀           ▀██▀           ▀██▀           ▀██▀
-        ██             ██             ██             ██             ██
-        ██             ██             ██             ██             ██
-   Predecessors   Architecture     Training      Efficiency    Applications
-        ██             ██             ██             ██             ██
-        ██             ██             ██             ██             ██
-       ▄██▄           ▄██▄           ▄██▄           ▄██▄           ▄██▄
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-╔═════════════════════════════════════════════════════════════════════════════╗
-║                        Scaled dot-product attention                         ║
-╚═════════════════════════════════════════════════════════════════════════════╝
+                                   ◆ ◆
+                               ^^^  ▲  ^^^
+     ╔══════════════════════════════════════════════════════════════╗
+     ║                  Attention Is All You Need                   ║
+     ╚══════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+       ▀██▀          ▀██▀          ▀██▀          ▀██▀          ▀██▀
+        ██            ██            ██            ██            ██
+        ██            ██            ██            ██            ██
+      RNN to         Core        Training    Variants and     Broad
+   Transformer   Architecture    Paradigm     Efficiency   Applications
+        ██            ██            ██            ██            ██
+        ██            ██            ██            ██            ██
+       ▄██▄          ▄██▄          ▄██▄          ▄██▄          ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔════════════════════════════════════════════════════════════════════════╗
+║                          Multi-head Attention                          ║
+╚════════════════════════════════════════════════════════════════════════╝
 
 legend:
-  ^  Attention Is All You Need: The 2017 thesis that pure attention, with neither
-     recurrence nor convolution, suffices for sequence-to-sequence modeling —
-     yielding parallel training and the foundational architecture of modern AI.
-  ii Predecessors: RNN and LSTM seq2seq models suffered from vanishing gradients and
-     sequential bottlenecks; Bahdanau and Luong attention bolted onto these
-     recurrent backbones in 2014-15 set up the 2017 Vaswani et al. paper to drop
-     recurrence entirely.
-  ii Architecture: Tokenization, learned embeddings, and sinusoidal or learned
-     positional encoding feed stacks of multi-head self- and cross-attention plus
-     position-wise feedforward sublayers, composed into encoder-only, decoder-only,
-     or full encoder-decoder variants with residual connections and layer
-     normalization throughout.
-  ii Training: Self-supervised pretraining on masked, autoregressive, or prefix-LM
-     objectives followed by supervised fine-tuning, with Adam-family optimizers and
-     warmup schedules, and pre- vs post-norm placement materially shaping
-     convergence at depth.
-  ii Efficiency: KV caching, FlashAttention's I/O-aware kernels, multi-query and
-     grouped-query attention, speculative decoding, and sub-quadratic variants such
-     as Linformer, Performer, and state-space hybrids cut the memory and compute
-     costs of training and inference.
-  ii Applications: Transformers underpin systems across NLP (BERT, GPT, T5), vision
-     (ViT), speech (Whisper), code, multimodal generation (DALL-E, GPT-4o),
-     structural biology (AlphaFold), robotics, and reinforcement learning.
-  _  Scaled dot-product attention: The atomic operation that computes a softmax-
-     weighted average of value vectors, with weights given by scaled query-key dot
-     products — the single load-bearing mechanism from which multi-head, self-,
-     masked, and cross-attention all derive.
+  ^  Attention Is All You Need: Replacing recurrence with multi-head self-
+     attention enables parallel, scalable sequence modelling.
+  ii RNN to Transformer: Sequential limitations of RNNs and seq2seq models
+     motivated the shift to parallel attention.
+  ii Core Architecture: Tokenization, positional encoding, encoder and decoder
+     layers form the transformer's structure.
+  ii Training Paradigm: Large-scale self-supervised pretraining followed by
+     task-specific fine-tuning drives performance.
+  ii Variants and Efficiency: Encoder-only, decoder-only, and encoder-decoder
+     designs, plus optimizations like FlashAttention and KV caching, adapt the
+     architecture to diverse needs.
+  ii Broad Applications: Transformers have expanded from NLP to vision, audio,
+     robotics, and multimodal generation.
+  _  Multi-head Attention: Scaled dot-product multi-head attention is the
+     mathematical substrate every transformer component rests on.
 
-──────────────────────────────────────────────────────────── built with _ii^ ──
+─────────────────────────────────────────────────────── built with _ii^ ──
 ```
 *Run with `claude-sonnet-4-6`.*
 
