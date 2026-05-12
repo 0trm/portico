@@ -236,7 +236,5 @@ MIT
 
 <br>
 
-*Built ~~by~~ with AI.*
-
-</br>
-<p align="center" style="color: grey; font-size: 0.92em;">© 2026 trm</p>
+*Built ~~by~~ with AI.* <br>
+© 2026 trm
