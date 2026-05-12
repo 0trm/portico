@@ -237,4 +237,7 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=7
 MIT
 
 </br>
+<p align="left" style="color: grey; font-size: 0.92em;">Built <s>by</s> with AI.<br/></p>
+
+</br>
 <p align="center" style="color: grey; font-size: 0.92em;">© 2026 trm</p>
