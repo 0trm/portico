@@ -16,7 +16,6 @@ from portico.loaders.base import (
     F1NotFound,
     F1RemoteInaccessible,
     F2NotParseable,
-    F2TooLarge,
     LoadedInput,
 )
 from portico.loaders.text import load_text
@@ -28,12 +27,14 @@ from portico.providers.base import (
 )
 from portico.providers.openai import OpenAIProvider
 from portico.render import render
+from portico.render.apex import generate_apex
 from portico.schema import FitQuality
-from portico.summarize import summarize
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = os.environ.get("PORTICO_DEMO_MODEL", "llama-3.3-70b-versatile")
 RENDER_WIDTH = 80
+GROQ_MAX_TOKENS = 3000  # leaves headroom under the free-tier 12K TPM cap
+GROQ_INPUT_CHAR_BUDGET = 18_000  # ~4.5K tokens; fits with prompt overhead + output
 
 
 def _build_provider() -> LLMProvider:
@@ -43,7 +44,9 @@ def _build_provider() -> LLMProvider:
             "GROQ_API_KEY is not set. In Hugging Face Spaces, add it under "
             "Settings -> Variables and secrets."
         )
-    return OpenAIProvider(api_key=api_key, base_url=GROQ_BASE_URL)
+    return OpenAIProvider(
+        api_key=api_key, base_url=GROQ_BASE_URL, max_tokens=GROQ_MAX_TOKENS
+    )
 
 
 def _load(value: str) -> LoadedInput:
@@ -55,6 +58,22 @@ def _load(value: str) -> LoadedInput:
     return load_text(value)
 
 
+def _truncate(loaded: LoadedInput) -> LoadedInput:
+    """Cap input to Groq free-tier per-request budget. Lossy but reliable."""
+    if len(loaded.text) <= GROQ_INPUT_CHAR_BUDGET:
+        return loaded
+    return LoadedInput(
+        text=loaded.text[:GROQ_INPUT_CHAR_BUDGET],
+        source=loaded.source,
+        input_type=loaded.input_type,
+        metadata={
+            **loaded.metadata,
+            "truncated": True,
+            "original_chars": len(loaded.text),
+        },
+    )
+
+
 def build_portico(value: str) -> tuple[str, str]:
     """Run the portico pipeline and return (rendered, diagnostics)."""
     try:
@@ -64,16 +83,8 @@ def build_portico(value: str) -> tuple[str, str]:
     except F2NotParseable as e:
         raise gr.Error(f"Could not parse input: {e}") from e
 
+    loaded = _truncate(loaded)
     provider = _build_provider()
-
-    try:
-        loaded = summarize(loaded, provider=provider, model=DEFAULT_MODEL)
-    except F2TooLarge as e:
-        raise gr.Error(f"Input too large: {e}") from e
-    except ProviderAuthError as e:
-        raise gr.Error(f"LLM auth error: {e}") from e
-    except ProviderTransportError as e:
-        raise gr.Error(f"LLM transport error: {e}") from e
 
     try:
         result = analyze(loaded.text, provider=provider, model=DEFAULT_MODEL)
@@ -93,17 +104,19 @@ def build_portico(value: str) -> tuple[str, str]:
             f"input type detected: {data.theme}"
         )
     else:
+        finial, keystone, _ = generate_apex()
         rendered = render(
             data,
             width=RENDER_WIDTH,
             height=None,
             legend=True,
+            apex_override=(finial, keystone),
         )
 
     diagnostics = (
         f"input_type:  {loaded.input_type}\n"
-        f"chars:       {loaded.metadata.get('chars', len(loaded.text))}\n"
-        f"summarized:  {loaded.metadata.get('summarized', False)}\n"
+        f"chars:       {len(loaded.text)}\n"
+        f"truncated:   {loaded.metadata.get('truncated', False)}\n"
         f"model:       {DEFAULT_MODEL}\n"
         f"fit_quality: {data.fit_quality.value}\n"
         f"attempts:    {result.attempts}"
@@ -126,19 +139,27 @@ HERO_HTML = """
 </div>
 """
 
-INTRO_MD = """\
-An LLM reads your input, classifies it, and decomposes it into three layers. The
-renderer turns those layers into a fixed ASCII in the shape of
-[a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg).
+INTRO_HTML = """
+<div class="portico-intro">
+  <p>An LLM reads your input, classifies it, and decomposes it into three
+  layers. The renderer turns those layers into a fixed ASCII in the shape of
+  <a href="https://github.com/0trm/portico/blob/main/docs/structure.jpg"
+     target="_blank">a portico</a>.</p>
 
-| Glyph | Layer   | Meaning                                       |
-| :---: | ------- | --------------------------------------------- |
-| `^`   | Roof    | The unifying idea                             |
-| `ii`  | Pillars | The load-bearing components (2-9 of them)     |
-| `_`   | Base    | The foundation everything rests on            |
+  <table class="portico-glyph-table">
+    <thead><tr><th>Glyph</th><th>Layer</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>^</code></td><td>Roof</td><td>The unifying idea</td></tr>
+      <tr><td><code>ii</code></td><td>Pillars</td>
+        <td>The load-bearing components (2-9 of them)</td></tr>
+      <tr><td><code>_</code></td><td>Base</td><td>The foundation everything rests on</td></tr>
+    </tbody>
+  </table>
 
-*When an input doesn't fit a three-layer shape – poems, flat lists, gibberish –
-`portico` refuses honestly rather than fake one.*
+  <p class="portico-refusal"><em>When an input doesn't fit a three-layer shape
+  &ndash; poems, flat lists, gibberish &ndash; <code>portico</code> refuses
+  honestly rather than fake one.</em></p>
+</div>
 """
 
 FOOTER_HTML = """
@@ -176,13 +197,37 @@ CUSTOM_CSS = """
     margin-top: 6px;
 }
 .portico-intro {
-    max-width: 720px;
+    max-width: 620px;
     margin: 0 auto 18px;
+    text-align: center;
     font-size: 13px;
 }
-.portico-intro table {
+.portico-intro p {
+    margin: 8px auto;
+    line-height: 1.5;
+}
+.portico-glyph-table {
+    margin: 14px auto;
     font-size: 12px;
-    margin: 10px auto;
+    border-collapse: collapse;
+}
+.portico-glyph-table th,
+.portico-glyph-table td {
+    padding: 6px 14px;
+    border: 1px solid var(--border-color-primary);
+    text-align: left;
+}
+.portico-glyph-table th {
+    text-align: center;
+    font-weight: 500;
+}
+.portico-glyph-table td:first-child {
+    text-align: center;
+}
+.portico-intro code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: transparent;
+    padding: 0 2px;
 }
 .portico-output textarea,
 .portico-output pre,
@@ -230,7 +275,7 @@ theme = gr.themes.Base(
 
 with gr.Blocks(title="portico") as demo:
     gr.HTML(HERO_HTML)
-    gr.Markdown(INTRO_MD, elem_classes=["portico-intro"])
+    gr.HTML(INTRO_HTML)
 
     with gr.Row(equal_height=False):
         with gr.Column(scale=4):

@@ -1,5 +1,6 @@
 from openai import (
     APIConnectionError,
+    APIStatusError,
     APITimeoutError,
     AuthenticationError,
     OpenAI,
@@ -39,6 +40,8 @@ class OpenAIProvider(LLMProvider):
             raise ProviderAuthError(str(e)) from e
         except (APIConnectionError, APITimeoutError, RateLimitError) as e:
             raise ProviderTransportError(str(e)) from e
+        except APIStatusError as e:
+            raise ProviderTransportError(f"{e.status_code}: {e.message}") from e
 
         text = resp.choices[0].message.content
         if not text:
