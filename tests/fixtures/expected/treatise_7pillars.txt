@@ -1,0 +1,35 @@
+── treatise: liberty ─────────────────────────────────────────────────────
+
+                                   ***
+                               ===  ◇  ===
+     ╔══════════════════════════════════════════════════════════════╗
+     ║                      Procedural liberty                      ║
+     ╚══════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     ▀██▀      ▀██▀      ▀██▀      ▀██▀      ▀██▀      ▀██▀      ▀██▀
+      ██        ██        ██        ██        ██        ██        ██
+      ██        ██        ██        ██        ██        ██        ██
+    Speech   Assembly    Due     Property  Suffrage  Redress   Contract
+      ██        ██     process      ██        ██        ██        ██
+      ██        ██        ██        ██        ██        ██        ██
+      ██        ██        ██        ██        ██        ██        ██
+     ▄██▄      ▄██▄      ▄██▄      ▄██▄      ▄██▄      ▄██▄      ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔════════════════════════════════════════════════════════════════════════╗
+║                             Natural rights                             ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+legend:
+  ^  Procedural liberty: Liberty is a property of procedure, not outcomes.
+  ii Speech: Expression without prior restraint.
+  ii Assembly: Collective gathering and petition.
+  ii Due process: Adjudication by neutral rule.
+  ii Property: Stable claim against arbitrary seizure.
+  ii Suffrage: Participation in collective choice.
+  ii Redress: Recourse against state action.
+  ii Contract: Free exchange under enforced terms.
+  _  Natural rights: The classical liberal substrate.
+
+─────────────────────────────────────────────────────── built with _ii^ ──

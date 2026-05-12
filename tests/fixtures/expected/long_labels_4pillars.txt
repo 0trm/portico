@@ -1,0 +1,32 @@
+── codebase: wide-labels ───────────────────────────────────────────
+
+                                ***
+                            ===  ◇  ===
+     ╔════════════════════════════════════════════════════════╗
+     ║                     Public surface                     ║
+     ╚════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+        ▀██▀            ▀██▀            ▀██▀            ▀██▀
+         ██              ██              ██              ██
+         ██              ██              ██              ██
+   Authentication   Billing and    Notifications   Reporting and
+     subsystem       invoicing        pipeline       analytics
+         ██              ██              ██              ██
+         ██              ██              ██              ██
+        ▄██▄            ▄██▄            ▄██▄            ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔══════════════════════════════════════════════════════════════════╗
+║                             Runtime                              ║
+╚══════════════════════════════════════════════════════════════════╝
+
+legend:
+  ^  Public surface: Top-level entry points.
+  ii Authentication subsystem: Login, sessions, tokens.
+  ii Billing and invoicing: Charges and statements.
+  ii Notifications pipeline: Email, SMS, push.
+  ii Reporting and analytics: Metrics and dashboards.
+  _  Runtime: Container substrate.
+
+───────────────────────────────────────────────── built with _ii^ ──

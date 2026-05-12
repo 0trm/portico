@@ -131,16 +131,16 @@ When an input doesn't fit a three-layer shape – poems, flat lists, gibberish �
 | Flag                            | What it does                                                            |
 | ------------------------------- | ----------------------------------------------------------------------- |
 | `--no-legend`                   | Hide the per-layer summary (legend renders by default)                  |
-| `--reapex[=N]`                  | Roll a random apex ornament; pin seed `N` to reproduce                  |
+| `--reapex=N`                    | Pin the apex to seed `N` (random by default; pool of 600+ variants)     |
 | `--json`                        | Emit the analyzer's JSON instead of rendering                           |
 | `--diagnose`                    | Print a pipeline report (input type, model, fit quality) and exit       |
 
 Run `portico --help` for the full list.
 
-### Random apex
+### Apex
 
-The apex is the ornament crowning the portico, picked at render time from a pool of 600+ variants.
-🎲 --reapex rolls a different one each run. Pin the seed to reproduce.
+The apex is the ornament crowning the portico — picked at render time from a pool of 600+ variants. <br>
+🎲 `--reapex=SEED` pins a specific composition to reproduce.
 
 ```bash
 portico https://0trm.blog/data-science-at-camp-nou/ --reapex=0

@@ -1,9 +1,10 @@
 """Curated combinatorial generator for symmetric apex ornaments.
 
-Used by the --reapex flag to roll an alternative 2-row apex composition that
-fits the locked v1 portico's slot. Outputs are bilaterally symmetric by
-construction. The keystone row is always exactly 11 chars wide so the apex
-occupies the same horizontal footprint regardless of the roll.
+Used by the CLI to roll a 2-row apex composition that fits the locked v1
+portico's slot. The default render picks one at random; --reapex=SEED pins a
+specific composition. Outputs are bilaterally symmetric by construction. The
+keystone row is always exactly 11 chars wide so the apex occupies the same
+horizontal footprint regardless of the roll.
 """
 
 from __future__ import annotations

@@ -1,0 +1,39 @@
+note: the portico metaphor is stretched for this input.
+
+── survey: context fitting ─────────────────────────────────────────────────
+
+                                    ***
+                                ===  ◇  ===
+     ╔════════════════════════════════════════════════════════════════╗
+     ║                        Context fitting                         ║
+     ╚════════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    ▀██▀    ▀██▀    ▀██▀    ▀██▀    ▀██▀    ▀██▀    ▀██▀    ▀██▀    ▀██▀
+     ██      ██      ██      ██      ██      ██      ██      ██      ██
+     ██      ██      ██      ██      ██      ██      ██      ██      ██
+    Stuf    Map-   Recur   Refine   Skel   Head+   Embed   Strea   Compre
+    fing   reduce   sive     ██     eton    tail   dings    ming   ssion
+     ██      ██      ██      ██      ██      ██      ██      ██      ██
+     ██      ██      ██      ██      ██      ██      ██      ██      ██
+    ▄██▄    ▄██▄    ▄██▄    ▄██▄    ▄██▄    ▄██▄    ▄██▄    ▄██▄    ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔══════════════════════════════════════════════════════════════════════════╗
+║                               Survey scope                               ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+legend:
+  ^  Context fitting: An umbrella name for the family of techniques surveyed.
+  ii Stuffing: One-shot inclusion of full input.
+  ii Map-reduce: Per-chunk maps, single reduce.
+  ii Recursive: Repeated bottom-up summarization.
+  ii Refine: Sequential rolling refinement.
+  ii Skeleton: Structural skeleton extraction.
+  ii Head+tail: Truncation at both ends.
+  ii Embeddings: Top-k retrieval into prompt.
+  ii Streaming: Online incremental summarization.
+  ii Compression: Lossy token-level shrinking.
+  _  Survey scope: Recent literature 2020-2026.
+
+───────────────────────────────────────────────────────── built with _ii^ ──

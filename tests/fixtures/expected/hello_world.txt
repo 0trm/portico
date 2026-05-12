@@ -1,0 +1,29 @@
+── snippet: hello world ────────────
+
+                ***
+            ===  ◇  ===
+     ╔════════════════════════╗
+     ║       salutation       ║
+     ╚════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+        ▀██▀            ▀██▀
+         ██              ██
+         ██              ██
+       hello           world
+         ██              ██
+         ██              ██
+        ▄██▄            ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔══════════════════════════════════╗
+║        coding convention         ║
+╚══════════════════════════════════╝
+
+legend:
+  ^  salutation: a greeting addressed at the world.
+  ii hello: the act of greeting.
+  ii world: the recipient.
+  _  coding convention: the canonical first program in any toolchain.
+
+───────────────── built with _ii^ ──

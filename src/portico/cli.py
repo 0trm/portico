@@ -265,12 +265,13 @@ def run(args: Args, *, provider: LLMProvider | None = None) -> int:
         print(render_refusal(data))
         return EXIT_OK
 
-    apex_override: tuple[str, str] | None = None
     apex_seed_label: str | None = None
     if args.reapex:
         finial, keystone, used_seed = generate_apex(args.reapex_seed)
-        apex_override = (finial, keystone)
         apex_seed_label = f"apex seed: {used_seed}"
+    else:
+        finial, keystone, _ = generate_apex()
+    apex_override: tuple[str, str] | None = (finial, keystone)
 
     print(
         render(
@@ -322,7 +323,7 @@ def parse_args(argv: list[str] | None = None) -> Args:
         nargs="?",
         const="__random__",
         default=None,
-        help="Roll a random symmetric apex ornament. Pass --reapex=SEED to pin one.",
+        help="Pin the apex to a specific seed (random by default). Pass --reapex=SEED.",
     )
     parser.add_argument("--version", action="version", version=f"portico {__version__}")
     parsed = parser.parse_args(argv)

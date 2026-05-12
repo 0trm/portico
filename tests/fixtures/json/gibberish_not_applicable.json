@@ -1,0 +1,33 @@
+{
+  "input_type": "noise",
+  "type_rationale": "Random tokens with no semantic content.",
+  "decomposition_strategy": "Decline -- nothing to decompose.",
+  "scratch_outline": [
+    "Input contains no claims.",
+    "No structure to extract.",
+    "fit_quality: not_applicable."
+  ],
+  "mece_check": "n/a -- no content.",
+  "theme": "noise",
+  "title": "untitled",
+  "roof": {
+    "label": "n/a",
+    "summary": "No content to summarize."
+  },
+  "pillars": [
+    {
+      "label": "n/a",
+      "summary": "No structure detected."
+    },
+    {
+      "label": "n/a",
+      "summary": "No structure detected."
+    }
+  ],
+  "base": {
+    "label": "n/a",
+    "summary": "No foundation detected."
+  },
+  "fit_quality": "not_applicable",
+  "notes_on_fit": "Input does not contain decomposable content."
+}
