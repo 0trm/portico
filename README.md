@@ -1,11 +1,7 @@
 </div>
 
 <p align="center">
-<img width="405" height="280" alt="portico" src="https://github.com/user-attachments/assets/e15a3845-9e80-4edb-a038-19afb81b4649" />
-</p>
-
-<p align="center">
-Render input as a portico: a three-layered visual abstraction.
+<img width="400" height="275" alt="portico" src="https://github.com/user-attachments/assets/e15a3845-9e80-4edb-a038-19afb81b4649" />
 </p>
 
 <p align="center">
@@ -26,23 +22,17 @@ Render input as a portico: a three-layered visual abstraction.
 
 ## About
 
-An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
-The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg). <br>
-You build a tiny monument for the thing you're trying to understand.
+**`portico` renders input as a three-layered visual abstraction.**
+
+1. An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
+2. The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg). <br>
+3. It builds a tiny monument for the thing you're trying to understand.
 
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
 |   `^`   | Roof    | The unifying idea                             |
 |  `ii`   | Pillars | The load-bearing components                   |
 |   `_`   | Base    | The foundation everything rests on            |
-
-## Try it online
-
-Run `portico` in your browser, no install required:
-
-–> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <–
-
-*The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
 
 ## Try it locally
 
@@ -58,63 +48,74 @@ portico https://example.com/article
 portico ./src --no-legend
 echo "your text here" | portico -
 ```
+## Try it online
+
+Run `portico` in your browser, no install required:
+
+–> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <–
+
+*The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
 
 ## Example
 
 ```bash
 portico "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)"
 ```
-
 ```
-── encyclopedia article: Transformer ───────────────────────────────────────────────
+── encyclopedia article: Transformer ──────────────────────────────────────────
 
-                                        ***
-                                    ===  ◇  ===
-     ╔════════════════════════════════════════════════════════════════════════╗
-     ║                       Attention Is All You Need                        ║
-     ╚════════════════════════════════════════════════════════════════════════╝
-  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~\\\\
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-        ▀██▀            ▀██▀            ▀██▀            ▀██▀            ▀██▀
-         ██              ██              ██              ██              ██
-         ██              ██              ██              ██              ██
-       RNN to       Architecture      Training       Efficient      Applications
-    Transformer          ██              ██          Inference           ██
-         ██              ██              ██              ██              ██
-         ██              ██              ██              ██              ██
-        ▄██▄            ▄██▄            ▄██▄            ▄██▄            ▄██▄
-   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                               Multi-head attention                               ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
+                                      ***
+                                  ===  ◇  ===
+     ╔═══════════════════════════════════════════════════════════════════╗
+     ║                     Attention Is All You Need                     ║
+     ╚═══════════════════════════════════════════════════════════════════╝
+  ////º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º~~º\\\\
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+       ▀██▀           ▀██▀           ▀██▀           ▀██▀           ▀██▀
+        ██             ██             ██             ██             ██
+        ██             ██             ██             ██             ██
+   Predecessors   Architecture     Training      Efficiency    Applications
+        ██             ██             ██             ██             ██
+        ██             ██             ██             ██             ██
+       ▄██▄           ▄██▄           ▄██▄           ▄██▄           ▄██▄
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                        Scaled dot-product attention                         ║
+╚═════════════════════════════════════════════════════════════════════════════╝
 
 legend:
-  ^  Attention Is All You Need: Replacing recurrence with multi-head self-attention enables fully
-     parallel sequence processing, making transformers the dominant architecture for language and
-     beyond.
-  ii RNN to Transformer: The article traces how vanishing-gradient limitations in RNNs and seq2seq
-     models motivated the removal of recurrence in favour of parallelisable attention.
-  ii Architecture: The transformer is built from tokenization, positional encoding, stacked encoder
-     and decoder layers with self- and cross-attention, feedforward networks, and an un-embedding
-     layer, with encoder-only, decoder-only, and encoder-decoder variants.
-  ii Training: Transformers are trained via masked, autoregressive, or prefixLM tasks, typically
-     using large-scale self-supervised pretraining followed by supervised fine-tuning, with layer
-     normalisation placement critical for convergence.
-  ii Efficient Inference: KV caching, FlashAttention, multi-query attention, speculative decoding,
-     and sub-quadratic attention variants reduce the memory and compute costs of running large
-     transformer models.
-  ii Applications: Transformers have been applied across NLP, computer vision, speech, robotics,
-     multimodal generation, and reinforcement learning, powering systems from BERT and GPT to DALL-E
-     and AlphaFold.
-  _  Multi-head attention: Scaled dot-product multi-head attention is the single load-bearing
-     mechanism from which the transformer's parallelism, contextualisation, and cross-modal
-     flexibility all derive.
+  ^  Attention Is All You Need: The 2017 thesis that pure attention, with neither
+     recurrence nor convolution, suffices for sequence-to-sequence modeling —
+     yielding parallel training and the foundational architecture of modern AI.
+  ii Predecessors: RNN and LSTM seq2seq models suffered from vanishing gradients and
+     sequential bottlenecks; Bahdanau and Luong attention bolted onto these
+     recurrent backbones in 2014-15 set up the 2017 Vaswani et al. paper to drop
+     recurrence entirely.
+  ii Architecture: Tokenization, learned embeddings, and sinusoidal or learned
+     positional encoding feed stacks of multi-head self- and cross-attention plus
+     position-wise feedforward sublayers, composed into encoder-only, decoder-only,
+     or full encoder-decoder variants with residual connections and layer
+     normalization throughout.
+  ii Training: Self-supervised pretraining on masked, autoregressive, or prefix-LM
+     objectives followed by supervised fine-tuning, with Adam-family optimizers and
+     warmup schedules, and pre- vs post-norm placement materially shaping
+     convergence at depth.
+  ii Efficiency: KV caching, FlashAttention's I/O-aware kernels, multi-query and
+     grouped-query attention, speculative decoding, and sub-quadratic variants such
+     as Linformer, Performer, and state-space hybrids cut the memory and compute
+     costs of training and inference.
+  ii Applications: Transformers underpin systems across NLP (BERT, GPT, T5), vision
+     (ViT), speech (Whisper), code, multimodal generation (DALL-E, GPT-4o),
+     structural biology (AlphaFold), robotics, and reinforcement learning.
+  _  Scaled dot-product attention: The atomic operation that computes a softmax-
+     weighted average of value vectors, with weights given by scaled query-key dot
+     products — the single load-bearing mechanism from which multi-head, self-,
+     masked, and cross-attention all derive.
 
-───────────────────────────────────────────────────────────────── built with _ii^ ──
+──────────────────────────────────────────────────────────── built with _ii^ ──
 ```
-
-Rendered with `claude-sonnet-4-6`.
+*Run with `claude-sonnet-4-6`.*
 
 ## Inputs
 
@@ -138,11 +139,11 @@ Run `portico --help` for the full list.
 
 ### Apex
 
-The apex is the ornament crowning the portico — picked at render time from a pool of 600+ variants.
+The apex is the ornament crowning the portico — picked at render time from a pool of 600+ variants. <br>
 🎲 `--reapex=SEED` pins a specific composition to reproduce.
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=0
 ```
 
 ```
@@ -171,7 +172,7 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
 ```
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=1
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=1
 ```
 
 ```
@@ -200,7 +201,7 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=1
 ```
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=7
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=7
 ```
 
 ```
@@ -232,6 +233,10 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=7
 ## License
 
 MIT
+
+<br>
+
+*Built ~~by~~ with AI.*
 
 </br>
 <p align="center" style="color: grey; font-size: 0.92em;">© 2026 trm</p>
