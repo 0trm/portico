@@ -25,7 +25,7 @@
 **`portico` renders input as a three-layered visual abstraction.**
 
 1. An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
-2. The renderer turns those layers into a fixed ASCII the shape of [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg). <br>
+2. The renderer turns those layers into a fixed ASCII in the shape of [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg). <br>
 3. It builds a tiny monument for the thing you're trying to understand.
 
 |  Glyph  | Layer   | Meaning                                       |
