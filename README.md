@@ -143,7 +143,7 @@ The apex is the ornament crowning the portico, picked at render time from a pool
 🎲 --reapex rolls a different one each run. Pin the seed to reproduce.
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=0
 ```
 
 ```
@@ -172,7 +172,7 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=0
 ```
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=1
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=1
 ```
 
 ```
@@ -201,7 +201,7 @@ portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=1
 ```
 
 ```bash
-portico https://trm.bearblog.dev/data-science-at-camp-nou/ --reapex=7
+portico https://0trm.blog/data-science-at-camp-nou/ --reapex=7
 ```
 
 ```
