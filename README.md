@@ -1,7 +1,7 @@
 </div>
 
 <p align="center">
-<img width="400" height="275" alt="portico" src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.jpg" />
+<img width="400" height="275" alt="portico" src="./docs/portico.jpg" />
 </p>
 
 <p align="center">
