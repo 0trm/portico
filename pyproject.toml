@@ -1,6 +1,6 @@
 [project]
 name = "portico-cli"
-version = "0.1.4"
+version = "0.1.5"
 description = "Render any input as a portico – a three-layer ASCII visualization."
 readme = "README.md"
 license = "MIT"
