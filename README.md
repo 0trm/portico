@@ -22,7 +22,7 @@
 
 ## About
 
-**`portico` renders input as three-layered visual abstraction.**
+**`portico` renders input as a three-layered visual abstraction.**
 
 1. An LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
 2. The renderer turns those layers into a fixed ASCII shape that resembles [a portico](docs/structure.jpg). <br>
