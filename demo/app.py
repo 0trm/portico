@@ -16,7 +16,6 @@ from portico.loaders.base import (
     F1NotFound,
     F1RemoteInaccessible,
     F2NotParseable,
-    F2TooLarge,
     LoadedInput,
 )
 from portico.loaders.text import load_text
@@ -30,11 +29,12 @@ from portico.providers.openai import OpenAIProvider
 from portico.render import render
 from portico.render.apex import generate_apex
 from portico.schema import FitQuality
-from portico.summarize import summarize
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = os.environ.get("PORTICO_DEMO_MODEL", "llama-3.3-70b-versatile")
 RENDER_WIDTH = 80
+GROQ_MAX_TOKENS = 3000  # leaves headroom under the free-tier 12K TPM cap
+GROQ_INPUT_CHAR_BUDGET = 18_000  # ~4.5K tokens; fits with prompt overhead + output
 
 
 def _build_provider() -> LLMProvider:
@@ -44,7 +44,9 @@ def _build_provider() -> LLMProvider:
             "GROQ_API_KEY is not set. In Hugging Face Spaces, add it under "
             "Settings -> Variables and secrets."
         )
-    return OpenAIProvider(api_key=api_key, base_url=GROQ_BASE_URL)
+    return OpenAIProvider(
+        api_key=api_key, base_url=GROQ_BASE_URL, max_tokens=GROQ_MAX_TOKENS
+    )
 
 
 def _load(value: str) -> LoadedInput:
@@ -56,6 +58,22 @@ def _load(value: str) -> LoadedInput:
     return load_text(value)
 
 
+def _truncate(loaded: LoadedInput) -> LoadedInput:
+    """Cap input to Groq free-tier per-request budget. Lossy but reliable."""
+    if len(loaded.text) <= GROQ_INPUT_CHAR_BUDGET:
+        return loaded
+    return LoadedInput(
+        text=loaded.text[:GROQ_INPUT_CHAR_BUDGET],
+        source=loaded.source,
+        input_type=loaded.input_type,
+        metadata={
+            **loaded.metadata,
+            "truncated": True,
+            "original_chars": len(loaded.text),
+        },
+    )
+
+
 def build_portico(value: str) -> tuple[str, str]:
     """Run the portico pipeline and return (rendered, diagnostics)."""
     try:
@@ -65,16 +83,8 @@ def build_portico(value: str) -> tuple[str, str]:
     except F2NotParseable as e:
         raise gr.Error(f"Could not parse input: {e}") from e
 
+    loaded = _truncate(loaded)
     provider = _build_provider()
-
-    try:
-        loaded = summarize(loaded, provider=provider, model=DEFAULT_MODEL)
-    except F2TooLarge as e:
-        raise gr.Error(f"Input too large: {e}") from e
-    except ProviderAuthError as e:
-        raise gr.Error(f"LLM auth error: {e}") from e
-    except ProviderTransportError as e:
-        raise gr.Error(f"LLM transport error: {e}") from e
 
     try:
         result = analyze(loaded.text, provider=provider, model=DEFAULT_MODEL)
@@ -105,8 +115,8 @@ def build_portico(value: str) -> tuple[str, str]:
 
     diagnostics = (
         f"input_type:  {loaded.input_type}\n"
-        f"chars:       {loaded.metadata.get('chars', len(loaded.text))}\n"
-        f"summarized:  {loaded.metadata.get('summarized', False)}\n"
+        f"chars:       {len(loaded.text)}\n"
+        f"truncated:   {loaded.metadata.get('truncated', False)}\n"
         f"model:       {DEFAULT_MODEL}\n"
         f"fit_quality: {data.fit_quality.value}\n"
         f"attempts:    {result.attempts}"
