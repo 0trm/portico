@@ -95,7 +95,10 @@ Concrete rules:
   language or ideas in the input. Do not extend the author's metaphors or coin new ones.
 - Plain language: when the input uses everyday words, prefer everyday words in the labels. \
   Reach for jargon only if the input itself does.
-- Length: target <= 16 characters per label. Concise noun phrases. Summaries are one sentence.
+- Label length: <= 16 characters. Concise noun phrases.
+- Summary length: <= 14 words / <= 100 characters. ONE simple sentence with one main \
+clause -- no compound structures, no lists of three, no "X, doing Y, and Z" tails. \
+Distill the layer's essence; do NOT echo the input's sentence patterns.
 
 PORTICO:
 - MECE: pillars must NOT overlap; together they must cover the load-bearing parts.
