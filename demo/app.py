@@ -112,22 +112,24 @@ def build_portico(value: str) -> tuple[str, str]:
 
 
 EXAMPLES = [
-    ["https://trm.bearblog.dev/data-science-at-camp-nou/"],
-    [
-        "Trust scales sub-linearly with team size. Past Dunbar's ~150, feedback loops"
-        " stretch and diffusion of responsibility sets in. Smaller groups close loops"
-        " faster, which is why high-trust teams stay small."
-    ],
-    ["https://en.wikipedia.org/wiki/Brier_score"],
-    ["Roses are red, violets are blue, sugar is sweet, and so are you."],
+    ["https://en.wikipedia.org/wiki/Photosynthesis"],
+    ["https://en.wikipedia.org/wiki/Bitcoin"],
+    ["https://en.wikipedia.org/wiki/Stoicism"],
+    ["https://trm.bearblog.dev/three-spaces-of-context/"],
 ]
 
-DESCRIPTION = """\
-**Render any input as a portico: a three-layered abstraction.**
+HERO_HTML = """
+<div class="portico-hero">
+  <div class="portico-mark">_ii^</div>
+  <div class="portico-wordmark">portico</div>
+  <div class="portico-tagline">render input as a three-layered visual abstraction</div>
+</div>
+"""
 
-An LLM reads your input, decides what kind of thing it is, and decomposes it into
-three layers. 🏛️ The renderer turns those layers into a fixed ASCII shape that
-resembles [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg).
+INTRO_MD = """\
+An LLM reads your input, classifies it, and decomposes it into three layers. The
+renderer turns those layers into a fixed ASCII in the shape of
+[a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg).
 
 | Glyph | Layer   | Meaning                                       |
 | :---: | ------- | --------------------------------------------- |
@@ -135,32 +137,136 @@ resembles [a portico](https://github.com/0trm/portico/blob/main/docs/structure.j
 | `ii`  | Pillars | The load-bearing components (2-9 of them)     |
 | `_`   | Base    | The foundation everything rests on            |
 
-Powered by 🦙 **Llama 3.3 70B** via Groq. Paste text or a URL and render.
-
-When an input doesn't fit a three-layer shape -- poems, flat lists, gibberish --
-`portico` refuses honestly rather than fake one.
+*When an input doesn't fit a three-layer shape – poems, flat lists, gibberish –
+`portico` refuses honestly rather than fake one.*
 """
 
+FOOTER_HTML = """
+<div class="portico-footer">
+  powered by Llama 3.3 70B via Groq ·
+  <a href="https://github.com/0trm/portico" target="_blank">source</a> ·
+  <a href="https://pypi.org/project/portico-cli/" target="_blank">pypi</a>
+</div>
+"""
+
+CUSTOM_CSS = """
+.portico-hero {
+    text-align: center;
+    padding: 28px 0 8px;
+}
+.portico-mark {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 45px;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    margin: 0;
+    user-select: none;
+}
+.portico-wordmark {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    margin-top: 16px;
+    font-weight: 500;
+}
+.portico-tagline {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--body-text-color-subdued);
+    margin-top: 6px;
+}
+.portico-intro {
+    max-width: 720px;
+    margin: 0 auto 18px;
+    font-size: 13px;
+}
+.portico-intro table {
+    font-size: 12px;
+    margin: 10px auto;
+}
+.portico-output textarea,
+.portico-output pre,
+.portico-output code,
+.portico-output .cm-content,
+.portico-output .cm-line {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+}
+.portico-diag textarea,
+.portico-diag pre,
+.portico-diag code,
+.portico-diag .cm-content,
+.portico-diag .cm-line {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    font-size: 12px !important;
+}
+.portico-submit button {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+}
+.portico-footer {
+    text-align: center;
+    padding: 16px 0 4px;
+    font-size: 11px;
+    color: var(--body-text-color-subdued);
+    letter-spacing: 0.03em;
+}
+.portico-footer a {
+    color: var(--body-text-color-subdued);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+"""
+
+theme = gr.themes.Base(
+    primary_hue="stone",
+    neutral_hue="stone",
+    radius_size=gr.themes.sizes.radius_sm,
+    font=[gr.themes.GoogleFont("JetBrains Mono"), "ui-monospace", "monospace"],
+    font_mono=[gr.themes.GoogleFont("JetBrains Mono"), "ui-monospace", "monospace"],
+)
+
 with gr.Blocks(title="portico") as demo:
-    gr.Markdown("# portico")
-    gr.Markdown(DESCRIPTION)
+    gr.HTML(HERO_HTML)
+    gr.Markdown(INTRO_MD, elem_classes=["portico-intro"])
 
-    input_box = gr.Textbox(
-        label="input",
-        placeholder="Paste text, or a URL starting with https://",
-        lines=8,
-        max_lines=20,
-    )
-    submit = gr.Button("render portico", variant="primary")
+    with gr.Row(equal_height=False):
+        with gr.Column(scale=4):
+            input_box = gr.Textbox(
+                label="input",
+                placeholder="paste text, or a url starting with https://",
+                lines=10,
+                max_lines=24,
+            )
+            submit = gr.Button(
+                "_ii^   render",
+                variant="primary",
+                elem_classes=["portico-submit"],
+            )
+            gr.Examples(examples=EXAMPLES, inputs=input_box, label="examples")
 
-    output_box = gr.Code(label="portico", language=None, interactive=False)
-    diag_box = gr.Code(label="diagnostics", language=None, interactive=False)
+        with gr.Column(scale=6):
+            output_box = gr.Code(
+                label="portico",
+                language=None,
+                interactive=False,
+                elem_classes=["portico-output"],
+            )
+            with gr.Accordion("diagnostics", open=False):
+                diag_box = gr.Code(
+                    label="",
+                    language=None,
+                    interactive=False,
+                    elem_classes=["portico-diag"],
+                )
+
+    gr.HTML(FOOTER_HTML)
 
     submit.click(fn=build_portico, inputs=input_box, outputs=[output_box, diag_box])
     input_box.submit(fn=build_portico, inputs=input_box, outputs=[output_box, diag_box])
 
-    gr.Examples(examples=EXAMPLES, inputs=input_box)
-
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(theme=theme, css=CUSTOM_CSS)
