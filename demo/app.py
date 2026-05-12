@@ -28,6 +28,7 @@ from portico.providers.base import (
 )
 from portico.providers.openai import OpenAIProvider
 from portico.render import render
+from portico.render.apex import generate_apex
 from portico.schema import FitQuality
 from portico.summarize import summarize
 
@@ -93,11 +94,13 @@ def build_portico(value: str) -> tuple[str, str]:
             f"input type detected: {data.theme}"
         )
     else:
+        finial, keystone, _ = generate_apex()
         rendered = render(
             data,
             width=RENDER_WIDTH,
             height=None,
             legend=True,
+            apex_override=(finial, keystone),
         )
 
     diagnostics = (
@@ -126,19 +129,27 @@ HERO_HTML = """
 </div>
 """
 
-INTRO_MD = """\
-An LLM reads your input, classifies it, and decomposes it into three layers. The
-renderer turns those layers into a fixed ASCII in the shape of
-[a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg).
+INTRO_HTML = """
+<div class="portico-intro">
+  <p>An LLM reads your input, classifies it, and decomposes it into three
+  layers. The renderer turns those layers into a fixed ASCII in the shape of
+  <a href="https://github.com/0trm/portico/blob/main/docs/structure.jpg"
+     target="_blank">a portico</a>.</p>
 
-| Glyph | Layer   | Meaning                                       |
-| :---: | ------- | --------------------------------------------- |
-| `^`   | Roof    | The unifying idea                             |
-| `ii`  | Pillars | The load-bearing components (2-9 of them)     |
-| `_`   | Base    | The foundation everything rests on            |
+  <table class="portico-glyph-table">
+    <thead><tr><th>Glyph</th><th>Layer</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>^</code></td><td>Roof</td><td>The unifying idea</td></tr>
+      <tr><td><code>ii</code></td><td>Pillars</td>
+        <td>The load-bearing components (2-9 of them)</td></tr>
+      <tr><td><code>_</code></td><td>Base</td><td>The foundation everything rests on</td></tr>
+    </tbody>
+  </table>
 
-*When an input doesn't fit a three-layer shape – poems, flat lists, gibberish –
-`portico` refuses honestly rather than fake one.*
+  <p class="portico-refusal"><em>When an input doesn't fit a three-layer shape
+  &ndash; poems, flat lists, gibberish &ndash; <code>portico</code> refuses
+  honestly rather than fake one.</em></p>
+</div>
 """
 
 FOOTER_HTML = """
@@ -176,13 +187,37 @@ CUSTOM_CSS = """
     margin-top: 6px;
 }
 .portico-intro {
-    max-width: 720px;
+    max-width: 620px;
     margin: 0 auto 18px;
+    text-align: center;
     font-size: 13px;
 }
-.portico-intro table {
+.portico-intro p {
+    margin: 8px auto;
+    line-height: 1.5;
+}
+.portico-glyph-table {
+    margin: 14px auto;
     font-size: 12px;
-    margin: 10px auto;
+    border-collapse: collapse;
+}
+.portico-glyph-table th,
+.portico-glyph-table td {
+    padding: 6px 14px;
+    border: 1px solid var(--border-color-primary);
+    text-align: left;
+}
+.portico-glyph-table th {
+    text-align: center;
+    font-weight: 500;
+}
+.portico-glyph-table td:first-child {
+    text-align: center;
+}
+.portico-intro code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: transparent;
+    padding: 0 2px;
 }
 .portico-output textarea,
 .portico-output pre,
@@ -230,7 +265,7 @@ theme = gr.themes.Base(
 
 with gr.Blocks(title="portico") as demo:
     gr.HTML(HERO_HTML)
-    gr.Markdown(INTRO_MD, elem_classes=["portico-intro"])
+    gr.HTML(INTRO_HTML)
 
     with gr.Row(equal_height=False):
         with gr.Column(scale=4):
