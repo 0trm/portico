@@ -226,4 +226,4 @@ MIT
 <br>
 
 *Built ~~by~~ with AI.* <br>
-© 2026 trm
+© trm
