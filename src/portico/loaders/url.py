@@ -14,7 +14,7 @@ SHORT_RESPONSE_THRESHOLD = 200  # below this, the page may be JS-rendered
 
 # A few hosts (Wikipedia notably) reject the default httpx User-Agent. Identify
 # politely as ourselves so requests succeed while staying honest about who we are.
-USER_AGENT = f"portico/{__version__} (CLI portico renderer; +https://github.com)"
+USER_AGENT = f"portico/{__version__} (CLI portico renderer; +https://github.com/0trm/portico)"
 DEFAULT_HEADERS = {
     "User-Agent": USER_AGENT,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",

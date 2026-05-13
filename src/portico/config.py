@@ -6,8 +6,8 @@ def get_anthropic_api_key() -> str | None:
 
 
 def get_default_provider() -> str:
-    return os.environ.get("ARQII_PROVIDER", "claude")
+    return os.environ.get("PORTICO_PROVIDER", "claude")
 
 
 def get_default_model() -> str | None:
-    return os.environ.get("ARQII_MODEL")
+    return os.environ.get("PORTICO_MODEL")

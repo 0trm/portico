@@ -128,7 +128,7 @@ Run `portico --help` for the full list.
 
 ### Apex
 
-The apex is the ornament crowning the portico — picked at render time from a pool of 600+ variants. <br>
+The apex is the ornament crowning the portico -- picked at render time from a pool of 600+ variants. <br>
 🎲 `--reapex=SEED` pins a specific composition to reproduce.
 
 ```bash
