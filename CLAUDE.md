@@ -8,8 +8,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The brand is **always lowercase**. The wordmark is `portico`, the mark is `_ii^`. **`portico` is both the product name and the noun for the rendered output** ("render any input as a portico"). Don't capitalize in code, comments, prose, or commit messages.
 
-The eval pipeline (generate -> judge -> report) is documented in `tests/eval/README.md`.
-
 ## Commands
 
 ```bash
@@ -18,27 +16,9 @@ uv run ruff check .             # lint
 uv run pyright                  # type-check
 uv run pytest                   # mocked tests (live tests auto-skip without ANTHROPIC_API_KEY)
 uv run pytest tests/test_cli.py::test_name  # single test
-uv run pytest -m "not live"     # skip the live smoke eval explicitly
+uv run pytest -m "not live"     # skip live tests explicitly
 uv run portico README.md        # exercise the CLI on an input
 ```
-
-The smoke eval (in `tests/eval/smoke/`) makes 10 live Claude calls. With the API key in 1Password, run the full suite via:
-
-```bash
-op run --env-file=.env -- arch -arm64 uv run pytest
-```
-
-`arch -arm64` is required because the 1Password CLI is x86_64 and would otherwise force a Rosetta child of `uv`.
-
-The full eval pipeline (separate from unit tests):
-
-```bash
-op run --env-file=.env -- arch -arm64 uv run python -m tests.eval.run_eval --run-id rNN
-JUDGE_PROVIDER=ollama uv run python -m tests.eval.judge --run-id rNN   # or hosted: omit for OpenAI
-uv run python -m tests.eval.report --run-id rNN
-```
-
-Stages are decoupled by `--run-id`; reruns with the same id resume.
 
 ## Architecture
 
@@ -75,5 +55,5 @@ The CLI (`cli.py`) is the only place that wires stages together and translates e
 - Python 3.12+. Package layout is `src/`-style with `[project.scripts] portico = "portico.cli:main"`.
 - ruff selects `E F I B UP SIM RUF`; line length 100. pyright in `standard` mode over `src` and `tests`.
 - Live tests are gated by the `live` pytest marker (declared in `pyproject.toml`).
-- Env vars for provider/model overrides use the `ARQII_` prefix (`ARQII_PROVIDER`, `ARQII_MODEL`) -- legacy from the project's previous name. The product is `portico` everywhere user-facing; only the env var names retain `ARQII_`. Don't "fix" this without checking with the user.
-- Prose style: use `--` not em dashes; lowercase `portico`. The output noun is also `portico` (not `structure`); reserve "structure" for generic English usage like "structural decomposition" or "the input's internal structure".
+- Env vars for provider/model overrides use the `PORTICO_` prefix (`PORTICO_PROVIDER`, `PORTICO_MODEL`). The product is `portico` everywhere user-facing.
+- Prose style: avoid em dashes (`—`); `--` and en dashes (`–`) are fine. Lowercase `portico`. The output noun is also `portico` (not `structure`); reserve "structure" for generic English usage like "structural decomposition" or "the input's internal structure".

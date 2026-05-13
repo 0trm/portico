@@ -9,7 +9,7 @@ authors = [
     { name = "Tomás Ravalli", email = "tomravalli@gmail.com" }
 ]
 requires-python = ">=3.12"
-keywords = ["ascii", "ascii-art", "visualization", "cli", "llm", "claude", "openai"]
+keywords = ["ascii", "ascii-art", "visualization", "cli", "llm", "claude", "openai", "gemini"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
@@ -23,6 +23,8 @@ classifiers = [
 ]
 dependencies = [
     "anthropic>=0.100.0",
+    "google-genai>=1.0.0",
+    "httpx>=0.27",
     "openai>=2.36.0",
     "pydantic>=2.13.4",
     "trafilatura>=2.0.0",
