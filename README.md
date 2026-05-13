@@ -52,7 +52,7 @@ echo "your text here" | portico -
 
 Run `portico` in your browser, no install required:
 
-–> **[Hugging Face Space](https://huggingface.co/spaces/0trm/portico)** <–
+**[▶ Try demo on Hugging Face](https://huggingface.co/spaces/0trm/portico)**
 
 *The space uses 🦙 Llama 3.3 70B via Groq. Paste [input](#inputs) and render.*
 
