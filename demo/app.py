@@ -125,9 +125,8 @@ def build_portico(value: str) -> tuple[str, str]:
 
 
 EXAMPLES = [
-    ["https://en.wikipedia.org/wiki/Photosynthesis"],
-    ["https://en.wikipedia.org/wiki/Bitcoin"],
     ["https://en.wikipedia.org/wiki/Stoicism"],
+    ["https://en.wikipedia.org/wiki/Bitcoin"],
     ["https://trm.bearblog.dev/three-spaces-of-context/"],
 ]
 
