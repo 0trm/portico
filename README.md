@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <a href="#try-it-online">Try it online</a> •
   <a href="#try-it-locally">Try it locally</a> •
+  <a href="#try-it-online">Try it online</a> •
   <a href="#example">Example</a> •
   <a href="#inputs">Inputs</a> •
   <a href="#customization">Customization</a>
