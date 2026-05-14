@@ -124,6 +124,12 @@ Five stages run in strict order. Each owns one responsibility and hands a typed 
           loaders/     summarize.py     cache.py     analyzer.py  render/
 ```
 
+- **loader** – reads the input (text, file, directory, URL, or repo) into a normalized `LoadedInput`.
+- **summarizer** – chunks oversized inputs and recursively summarizes them via the LLM.
+- **cache** – hashes `(text, provider, model)` to JSON on disk; on hit, skips the analyzer.
+- **analyzer** – prompts the LLM for a three-layer decomposition; validates and retries on bad JSON.
+- **renderer** – turns the analyzer's JSON into ASCII; pure function, never calls the LLM.
+
 ## Inputs
 
 - Raw text or stdin
