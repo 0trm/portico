@@ -15,7 +15,8 @@
   <a href="#try-it-online">Try it online</a> •
   <a href="#example">Example</a> •
   <a href="#inputs">Inputs</a> •
-  <a href="#customization">Customization</a>
+  <a href="#customization">Customization</a> •
+  <a href="#how-portico-works">How portico works</a>
 </p>
 
 ---
@@ -219,6 +220,58 @@ portico https://0trm.blog/data-science-at-camp-nou/ --reapex=7
 ║                   Fan Behavior                   ║
 ╚══════════════════════════════════════════════════╝
 ```
+---
+
+## How portico works
+
+A walkthrough of the pipeline that turns an arbitrary input into a three-layer ASCII rendering. For devs or agents reading the codebase for the first time.
+
+### Pipeline
+
+Five stages run in strict order. Each owns one responsibility and hands a typed value to the next. The CLI (`cli.py`) is the only place that wires them together and translates exceptions into exit codes.
+
+```
+                           ┌──────────────────────────────┐
+                           │         LLM provider         │
+                           │   claude / openai / gemini   │
+                           └──────────────────────────────┘
+                              ▲                          ▲
+                              │ (if oversized)           │ (analyze + retry)
+  input   ┌────────┐   ┌──────┴─────┐   ┌────────┐   ┌───┴────┐   ┌──────────┐   ASCII
+  ─────▶  │ loader │──▶│ summarizer │──▶│  cache │──▶│analyzer│──▶│ renderer │ ──────▶
+          └────────┘   └────────────┘   └────────┘   └────────┘   └──────────┘
+          loaders/     summarize.py     cache.py     analyzer.py  render/
+```
+
+The summarizer only calls the LLM when the input is oversized and needs recursive chunking; the analyzer always calls it and retries up to `max_retries` times on malformed JSON. On a cache hit the analyzer is skipped and the renderer reads the cached JSON directly.
+
+### Failures, exit codes, and F3 routing
+
+Failures are grouped into four classes. The CLI maps each one to a stable exit code so callers and scripts can branch on them without parsing stderr.
+
+| Class | Exit | Meaning                                                          |
+| :---: | :--: | ---------------------------------------------------------------- |
+|  F1   |  2   | local input not found or unreadable                              |
+|  F1   |  3   | remote input inaccessible (4xx / 5xx / DNS)                      |
+|  F1   |  4   | network required but unavailable                                 |
+|  F2   |  5   | input not parseable as text (binary, encrypted, ...)             |
+|  F2   |  6   | input exceeds the hard size cap                                  |
+|  F4   |  7   | LLM returned malformed JSON after retries                        |
+|  F4   |  8   | provider transport error                                         |
+|  F4   |  9   | provider auth / quota error                                      |
+|  F3   |  0   | deliberate refusal (a successful run that produced a non-result) |
+
+F3 is the interesting case. It is not an error: the analyzer succeeded, the LLM followed the contract, the JSON validated. The model judged that the portico metaphor does not earn its keep for this input. The CLI consults `fit_quality` and decides whether to render or refuse.
+
+| `fit_quality`    | default | override flag                 |
+| ---------------- | ------- | ----------------------------- |
+| `good`           | render  | (none)                        |
+| `stretched`      | render  | `--strict` refuses instead    |
+| `forced`         | refuse  | `--force` renders instead     |
+| `not_applicable` | refuse  | always refuses, flags ignored |
+
+All four paths exit 0. A refusal is a successful run that produced a deliberate non-result.
+
 ---
 
 ## License
