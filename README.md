@@ -23,8 +23,6 @@
 
 **`portico` renders input as a three-layered visual abstraction.**
 
-portico renders an arbitrary input (text, code, URL, repo) as a portico: a three-layer ASCII visualization with a roof (the unifying idea), pillars (the load-bearing components), and a base (the foundation everything rests on). An LLM decides what each layer means for the specific input; the renderer is a pure function from JSON to ASCII. 
-
 1. The LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
 2. The renderer, a pure function from JSON to ASCII, turns those layers into [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg). <br>
 3. The output is a tiny monument of abstraction that helps clarify concepts.
