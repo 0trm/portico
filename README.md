@@ -25,7 +25,7 @@
 
 1. The LLM reads your input, classifies it, and decomposes it into three layers `_ii^`: roof, pillars, base. <br>
 2. The renderer, a pure function from JSON to ASCII, turns those layers into [a portico](https://github.com/0trm/portico/blob/main/docs/structure.jpg). <br>
-3. The output is a tiny monument of abstraction that helps clarify concepts.
+3. The output is a tiny monument of abstraction that clarifies concepts.
 
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
