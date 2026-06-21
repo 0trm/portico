@@ -35,6 +35,7 @@ DEFAULT_MODEL = os.environ.get("PORTICO_DEMO_MODEL", "llama-3.3-70b-versatile")
 RENDER_WIDTH = 80
 GROQ_MAX_TOKENS = 3000  # leaves headroom under the free-tier 12K TPM cap
 GROQ_INPUT_CHAR_BUDGET = 18_000  # ~4.5K tokens; fits with prompt overhead + output
+ANALYZE_MAX_RETRIES = 2  # total attempts = 1 + retries
 
 
 def _build_provider() -> LLMProvider:
@@ -74,26 +75,67 @@ def _truncate(loaded: LoadedInput) -> LoadedInput:
     )
 
 
+# Honest-refusal message shown when the model cannot produce a valid portico.
+# On weak models, gibberish/poems/flat lists often come back as JSON with too few
+# pillars (the schema needs >= 2), which fails validation rather than rendering.
+# That is still a refusal in substance, so we present it as one instead of a trace.
+REFUSAL_MESSAGE = (
+    "portico couldn't render this input.\n\n"
+    "it didn't resolve into a clean three-layer shape, so portico declined\n"
+    "rather than fake one -- the honest outcome for very short, random, or\n"
+    "unstructured inputs (gibberish, flat lists, poems).\n\n"
+    "try a longer, more structured input: an essay, an article, a readme."
+)
+
+
+def _diagnostics(loaded: LoadedInput, *, fit_quality: str, attempts: str) -> str:
+    return (
+        f"input_type:  {loaded.input_type}\n"
+        f"chars:       {len(loaded.text)}\n"
+        f"truncated:   {loaded.metadata.get('truncated', False)}\n"
+        f"model:       {DEFAULT_MODEL}\n"
+        f"fit_quality: {fit_quality}\n"
+        f"attempts:    {attempts}"
+    )
+
+
 def build_portico(value: str) -> tuple[str, str]:
-    """Run the portico pipeline and return (rendered, diagnostics)."""
+    """Run the portico pipeline and return (rendered, diagnostics).
+
+    Content-level failures (unloadable input, refusal, a busy model) are returned
+    as graceful messages in the output panel rather than raised. Raising would
+    leave the previous render stale and surface raw error text; returning replaces
+    the panel and keeps the experience honest, matching the copy's promise.
+    """
     try:
         loaded = _load(value)
     except (F1NotFound, F1RemoteInaccessible, F1NetworkUnavailable) as e:
-        raise gr.Error(f"Could not load input: {e}") from e
+        return f"could not load that input.\n\n{e}", ""
     except F2NotParseable as e:
-        raise gr.Error(f"Could not parse input: {e}") from e
+        return f"could not read that input as text.\n\n{e}", ""
 
     loaded = _truncate(loaded)
     provider = _build_provider()
 
     try:
-        result = analyze(loaded.text, provider=provider, model=DEFAULT_MODEL)
-    except F4MalformedJSON as e:
-        raise gr.Error(f"LLM returned unusable output: {e}") from e
+        result = analyze(
+            loaded.text,
+            provider=provider,
+            model=DEFAULT_MODEL,
+            max_retries=ANALYZE_MAX_RETRIES,
+        )
+    except F4MalformedJSON:
+        return REFUSAL_MESSAGE, _diagnostics(
+            loaded, fit_quality="refused", attempts=str(ANALYZE_MAX_RETRIES + 1)
+        )
     except ProviderAuthError as e:
         raise gr.Error(f"LLM auth error: {e}") from e
-    except ProviderTransportError as e:
-        raise gr.Error(f"LLM transport error: {e}") from e
+    except ProviderTransportError:
+        return (
+            "the model is busy or unreachable right now.\n\n"
+            "this is usually a temporary rate limit on the free tier.\n"
+            "wait a moment and render again."
+        ), _diagnostics(loaded, fit_quality="n/a", attempts="-")
 
     data = result.data
 
@@ -113,15 +155,9 @@ def build_portico(value: str) -> tuple[str, str]:
             apex_override=(finial, keystone),
         )
 
-    diagnostics = (
-        f"input_type:  {loaded.input_type}\n"
-        f"chars:       {len(loaded.text)}\n"
-        f"truncated:   {loaded.metadata.get('truncated', False)}\n"
-        f"model:       {DEFAULT_MODEL}\n"
-        f"fit_quality: {data.fit_quality.value}\n"
-        f"attempts:    {result.attempts}"
+    return rendered, _diagnostics(
+        loaded, fit_quality=data.fit_quality.value, attempts=str(result.attempts)
     )
-    return rendered, diagnostics
 
 
 EXAMPLES = [
