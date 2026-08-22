@@ -244,8 +244,3 @@ portico https://0trm.blog/data-science-at-camp-nou/ --reapex=7
 ## License
 
 MIT
-
-<br>
-
-*Built ~~by~~ with AI.* <br>
-© trm
