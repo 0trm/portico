@@ -8,6 +8,7 @@
   <a href="https://pypi.org/project/portico-cli/"><img src="https://img.shields.io/pypi/v/portico-cli?style=flat&color=blue" alt="PyPI"></a>
   <a href="https://pypi.org/project/portico-cli/"><img src="https://img.shields.io/pypi/pyversions/portico-cli?style=flat&color=lightgrey" alt="Python"></a>
   <a href="https://huggingface.co/spaces/0trm/portico"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-lightgreen?style=flat" alt="HF Space"></a>
+  <a href="https://github.com/0trm/portico/actions/workflows/tests.yml"><img src="https://github.com/0trm/portico/actions/workflows/tests.yml/badge.svg" alt="tests"></a>
 </p>
 
 <p align="center">
