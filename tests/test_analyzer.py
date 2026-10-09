@@ -35,7 +35,7 @@ def test_build_prompt_includes_mece_and_pillar_guidance() -> None:
     prompt = build_prompt("hello world")
     assert "MECE" in prompt
     assert "Minto" in prompt
-    assert "load-bearing" in prompt
+    assert "Removal test" in prompt
     assert "STRONGLY PREFER 3-5" in prompt
     assert "hello world" in prompt
 

@@ -9,7 +9,7 @@
     "Storage layer (Postgres, Redis).",
     "Runtime: Python 3.12, FastAPI, asyncio."
   ],
-  "mece_check": "Pillars cover all load-bearing modules without overlap.",
+  "mece_check": "Pillars cover all core modules without overlap.",
   "theme": "codebase",
   "title": "my-repo",
   "roof": {

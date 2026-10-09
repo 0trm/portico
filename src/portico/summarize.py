@@ -7,7 +7,7 @@ Tiered strategy (per wiki/recursive-summarization.md):
 
 Char counts are used as a proxy for tokens (rough 4:1 ratio) to keep the
 summarizer free of tiktoken-specific dependencies. Replace with a real token
-counter when accuracy becomes load-bearing.
+counter when accuracy starts to matter.
 """
 
 from portico.loaders.base import F2TooLarge, LoadedInput
@@ -21,7 +21,7 @@ MAX_LEVELS = 2
 
 CHUNK_PROMPT = """\
 Summarize the text fragment below into a compact, structurally-faithful summary
-that preserves the load-bearing claims, components, or sections. Keep the
+that preserves the essential claims, components, or sections. Keep the
 original ordering. Aim for roughly 1/4 the original length. Output prose only,
 no preamble.
 

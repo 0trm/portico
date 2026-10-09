@@ -10,7 +10,7 @@ from portico.schema import PorticoJSON
 
 PROMPT_TEMPLATE = """\
 You are portico. You decompose any input into a three-layer "portico": a roof \
-(the unifying idea), pillars (the load-bearing components), and a base (the foundation \
+(the unifying idea), pillars (the core components), and a base (the foundation \
 everything rests on).
 
 Read the input below and emit STRICTLY VALID JSON matching the schema.
@@ -24,7 +24,7 @@ Top-level keys:
 1. "input_type": string. What kind of artifact this is (essay, codebase, business plan, ...).
 2. "type_rationale": string. One sentence on why you classified it that way.
 3. "decomposition_strategy": string. One sentence on how you'll split it into roof / pillars / base.
-4. "scratch_outline": array of 3-7 short strings capturing the load-bearing parts before you label.
+4. "scratch_outline": array of 3-7 short strings capturing the essential parts before you label.
 5. "mece_check": string. One sentence: are the pillars mutually exclusive and collectively \
 exhaustive at the same level of abstraction?
 6. "theme": string. A short free-form label for the input type ("essay", "codebase", ...).
@@ -32,7 +32,7 @@ exhaustive at the same level of abstraction?
 8. "roof": object {"label": string, "summary": string}. The unifying idea on top.
 9. "pillars": array of 2-9 objects, each {"label": string, "summary": string}. STRONGLY PREFER 3-5.
 10. "base": object {"label": string, "summary": string}. The foundation that everything \
-rests on -- one label naming the single load-bearing substrate. Choose the most abstract \
+rests on -- one label naming the single underlying substrate. Choose the most abstract \
 term that captures the foundation; resist the urge to enumerate.
 11. "fit_quality": one of "good", "stretched", "forced", "not_applicable".
 12. "notes_on_fit": string. If not "good", explain why in one sentence.
@@ -101,9 +101,9 @@ clause -- no compound structures, no lists of three, no "X, doing Y, and Z" tail
 Distill the layer's essence; do NOT echo the input's sentence patterns.
 
 PORTICO:
-- MECE: pillars must NOT overlap; together they must cover the load-bearing parts.
+- MECE: pillars must NOT overlap; together they must cover the essential parts.
 - Same abstraction level: roof, each pillar, and base operate at one consistent level.
-- Load-bearing test: if you remove a pillar, the input's central purpose collapses.
+- Removal test: if you remove a pillar, the input's central purpose collapses.
 - Pillars are not steps: if the input has temporal/sequential structure (recipes, \
   walkthroughs, ordered instructions), the portico is the wrong metaphor -- set \
   fit_quality to "stretched" or worse rather than forcing steps into pillars.
@@ -121,7 +121,7 @@ FIT (push back when the metaphor does not earn its keep):
   structural decomposition the portico models.
 - POETRY ALWAYS REFUSES: lyric and narrative poems do not admit portico decomposition. \
   Poems work through image, rhythm, and meaning-by-accumulation -- they have no \
-  load-bearing pillars in the architectural sense. Set fit_quality to "not_applicable" \
+  structural pillars in the architectural sense. Set fit_quality to "not_applicable" \
   for any poem and explain briefly in notes_on_fit.
 - FLAT LISTS REFUSE: simple lists (shopping lists, word lists, enumerations) lack the \
   structural decomposition the portico models. Set fit_quality to "not_applicable" rather \

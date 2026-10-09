@@ -14,7 +14,7 @@ short_description: "Render an input as a portico: a three-layered visual abstrac
 Render any input as a `portico`: a three-layered abstraction.
 
 An LLM reads your input, decides what kind of thing it is, and decomposes it into
-three layers -- roof (the unifying idea), pillars (the load-bearing components),
+three layers -- roof (the unifying idea), pillars (the core components),
 base (the foundation everything rests on). The renderer turns those layers into a
 fixed ASCII shape.
 
