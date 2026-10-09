@@ -151,7 +151,7 @@ INTRO_HTML = f"""
     <tbody>
       <tr><td><code>^</code></td><td>Roof</td><td>The unifying idea</td></tr>
       <tr><td><code>ii</code></td><td>Pillars</td>
-        <td>The load-bearing components (2-9 of them)</td></tr>
+        <td>The core components (2-9 of them)</td></tr>
       <tr><td><code>_</code></td><td>Base</td><td>The foundation everything rests on</td></tr>
     </tbody>
   </table>

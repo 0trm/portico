@@ -31,7 +31,7 @@
 |  Glyph  | Layer   | Meaning                                       |
 | :-----: | ------- | --------------------------------------------- |
 |   `^`   | Roof    | The unifying idea                             |
-|  `ii`   | Pillars | The load-bearing components                   |
+|  `ii`   | Pillars | The core components                           |
 |   `_`   | Base    | The foundation everything rests on            |
 
 ## Try it locally
