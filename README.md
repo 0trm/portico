@@ -1,5 +1,3 @@
-</div>
-
 <p align="center">
 <img width="400" height="275" alt="portico" src="https://raw.githubusercontent.com/0trm/portico/main/docs/portico.jpg" />
 </p>
@@ -155,7 +153,7 @@ The apex is the ornament crowning the portico -- picked at render time from a po
 🎲 `--reapex=SEED` pins a specific composition to reproduce.
 
 ```bash
-portico https://0trm.blog/data-science-at-camp-nou/ --reapex=0
+portico https://0trm.dev/data-science-at-camp-nou/ --reapex=0
 ```
 
 ```
